@@ -3,11 +3,6 @@ import { ArrowLeft, Leaf, Construction } from 'lucide-react'
 import { RoleIcon } from '../components/RoleIcons'
 
 const DASHBOARD_INFO = {
-    gerontologist: { label: 'Gerontologist Dashboard', subtitle: 'Master Resident Overview', accent: '#4A8C62', bg: '#E2F2E8' },
-    geriatrician: { label: 'Geriatrician Dashboard', subtitle: '16-Week Integral Clinical Report', accent: '#1A3A2A', bg: '#EAF2EC' },
-    'family-doctor': { label: 'Family Doctor Dashboard', subtitle: 'Clinical Evolution Panel', accent: '#C4545E', bg: '#FDE8E8' },
-    psychologist: { label: 'Psychologist Dashboard', subtitle: 'Emotional Monitoring & Therapeutic Progress', accent: '#6A5CA8', bg: '#EDE8F8' },
-    physiotherapist: { label: 'Physiotherapist Dashboard', subtitle: 'Functional Progress & Mobility Panel', accent: '#4A7FA8', bg: '#D8ECF8' },
     nutritionist: { label: 'Nutritionist Dashboard', subtitle: 'Smart Nutrition Control Panel', accent: '#3A8048', bg: '#E8F5E0' },
     chef: { label: 'Chef Dashboard', subtitle: 'Kitchen Execution & Inventory Dashboard', accent: '#B86848', bg: '#F5E4D4' },
     nursing: { label: 'Nursing Supervisor Dashboard', subtitle: 'Shift Operations & Daily Care Dashboard', accent: '#4A7FA8', bg: '#E0EEF8' },
