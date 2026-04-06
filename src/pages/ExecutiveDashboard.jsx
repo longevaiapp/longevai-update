@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown, Minus, Users, Activity, AlertTriangle, ShieldCheck, Sparkles } from 'lucide-react'
+import { TrendingUp, TrendingDown, Minus, Users, Activity, AlertTriangle, ShieldCheck, Sparkles, ClipboardList, CalendarDays, Siren, Microscope, MessageSquare, Bot } from 'lucide-react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 
 const KPI_DATA = [
@@ -76,9 +76,8 @@ export default function ExecutiveDashboard({ onOpenCopilot }) {
               </div>
               <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">{kpi.label}</p>
               <p className="text-3xl font-bold text-slate-800 mt-1">{kpi.value}</p>
-              <div className={`inline-flex items-center gap-1 mt-2 px-2.5 py-1 rounded-full text-[11px] font-semibold ${
-                kpi.trend === 'up' ? 'bg-indigo-50 text-indigo-600' : kpi.trend === 'down' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600'
-              }`}>
+              <div className={`inline-flex items-center gap-1 mt-2 px-2.5 py-1 rounded-full text-[11px] font-semibold ${kpi.trend === 'up' ? 'bg-indigo-50 text-indigo-600' : kpi.trend === 'down' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600'
+                }`}>
                 {kpi.trend === 'up' ? <TrendingUp className="w-3 h-3" /> : kpi.trend === 'down' ? <TrendingDown className="w-3 h-3" /> : <Minus className="w-3 h-3" />}
                 {kpi.delta}
               </div>
@@ -108,9 +107,8 @@ export default function ExecutiveDashboard({ onOpenCopilot }) {
               <div key={score.name} className={`bg-slate-50 rounded-lg p-3 border-l-[3px] ${score.color}`}>
                 <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400">{score.name}</p>
                 <p className="text-[16px] font-bold text-slate-800 mt-1">{score.value}</p>
-                <span className={`inline-block text-[9px] font-semibold mt-1 px-1.5 py-0.5 rounded-full ${
-                  score.up === true ? 'bg-indigo-100 text-indigo-600' : score.up === false ? 'bg-rose-100 text-rose-600' : 'bg-amber-100 text-amber-600'
-                }`}>
+                <span className={`inline-block text-[9px] font-semibold mt-1 px-1.5 py-0.5 rounded-full ${score.up === true ? 'bg-indigo-100 text-indigo-600' : score.up === false ? 'bg-rose-100 text-rose-600' : 'bg-amber-100 text-amber-600'
+                  }`}>
                   {score.delta}
                 </span>
               </div>
@@ -299,15 +297,15 @@ export default function ExecutiveDashboard({ onOpenCopilot }) {
           <h3 className="text-[14px] font-semibold text-slate-800 mb-4">Quick Actions</h3>
           <div className="grid grid-cols-2 gap-3">
             {[
-              { label: 'New Assessment', icon: '📋', color: 'bg-indigo-50 hover:bg-indigo-100 border-indigo-200' },
-              { label: 'Schedule Visit', icon: '📅', color: 'bg-teal-50 hover:bg-teal-100 border-teal-200' },
-              { label: 'Report Alert', icon: '🚨', color: 'bg-rose-50 hover:bg-rose-100 border-rose-200' },
-              { label: 'Request Lab', icon: '🔬', color: 'bg-amber-50 hover:bg-amber-100 border-amber-200' },
-              { label: 'Team Message', icon: '💬', color: 'bg-blue-50 hover:bg-blue-100 border-blue-200' },
-              { label: 'AI Analysis', icon: '🤖', color: 'bg-violet-50 hover:bg-violet-100 border-violet-200' },
+              { label: 'New Assessment', Icon: ClipboardList, color: 'bg-indigo-50 hover:bg-indigo-100 border-indigo-200 text-indigo-600' },
+              { label: 'Schedule Visit', Icon: CalendarDays, color: 'bg-teal-50 hover:bg-teal-100 border-teal-200 text-teal-600' },
+              { label: 'Report Alert', Icon: Siren, color: 'bg-rose-50 hover:bg-rose-100 border-rose-200 text-rose-600' },
+              { label: 'Request Lab', Icon: Microscope, color: 'bg-amber-50 hover:bg-amber-100 border-amber-200 text-amber-600' },
+              { label: 'Team Message', Icon: MessageSquare, color: 'bg-blue-50 hover:bg-blue-100 border-blue-200 text-blue-600' },
+              { label: 'AI Analysis', Icon: Bot, color: 'bg-violet-50 hover:bg-violet-100 border-violet-200 text-violet-600' },
             ].map(action => (
               <button key={action.label} className={`flex flex-col items-center gap-2 p-4 rounded-xl border ${action.color} transition-all cursor-pointer`}>
-                <span className="text-2xl">{action.icon}</span>
+                <action.Icon className="w-6 h-6" />
                 <span className="text-[11px] font-medium text-slate-600">{action.label}</span>
               </button>
             ))}

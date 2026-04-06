@@ -42,13 +42,13 @@ export default function CopilotPanel({ open, onClose }) {
   const generateResponse = (query) => {
     const q = query.toLowerCase()
     if (q.includes('riesgo') || q.includes('risk')) {
-      return '**Residentes en riesgo esta semana:**\n\n🔴 **Elena Morales** (Rm. 12) — Baja adherencia dietética correlacionada con deterioro GDS. Requiere revisión nutricional urgente.\n\n🟠 **Jorge Hernández** (Rm. 5) — Evaluación funcional de fisioterapia pendiente por 9 días.\n\n🟠 **Rosa Jiménez** (Rm. 8) — Descenso en dominio social WHOQOL. Se recomienda intervención grupal.'
+      return '**Residentes en riesgo esta semana:**\n\n[CRITICAL] **Elena Morales** (Rm. 12) — Baja adherencia dietética correlacionada con deterioro GDS. Requiere revisión nutricional urgente.\n\n[WARNING] **Jorge Hernández** (Rm. 5) — Evaluación funcional de fisioterapia pendiente por 9 días.\n\n[WARNING] **Rosa Jiménez** (Rm. 8) — Descenso en dominio social WHOQOL. Se recomienda intervención grupal.'
     }
     if (q.includes('resumen') || q.includes('summary')) {
       return '**Resumen ejecutivo — Hoy:**\n\n• Ocupación: 87% (21/24 camas)\n• Índice de bienestar global: 76/100 (+4pts)\n• 7 alertas activas (2 críticas)\n• 8 profesionales en turno\n• Adherencia a protocolos: 91%\n\nTodos los indicadores en tendencia positiva excepto adherencia nutricional en 6 residentes.'
     }
     if (q.includes('plan') || q.includes('intervención')) {
-      return '**Plan de intervención sugerido — Elena Morales:**\n\n📅 **Día 1-2:** Evaluación nutricional completa + ajuste de menú (proteína vegetal)\n📅 **Día 3-4:** Sesión psicológica individual (GDS follow-up)\n📅 **Día 5:** Evaluación funcional TUG con fisioterapia\n📅 **Día 6-7:** Revisión interdisciplinaria + ajuste de plan\n\n¿Desea que genere las órdenes correspondientes?'
+      return '**Plan de intervención sugerido — Elena Morales:**\n\n> **Day 1-2:** Evaluación nutricional completa + ajuste de menú (proteína vegetal)\n> **Day 3-4:** Sesión psicológica individual (GDS follow-up)\n> **Day 5:** Evaluación funcional TUG con fisioterapia\n> **Day 6-7:** Revisión interdisciplinaria + ajuste de plan\n\n¿Desea que genere las órdenes correspondientes?'
     }
     return 'He procesado su consulta. Basándome en los datos actuales, puedo proporcionarle análisis detallados sobre cualquier residente, mtricas de operación, o generar planes de intervención personalizados. ¿Qué información específica necesita?'
   }
@@ -88,11 +88,10 @@ export default function CopilotPanel({ open, onClose }) {
           {messages.map((msg, i) => (
             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-[85%] ${msg.role === 'user' ? '' : ''}`}>
-                <div className={`px-4 py-3 text-[13px] leading-relaxed whitespace-pre-line ${
-                  msg.role === 'user'
+                <div className={`px-4 py-3 text-[13px] leading-relaxed whitespace-pre-line ${msg.role === 'user'
                     ? 'bg-indigo-600 text-white rounded-2xl rounded-br-md'
                     : 'bg-slate-100 text-slate-700 rounded-2xl rounded-bl-md border border-slate-200'
-                }`}>
+                  }`}>
                   {msg.text.split('**').map((part, j) =>
                     j % 2 === 1 ? <strong key={j}>{part}</strong> : <span key={j}>{part}</span>
                   )}
