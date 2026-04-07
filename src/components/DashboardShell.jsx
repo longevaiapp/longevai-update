@@ -11,7 +11,8 @@ import {
     Apple, UtensilsCrossed, ShoppingCart, MessageCircle, Star,
     Clock, Clipboard, UserCheck, Stethoscope,
     DollarSign, PieChart, Receipt, Calculator,
-    Heart, Smile, Camera, Send, Shield
+    Heart, Smile, Camera, Send, Shield,
+    AlertCircle, Info, CheckCircle2
 } from 'lucide-react'
 import { RoleIcon } from './RoleIcons'
 
@@ -206,12 +207,21 @@ const ROLE_NAV = {
     },
 }
 
-export default function DashboardShell({ roleId, roleTag, title, tagline, children, badges = [] }) {
+export default function DashboardShell({ roleId, roleTag, title, tagline, children, badges = [], activeSection, onSectionChange, notifications = [] }) {
     const navigate = useNavigate()
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [notifOpen, setNotifOpen] = useState(false)
+    const [dismissedNotifs, setDismissedNotifs] = useState([])
+
+    const activeNotifications = notifications.filter(n => !dismissedNotifs.includes(n.id))
+    const notifCount = activeNotifications.length
 
     const roleNav = ROLE_NAV[roleId]
+
+    // Default to the first nav item if no activeSection is provided
+    const allNavIds = roleNav?.groups.flatMap(g => g.items.map(i => i.id)) || []
+    const currentSection = activeSection || allNavIds[0] || ''
 
     const handleLogout = () => {
         localStorage.removeItem('longevai-auth')
@@ -271,14 +281,23 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
                             )}
                             {group.items.map(item => {
                                 const Icon = item.icon
+                                const isActive = currentSection === item.id
                                 return (
                                     <button
                                         key={item.id}
-                                        className={`w-full flex items-center gap-2.5 px-4 py-2 text-white/50 hover:bg-white/[0.06] hover:text-white/90 transition-all group relative
-                                            ${sidebarCollapsed ? 'justify-center' : ''}`}
+                                        onClick={() => onSectionChange?.(item.id)}
+                                        className={`w-full flex items-center gap-2.5 px-4 py-2 transition-all group relative
+                                            ${sidebarCollapsed ? 'justify-center' : ''}
+                                            ${isActive
+                                                ? 'bg-white/[0.12] text-white'
+                                                : 'text-white/50 hover:bg-white/[0.06] hover:text-white/90'
+                                            }`}
                                         title={sidebarCollapsed ? item.label : undefined}
                                     >
-                                        <Icon className="w-4 h-4 flex-shrink-0" />
+                                        {isActive && (
+                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-brand-accent-light rounded-r-full" />
+                                        )}
+                                        <Icon className={`w-4 h-4 flex-shrink-0 ${isActive ? 'text-brand-accent-light' : ''}`} />
                                         {!sidebarCollapsed && (
                                             <>
                                                 <span className="text-[12px] font-medium truncate">{item.label}</span>
@@ -361,10 +380,97 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
                     </div>
 
                     {/* Notifications */}
-                    <button className="relative p-2 rounded-lg bg-brand-light border border-gray-200 text-brand-muted hover:text-brand-dark hover:border-brand-accent/30 transition-all">
-                        <Bell className="w-4 h-4" />
-                        <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-[9px] font-bold text-white flex items-center justify-center">3</span>
-                    </button>
+                    <div className="relative">
+                        <button
+                            onClick={() => setNotifOpen(!notifOpen)}
+                            className="relative p-2 rounded-lg bg-brand-light border border-gray-200 text-brand-muted hover:text-brand-dark hover:border-brand-accent/30 transition-all"
+                        >
+                            <Bell className="w-4 h-4" />
+                            {notifCount > 0 && (
+                                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-[9px] font-bold text-white flex items-center justify-center">{notifCount}</span>
+                            )}
+                        </button>
+
+                        {/* Notification dropdown */}
+                        {notifOpen && (
+                            <>
+                                <div className="fixed inset-0 z-40" onClick={() => setNotifOpen(false)} />
+                                <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden" style={{ animation: 'modalIn 0.15s ease-out' }}>
+                                    <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
+                                        <div className="flex items-center gap-2">
+                                            <Bell className="w-4 h-4 text-brand-accent" />
+                                            <h3 className="text-sm font-semibold text-brand-dark">Notifications</h3>
+                                        </div>
+                                        {activeNotifications.length > 0 && (
+                                            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-red-50 text-red-600">{activeNotifications.length} active</span>
+                                        )}
+                                    </div>
+                                    <div className="max-h-80 overflow-y-auto">
+                                        {activeNotifications.length === 0 ? (
+                                            <div className="px-4 py-8 text-center">
+                                                <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
+                                                <p className="text-sm text-brand-muted">All caught up!</p>
+                                                <p className="text-xs text-brand-muted/60 mt-1">No pending notifications</p>
+                                            </div>
+                                        ) : (
+                                            activeNotifications.map(n => {
+                                                const severityIcons = { critical: AlertCircle, warning: AlertTriangle, info: Info }
+                                                const severityColors = { critical: 'text-red-600 bg-red-50', warning: 'text-amber-600 bg-amber-50', info: 'text-blue-600 bg-blue-50' }
+                                                const NIcon = severityIcons[n.severity] || Info
+                                                const nColor = severityColors[n.severity] || severityColors.info
+                                                return (
+                                                    <div
+                                                        key={n.id}
+                                                        className="px-4 py-3 border-b border-gray-50 hover:bg-gray-50/80 transition-colors cursor-pointer"
+                                                        onClick={() => {
+                                                            onSectionChange?.('alerts')
+                                                            setNotifOpen(false)
+                                                        }}
+                                                    >
+                                                        <div className="flex items-start gap-2.5">
+                                                            <div className={'w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5 ' + nColor.split(' ')[1]}>
+                                                                <NIcon className={'w-3.5 h-3.5 ' + nColor.split(' ')[0]} />
+                                                            </div>
+                                                            <div className="flex-1 min-w-0">
+                                                                <p className="text-xs font-medium text-brand-dark leading-snug">{n.message}</p>
+                                                                <div className="flex items-center gap-2 mt-1">
+                                                                    <span className="text-[10px] text-brand-muted">{n.area}</span>
+                                                                    <span className="text-[10px] text-brand-muted">{n.time}</span>
+                                                                </div>
+                                                            </div>
+                                                            <button
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation()
+                                                                    setDismissedNotifs(prev => [...prev, n.id])
+                                                                }}
+                                                                className="p-1 rounded-md text-gray-300 hover:text-gray-500 hover:bg-gray-100 transition-colors flex-shrink-0"
+                                                                title="Dismiss"
+                                                            >
+                                                                <X className="w-3 h-3" />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        )}
+                                    </div>
+                                    {activeNotifications.length > 0 && (
+                                        <div className="px-4 py-2.5 border-t border-gray-100">
+                                            <button
+                                                onClick={() => {
+                                                    onSectionChange?.('alerts')
+                                                    setNotifOpen(false)
+                                                }}
+                                                className="w-full text-center text-xs font-semibold text-brand-primary hover:text-brand-primary-dark transition-colors"
+                                            >
+                                                View all alerts
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            </>
+                        )}
+                    </div>
 
                     {/* Logout */}
                     <button
