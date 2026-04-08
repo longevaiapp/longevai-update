@@ -7,7 +7,7 @@ import {
     HeartPulse, Microscope,
     Brain, TrendingDown, Flower2, BookOpen, Flame,
     Dumbbell, Target, CalendarDays,
-    Home,
+    Home, UserCircle,
     Apple, UtensilsCrossed, ShoppingCart, MessageCircle, Star,
     Clock, Clipboard, UserCheck, Stethoscope,
     DollarSign, PieChart, Receipt, Calculator,
@@ -34,6 +34,11 @@ const ROLE_NAV = {
                     { id: 'briefing', label: 'Morning Briefing', icon: ClipboardList },
                 ]
             },
+            {
+                label: 'Account', items: [
+                    { id: 'profile', label: 'My Profile', icon: UserCircle },
+                ]
+            },
         ]
     },
     geriatrician: {
@@ -52,6 +57,11 @@ const ROLE_NAV = {
                     { id: 'evolution', label: 'Evolution Charts', icon: BarChart3 },
                     { id: 'specialists', label: 'Specialist Inputs', icon: Users2 },
                     { id: 'reports', label: 'Cycle Report', icon: Download },
+                ]
+            },
+            {
+                label: 'Account', items: [
+                    { id: 'profile', label: 'My Profile', icon: UserCircle },
                 ]
             },
         ]
@@ -73,6 +83,11 @@ const ROLE_NAV = {
                     { id: 'weekly-review', label: 'Weekly Review', icon: ClipboardList },
                 ]
             },
+            {
+                label: 'Account', items: [
+                    { id: 'profile', label: 'My Profile', icon: UserCircle },
+                ]
+            },
         ]
     },
     psychologist: {
@@ -90,6 +105,11 @@ const ROLE_NAV = {
                     { id: 'sessions', label: 'Session Log', icon: BookOpen },
                     { id: 'thanatology', label: 'Thanatological', icon: Flame },
                     { id: 'calendar', label: 'Calendar', icon: Calendar },
+                ]
+            },
+            {
+                label: 'Account', items: [
+                    { id: 'profile', label: 'My Profile', icon: UserCircle },
                 ]
             },
         ]
@@ -485,18 +505,20 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
                 {/* Scrollable body */}
                 <main className="flex-1 overflow-y-auto">
                     {/* Dashboard info bar */}
-                    <div className="bg-white border-b border-gray-100 px-6 py-4">
-                        <p className="text-brand-muted text-sm max-w-3xl">{tagline}</p>
-                        {badges.length > 0 && (
-                            <div className="flex flex-wrap gap-2 mt-2">
-                                {badges.map((b, i) => (
-                                    <span key={i} className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-brand-light text-brand-muted border border-gray-200">
-                                        {b}
-                                    </span>
-                                ))}
-                            </div>
-                        )}
-                    </div>
+                    {(tagline || badges.length > 0) && (
+                        <div className="bg-white border-b border-gray-100 px-6 py-4">
+                            {tagline && <p className="text-brand-muted text-sm max-w-3xl">{tagline}</p>}
+                            {badges.length > 0 && (
+                                <div className="flex flex-wrap gap-2 mt-2">
+                                    {badges.map((b, i) => (
+                                        <span key={i} className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-brand-light text-brand-muted border border-gray-200">
+                                            {b}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    )}
 
                     {/* Content */}
                     <div className="p-6">

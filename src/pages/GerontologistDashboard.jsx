@@ -1,15 +1,48 @@
 import { useState, useEffect } from 'react'
 import DashboardShell from '../components/DashboardShell'
 import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, ReferenceLine
 } from 'recharts'
 import {
     Users, AlertTriangle, Calendar, Mail, TrendingUp, ClipboardList,
     Circle, Clock, ChevronRight, Send, CheckCircle2, AlertCircle, Info,
-    X, Activity, FileText, MapPin, Phone, User, Trash2, Edit3, Eye, Save
+    X, Activity, FileText, MapPin, Phone, User, Trash2, Edit3, Eye, Save,
+    Zap, CalendarDays, UserPlus, FilePlus, ExternalLink,
+    UserCircle, GraduationCap, Briefcase, Building2, Globe, Pencil
 } from 'lucide-react'
 
 // -- MOCK DATA --
+const PROFILE_STORAGE_KEY = 'longevai-gerontologist-profile'
+
+const DEFAULT_PROFILE = {
+    name: 'Dr. Laura Castellanos',
+    title: 'Lead Gerontologist',
+    license: 'MED-4827-GER',
+    specialization: 'Geriatric Care Coordination & Longevity Programs',
+    email: 'l.castellanos@amatistalife.com',
+    phone: '+34 611 234 567',
+    office: 'Building A, Office 201',
+    institution: 'Amatista Life -- LongevAI Center',
+    education: 'MD, Gerontology (Universidad Complutense de Madrid)',
+    certifications: 'Board Certified Gerontologist, Dementia Care Specialist',
+    bio: 'Over 18 years of experience in geriatric care coordination. Specializing in multi-specialist longevity programs for older adults, with a focus on holistic wellbeing and family-centered communication.',
+    shiftStart: '07:30',
+    shiftEnd: '15:30',
+    yearsExperience: 18,
+    residentsManaged: 10,
+}
+
+function loadProfile() {
+    try {
+        const data = localStorage.getItem(PROFILE_STORAGE_KEY)
+        return data ? { ...DEFAULT_PROFILE, ...JSON.parse(data) } : DEFAULT_PROFILE
+    } catch { return DEFAULT_PROFILE }
+}
+
+function saveProfile(profile) {
+    localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profile))
+}
+
 const RESIDENTS = [
     { id: 1, name: 'Elena Rodriguez', room: '101', week: 12, status: 'stable', lastNote: 'Morning vitals normal. Good appetite.', age: 78, admission: 'Dec 15, 2025', doctor: 'Dr. Gomez', conditions: ['Hypertension', 'Diabetes T2'], contact: 'Sofia Rodriguez (daughter)', phone: '+34 612 345 678' },
     { id: 2, name: 'Carlos Mendez', room: '102', week: 8, status: 'monitor', lastNote: 'Slight drop in mobility score. Physio notified.', age: 82, admission: 'Jan 5, 2026', doctor: 'Dr. Gomez', conditions: ['Osteoarthritis', 'Mild cognitive impairment'], contact: 'Luis Mendez (son)', phone: '+34 612 456 789' },
@@ -30,6 +63,7 @@ const ALERTS = [
     { id: 4, severity: 'warning', area: 'Clinical', message: 'Carlos Mendez: Barthel score declined since last measurement', time: '2d ago', resident: 'Carlos Mendez', detail: 'Barthel Index dropped from 72 to 66 over the past 2 weeks. Main decline in mobility and transfers. Physiotherapy session frequency should be reviewed. No new incidents reported.' },
     { id: 5, severity: 'info', area: 'Milestone', message: 'Isabel Moreno: Week 16 cycle complete -- evaluation due', time: '3d ago', resident: 'Isabel Moreno', detail: 'Isabel has completed the full 16-week care cycle. All specialist evaluations should be submitted for the final integral report. Geriatrician to schedule closing evaluation. Family report needs to be generated.' },
     { id: 6, severity: 'info', area: 'Admin', message: 'Miguel Herrera: Intake form 100% complete', time: '3d ago', resident: 'Miguel Herrera', detail: 'All baseline assessments have been completed: medical history, functional assessment (Barthel 68), psychological screening (GDS 10), nutritional evaluation (BMI 26.2), and physiotherapy intake. Care plan can now be generated.' },
+    { id: 7, severity: 'warning', area: 'Admin', message: 'Ana Torres: Family report overdue by 5 days', time: '5d ago', resident: 'Ana Torres', detail: 'Monthly family report for Ana Torres was due on Apr 3 and has not been sent. Recipient: Pedro Torres (son). Last report was sent on Mar 3, 2026. Please generate and review the report as soon as possible.' },
 ]
 
 const AGENDA = [
@@ -97,15 +131,26 @@ function loadBriefingHistory() {
     } catch { return [] }
 }
 
+const BRIEFING_DRAFT_KEY = 'longevai-briefing-draft'
+
 function saveBriefingHistory(history) {
     localStorage.setItem(BRIEFING_STORAGE_KEY, JSON.stringify(history))
 }
 
+function saveBriefingDraft(notes) {
+    localStorage.setItem(BRIEFING_DRAFT_KEY, JSON.stringify(notes))
+}
+
+function loadBriefingDraft() {
+    try {
+        const data = localStorage.getItem(BRIEFING_DRAFT_KEY)
+        return data ? JSON.parse(data) : { clinical: '', nutrition: '', emotional: '', operational: '' }
+    } catch { return { clinical: '', nutrition: '', emotional: '', operational: '' } }
+}
+
 export default function GerontologistDashboard() {
     const [activeSection, setActiveSection] = useState('residents')
-    const [briefingNotes, setBriefingNotes] = useState({
-        clinical: '', nutrition: '', emotional: '', operational: ''
-    })
+    const [briefingNotes, setBriefingNotes] = useState(() => loadBriefingDraft())
     const [briefingSubmitted, setBriefingSubmitted] = useState(false)
     const [briefingHistory, setBriefingHistory] = useState(() => loadBriefingHistory())
     const [selectedResident, setSelectedResident] = useState(null)
@@ -114,6 +159,13 @@ export default function GerontologistDashboard() {
     const [selectedReport, setSelectedReport] = useState(null)
     const [familyReports, setFamilyReports] = useState(INITIAL_FAMILY_REPORTS)
     const [filterStatus, setFilterStatus] = useState('all')
+    const [profile, setProfile] = useState(() => loadProfile())
+    const [editingProfile, setEditingProfile] = useState(false)
+
+    // Auto-save briefing draft on every keystroke
+    useEffect(() => {
+        saveBriefingDraft(briefingNotes)
+    }, [briefingNotes])
 
     const todayStats = {
         totalResidents: RESIDENTS.length,
@@ -139,7 +191,9 @@ export default function GerontologistDashboard() {
         const updated = [entry, ...briefingHistory].slice(0, 20)
         setBriefingHistory(updated)
         saveBriefingHistory(updated)
-        setBriefingNotes({ clinical: '', nutrition: '', emotional: '', operational: '' })
+        const emptyNotes = { clinical: '', nutrition: '', emotional: '', operational: '' }
+        setBriefingNotes(emptyNotes)
+        saveBriefingDraft(emptyNotes)
         setBriefingSubmitted(true)
         setTimeout(() => setBriefingSubmitted(false), 3000)
     }
@@ -165,18 +219,60 @@ export default function GerontologistDashboard() {
             roleId="gerontologist"
             roleTag="Gerontologist -- Lead Clinician"
             title="Master Resident Overview"
-            tagline="Bird's-eye view of every resident's status, today's agenda, active alerts, and communication queue."
-            badges={['Updated: Real-time alerts', 'All modules (1-9)', RESIDENTS.length + ' residents']}
+            badges={[]}
             activeSection={activeSection}
             onSectionChange={setActiveSection}
             notifications={ALERTS}
         >
+            {/* Date Bar + Briefing Status */}
+            <div className="flex items-center justify-between mb-4 px-1">
+                <div className="flex items-center gap-2">
+                    <CalendarDays className="w-4 h-4 text-brand-accent" />
+                    <span className="text-sm font-semibold text-brand-dark">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-brand-muted">Briefing:</span>
+                        {briefingHistory.length > 0 && briefingHistory[0].date === new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })
+                            ? <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> Submitted</span>
+                            : <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-amber-50 text-amber-700 border border-amber-200 flex items-center gap-1"><Clock className="w-3 h-3" /> Pending</span>
+                        }
+                    </div>
+                    <button
+                        onClick={() => setActiveSection('profile')}
+                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-gray-200 hover:border-brand-accent/30 hover:shadow-sm transition-all"
+                    >
+                        <div className="w-5 h-5 rounded-full bg-brand-primary/10 flex items-center justify-center">
+                            <UserCircle className="w-3.5 h-3.5 text-brand-primary" />
+                        </div>
+                        <span className="text-[11px] font-medium text-brand-dark hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
+                    </button>
+                </div>
+            </div>
+
             {/* Summary Bar -- always visible */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                 <SummaryCard icon={Users} label="Active Residents" value={todayStats.totalResidents} color="text-brand-accent" onClick={() => setActiveSection('residents')} />
                 <SummaryCard icon={AlertTriangle} label="Critical Alerts" value={todayStats.activeAlerts} color="text-red-500" onClick={() => setActiveSection('alerts')} />
                 <SummaryCard icon={Calendar} label="Today's Agenda" value={todayStats.agendaItems + ' items'} color="text-brand-primary" onClick={() => setActiveSection('agenda')} />
                 <SummaryCard icon={Mail} label="Reports Due" value={todayStats.reportsDue} color="text-amber-500" onClick={() => setActiveSection('family-reports')} />
+            </div>
+
+            {/* Quick Actions */}
+            <div className="flex items-center gap-2 flex-wrap mb-6">
+                <span className="text-[10px] font-semibold text-brand-muted uppercase tracking-wider mr-1">Quick Actions:</span>
+                <button onClick={() => setActiveSection('briefing')} className="flex items-center gap-1.5 text-[11px] font-medium px-3 py-1.5 rounded-lg bg-brand-light border border-gray-200 text-brand-dark hover:border-brand-accent hover:shadow-sm transition-all">
+                    <ClipboardList className="w-3.5 h-3.5 text-brand-accent" /> Morning Briefing
+                </button>
+                <button onClick={() => { setFilterStatus('urgent'); setActiveSection('residents') }} className="flex items-center gap-1.5 text-[11px] font-medium px-3 py-1.5 rounded-lg bg-red-50 border border-red-200 text-red-700 hover:shadow-sm transition-all">
+                    <AlertTriangle className="w-3.5 h-3.5" /> View Urgent Residents
+                </button>
+                <button onClick={() => setActiveSection('family-reports')} className="flex items-center gap-1.5 text-[11px] font-medium px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-700 hover:shadow-sm transition-all">
+                    <FilePlus className="w-3.5 h-3.5" /> Generate Report
+                </button>
+                <button onClick={() => setActiveSection('trends')} className="flex items-center gap-1.5 text-[11px] font-medium px-3 py-1.5 rounded-lg bg-brand-light border border-gray-200 text-brand-dark hover:border-brand-accent hover:shadow-sm transition-all">
+                    <TrendingUp className="w-3.5 h-3.5 text-brand-accent" /> Cohort Trends
+                </button>
             </div>
 
             {/* SECTION: Resident Grid */}
@@ -342,6 +438,10 @@ export default function GerontologistDashboard() {
             {/* SECTION: Cohort Trends */}
             {activeSection === 'trends' && (
                 <SectionCard title="Cohort Trend Charts" icon={TrendingUp} subtitle="Barthel & GDS averages across cohort">
+                    <div className="flex gap-2 mb-3 flex-wrap">
+                        <span className="text-[10px] font-medium px-2 py-1 rounded bg-red-50 border border-red-200 text-red-600 flex items-center gap-1"><AlertCircle className="w-3 h-3" /> Below expected: W1-W4 Barthel</span>
+                        <span className="text-[10px] font-medium px-2 py-1 rounded bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center gap-1"><TrendingUp className="w-3 h-3" /> Above expected: W14-W16 Barthel</span>
+                    </div>
                     <div className="h-80">
                         <ResponsiveContainer width="100%" height="100%">
                             <LineChart data={TREND_DATA} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
@@ -350,8 +450,16 @@ export default function GerontologistDashboard() {
                                 <YAxis tick={{ fontSize: 11 }} stroke="#9ca3af" />
                                 <Tooltip contentStyle={{ fontSize: 12, borderRadius: 8 }} />
                                 <Legend wrapperStyle={{ fontSize: 11 }} />
-                                <Line type="monotone" dataKey="barthel" stroke="#4C4673" strokeWidth={2} dot={{ r: 3 }} name="Barthel Avg" />
-                                <Line type="monotone" dataKey="gds" stroke="#6D8C8C" strokeWidth={2} dot={{ r: 3 }} name="GDS Avg" />
+                                <ReferenceLine y={65} stroke="#ef4444" strokeDasharray="4 4" label={{ value: 'Barthel Min Expected', position: 'insideTopLeft', fontSize: 10, fill: '#ef4444' }} />
+                                <ReferenceLine y={10} stroke="#f59e0b" strokeDasharray="4 4" label={{ value: 'GDS Risk Threshold', position: 'insideBottomLeft', fontSize: 10, fill: '#f59e0b' }} />
+                                <Line type="monotone" dataKey="barthel" stroke="#4C4673" strokeWidth={2} dot={({ cx, cy, payload }) => {
+                                    const isOutlier = payload.barthel < 65 || payload.barthel > 73
+                                    return <circle cx={cx} cy={cy} r={isOutlier ? 5 : 3} fill={isOutlier ? (payload.barthel < 65 ? '#ef4444' : '#10b981') : '#4C4673'} stroke={isOutlier ? '#fff' : 'none'} strokeWidth={isOutlier ? 2 : 0} />
+                                }} name="Barthel Avg" />
+                                <Line type="monotone" dataKey="gds" stroke="#6D8C8C" strokeWidth={2} dot={({ cx, cy, payload }) => {
+                                    const isOutlier = payload.gds >= 10
+                                    return <circle cx={cx} cy={cy} r={isOutlier ? 5 : 3} fill={isOutlier ? '#f59e0b' : '#6D8C8C'} stroke={isOutlier ? '#fff' : 'none'} strokeWidth={isOutlier ? 2 : 0} />
+                                }} name="GDS Avg" />
                             </LineChart>
                         </ResponsiveContainer>
                     </div>
@@ -454,6 +562,62 @@ export default function GerontologistDashboard() {
                 </div>
             )}
 
+            {/* SECTION: My Profile */}
+            {activeSection === 'profile' && (
+                <div className="space-y-6">
+                    {/* Profile Card */}
+                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+                        <div className="bg-gradient-to-r from-brand-primary/10 via-brand-accent/5 to-transparent px-6 py-5 border-b border-gray-100">
+                            <div className="flex items-start gap-4">
+                                <div className="w-16 h-16 rounded-2xl bg-brand-primary/10 border-2 border-brand-primary/20 flex items-center justify-center flex-shrink-0">
+                                    <UserCircle className="w-8 h-8 text-brand-primary" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <h3 className="text-xl font-bold text-brand-dark">{profile.name}</h3>
+                                    <p className="text-sm text-brand-accent font-medium">{profile.title}</p>
+                                    <p className="text-xs text-brand-muted mt-1">{profile.institution}</p>
+                                    <div className="flex items-center gap-3 mt-2 flex-wrap">
+                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-brand-primary/10 text-brand-primary border border-brand-primary/20">{profile.license}</span>
+                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
+                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Users className="w-3 h-3" /> {profile.residentsManaged} residents</span>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setEditingProfile(true)}
+                                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-gray-200 text-brand-dark hover:border-brand-accent hover:shadow-sm transition-all"
+                                >
+                                    <Pencil className="w-3.5 h-3.5 text-brand-accent" /> Edit Profile
+                                </button>
+                            </div>
+                        </div>
+                        <div className="p-6">
+                            <p className="text-sm text-brand-dark leading-relaxed mb-5">{profile.bio}</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <ProfileField icon={GraduationCap} label="Education" value={profile.education} />
+                                <ProfileField icon={FileText} label="Certifications" value={profile.certifications} />
+                                <ProfileField icon={Mail} label="Email" value={profile.email} />
+                                <ProfileField icon={Phone} label="Phone" value={profile.phone} />
+                                <ProfileField icon={Building2} label="Office" value={profile.office} />
+                                <ProfileField icon={Globe} label="Specialization" value={profile.specialization} />
+                                <ProfileField icon={Clock} label="Shift" value={profile.shiftStart + ' -- ' + profile.shiftEnd} />
+                                <ProfileField icon={Activity} label="Status" value="On Shift" valueColor="text-emerald-600" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* MODAL: Edit Profile */}
+            {editingProfile && (
+                <Modal onClose={() => setEditingProfile(false)}>
+                    <ProfileEditModal profile={profile} onClose={() => setEditingProfile(false)} onSave={(updated) => {
+                        setProfile(updated)
+                        saveProfile(updated)
+                        setEditingProfile(false)
+                    }} />
+                </Modal>
+            )}
+
             {/* MODAL: Resident Detail */}
             {selectedResident && (
                 <Modal onClose={() => setSelectedResident(null)}>
@@ -464,7 +628,13 @@ export default function GerontologistDashboard() {
             {/* MODAL: Alert Detail */}
             {selectedAlert && (
                 <Modal onClose={() => setSelectedAlert(null)}>
-                    <AlertDetailModal alert={selectedAlert} onClose={() => setSelectedAlert(null)} />
+                    <AlertDetailModal alert={selectedAlert} onClose={() => setSelectedAlert(null)} onViewResident={(name) => {
+                        const resident = RESIDENTS.find(r => r.name === name)
+                        if (resident) {
+                            setSelectedAlert(null)
+                            setSelectedResident(resident)
+                        }
+                    }} />
                 </Modal>
             )}
 
@@ -589,7 +759,7 @@ function ResidentDetailModal({ resident, onClose }) {
     )
 }
 
-function AlertDetailModal({ alert, onClose }) {
+function AlertDetailModal({ alert, onClose, onViewResident }) {
     const cfg = SEVERITY_CONFIG[alert.severity]
     const Icon = cfg.icon
     return (
@@ -617,6 +787,14 @@ function AlertDetailModal({ alert, onClose }) {
                         <p className="text-sm text-brand-dark leading-relaxed">{alert.detail}</p>
                     </div>
                 </div>
+                {onViewResident && alert.resident && (
+                    <button
+                        onClick={() => onViewResident(alert.resident)}
+                        className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-brand-light text-brand-dark text-sm font-medium rounded-xl border border-gray-200 hover:bg-gray-100 transition-colors mb-2"
+                    >
+                        <ExternalLink className="w-4 h-4 text-brand-accent" /> View {alert.resident}'s Profile
+                    </button>
+                )}
                 <div className="flex gap-2">
                     <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors">
                         <CheckCircle2 className="w-4 h-4" /> Acknowledge
@@ -779,6 +957,97 @@ function FamilyReportModal({ report, onClose, onSend }) {
                         </button>
                     </div>
                 )}
+            </div>
+        </div>
+    )
+}
+
+function ProfileField({ icon: Icon, label, value, valueColor }) {
+    return (
+        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-gray-50 border border-gray-100">
+            <Icon className="w-4 h-4 text-brand-muted flex-shrink-0 mt-0.5" />
+            <div className="min-w-0">
+                <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
+                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-brand-dark')}>{value}</p>
+            </div>
+        </div>
+    )
+}
+
+function ProfileEditModal({ profile, onClose, onSave }) {
+    const [form, setForm] = useState({ ...profile })
+    const [saved, setSaved] = useState(false)
+
+    const update = (key, val) => setForm(prev => ({ ...prev, [key]: val }))
+
+    const handleSave = () => {
+        onSave(form)
+        setSaved(true)
+    }
+
+    const fields = [
+        { key: 'name', label: 'Full Name', type: 'text' },
+        { key: 'title', label: 'Title / Role', type: 'text' },
+        { key: 'license', label: 'License Number', type: 'text' },
+        { key: 'specialization', label: 'Specialization', type: 'text' },
+        { key: 'email', label: 'Email', type: 'email' },
+        { key: 'phone', label: 'Phone', type: 'tel' },
+        { key: 'office', label: 'Office Location', type: 'text' },
+        { key: 'institution', label: 'Institution', type: 'text' },
+        { key: 'education', label: 'Education', type: 'text' },
+        { key: 'certifications', label: 'Certifications', type: 'text' },
+        { key: 'shiftStart', label: 'Shift Start', type: 'time' },
+        { key: 'shiftEnd', label: 'Shift End', type: 'time' },
+    ]
+
+    return (
+        <div>
+            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-brand-light">
+                <div className="flex items-center gap-3">
+                    <Pencil className="w-5 h-5 text-brand-accent" />
+                    <div>
+                        <h3 className="text-sm font-bold text-brand-dark">Edit Profile</h3>
+                        <p className="text-[11px] text-brand-muted">Update your personal and professional information</p>
+                    </div>
+                </div>
+                <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
+                    <X className="w-5 h-5 text-gray-400" />
+                </button>
+            </div>
+            <div className="p-6 space-y-4 max-h-[65vh] overflow-y-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {fields.map(f => (
+                        <div key={f.key}>
+                            <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">{f.label}</label>
+                            <input
+                                type={f.type}
+                                value={form[f.key] || ''}
+                                onChange={e => update(f.key, e.target.value)}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent text-brand-dark"
+                            />
+                        </div>
+                    ))}
+                </div>
+                <div>
+                    <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">Bio</label>
+                    <textarea
+                        rows={3}
+                        value={form.bio || ''}
+                        onChange={e => update('bio', e.target.value)}
+                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark"
+                    />
+                </div>
+            </div>
+            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-2">
+                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-gray-200 text-brand-dark hover:bg-gray-50 transition-colors">
+                    Cancel
+                </button>
+                <button
+                    onClick={handleSave}
+                    className="flex items-center gap-2 px-5 py-2 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors"
+                >
+                    <Save className="w-4 h-4" /> Save Changes
+                </button>
             </div>
         </div>
     )
