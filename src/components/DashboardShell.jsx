@@ -130,6 +130,11 @@ const ROLE_NAV = {
                     { id: 'adherence', label: 'Adherence', icon: BarChart3 },
                 ]
             },
+            {
+                label: 'Account', items: [
+                    { id: 'profile', label: 'My Profile', icon: UserCircle },
+                ]
+            },
         ]
     },
     nutritionist: {
@@ -149,6 +154,11 @@ const ROLE_NAV = {
                     { id: 'shopping', label: 'Shopping List', icon: ShoppingCart },
                 ]
             },
+            {
+                label: 'Account', items: [
+                    { id: 'profile', label: 'My Profile', icon: UserCircle },
+                ]
+            },
         ]
     },
     chef: {
@@ -165,6 +175,11 @@ const ROLE_NAV = {
                 label: 'Feedback', items: [
                     { id: 'feedback', label: 'Meal Feedback', icon: Star },
                     { id: 'purchases', label: 'Purchase Log', icon: Receipt },
+                ]
+            },
+            {
+                label: 'Account', items: [
+                    { id: 'profile', label: 'My Profile', icon: UserCircle },
                 ]
             },
         ]
@@ -186,6 +201,11 @@ const ROLE_NAV = {
                     { id: 'instructions', label: 'Specialist Orders', icon: Stethoscope },
                 ]
             },
+            {
+                label: 'Account', items: [
+                    { id: 'profile', label: 'My Profile', icon: UserCircle },
+                ]
+            },
         ]
     },
     finance: {
@@ -202,6 +222,11 @@ const ROLE_NAV = {
                 label: 'Planning', items: [
                     { id: 'budget', label: 'Budget vs Actual', icon: Calculator },
                     { id: 'roi', label: 'Cycle ROI', icon: TrendingUp },
+                ]
+            },
+            {
+                label: 'Account', items: [
+                    { id: 'profile', label: 'My Profile', icon: UserCircle },
                 ]
             },
         ]
@@ -221,6 +246,11 @@ const ROLE_NAV = {
                     { id: 'gallery', label: 'Moments Gallery', icon: Camera },
                     { id: 'visits', label: 'Visit Scheduler', icon: Calendar },
                     { id: 'message', label: 'Message Team', icon: Send },
+                ]
+            },
+            {
+                label: 'Account', items: [
+                    { id: 'profile', label: 'My Profile', icon: UserCircle },
                 ]
             },
         ]

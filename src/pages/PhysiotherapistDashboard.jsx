@@ -9,7 +9,9 @@ import {
     ChevronDown, UserCheck, Clock, CheckCircle2, XCircle, X, ChevronRight,
     Circle, Activity, FileText, Send, Plus, Info, AlertCircle,
     ArrowUpRight, ArrowDownRight, Minus, Heart, Footprints, Hand,
-    ShieldCheck, BarChart3
+    ShieldCheck, BarChart3,
+    UserCircle, Briefcase, Users, GraduationCap, Mail, Phone,
+    Building2, Globe, Pencil, Save
 } from 'lucide-react'
 
 /* ================================================================
@@ -175,6 +177,32 @@ const DIFFICULTY_STYLE = {
 }
 
 /* ================================================================
+   PROFILE
+   ================================================================ */
+const PROFILE_STORAGE_KEY = 'longevai-physiotherapist-profile'
+const DEFAULT_PROFILE = {
+    name: 'Dr. Patricia Reeves',
+    title: 'Lead Physiotherapist',
+    license: 'PT-5821-REH',
+    specialization: 'Geriatric Rehabilitation, Mobility & Falls Prevention',
+    email: 'p.reeves@amatistalife.com',
+    phone: '+34 611 345 678',
+    office: 'Building B, Rehab Unit 1',
+    institution: 'Amatista Life -- LongevAI Center',
+    education: 'DPT, Geriatric Physical Therapy (Universidad de Valencia)',
+    certifications: 'Board Certified Geriatric Physiotherapist, Falls Prevention Specialist',
+    bio: 'Over 12 years of experience in geriatric rehabilitation. Specializing in mobility restoration, balance training, and individualized exercise programs for older adults.',
+    shiftStart: '08:00',
+    shiftEnd: '16:00',
+    yearsExperience: 12,
+    residentsManaged: 4,
+}
+function loadProfile() {
+    try { const d = localStorage.getItem(PROFILE_STORAGE_KEY); return d ? { ...DEFAULT_PROFILE, ...JSON.parse(d) } : DEFAULT_PROFILE } catch { return DEFAULT_PROFILE }
+}
+function saveProfile(p) { localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(p)) }
+
+/* ================================================================
    MAIN COMPONENT
    ================================================================ */
 
@@ -185,6 +213,10 @@ export default function PhysiotherapistDashboard() {
     const [selectedTarget, setSelectedTarget] = useState(null)
     const [selectedFall, setSelectedFall] = useState(null)
     const [selectedExercise, setSelectedExercise] = useState(null)
+
+    /* Profile */
+    const [profile, setProfile] = useState(() => loadProfile())
+    const [editingProfile, setEditingProfile] = useState(false)
 
     /* Clinical notes -- persisted in localStorage */
     const [clinicalNotes, setClinicalNotes] = useState(() => {
@@ -217,12 +249,25 @@ export default function PhysiotherapistDashboard() {
             roleId="physiotherapist"
             roleTag="Physiotherapist -- Monthly Visit"
             title="Functional Progress & Mobility Panel"
-            tagline="Movement is dignity. Measurable story of residents regaining or preserving physical independence."
-            badges={['Per-patient view', 'Module 3', selectedResident.name]}
+            badges={[]}
             activeSection={activeSection}
             onSectionChange={setActiveSection}
             notifications={PHYSIO_ALERTS}
         >
+            {/* Date Bar + Profile Button */}
+            <div className="flex items-center justify-between mb-4 px-1">
+                <div className="flex items-center gap-2">
+                    <CalendarDays className="w-4 h-4 text-brand-accent" />
+                    <span className="text-sm font-semibold text-brand-dark">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                </div>
+                <button onClick={() => setActiveSection('profile')} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-gray-200 hover:border-brand-accent/30 hover:shadow-sm transition-all">
+                    <div className="w-5 h-5 rounded-full bg-brand-primary/10 flex items-center justify-center">
+                        <UserCircle className="w-3.5 h-3.5 text-brand-primary" />
+                    </div>
+                    <span className="text-[11px] font-medium text-brand-dark hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
+                </button>
+            </div>
+
             {/* Resident Selector */}
             <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6">
                 <div className="flex flex-wrap items-center gap-4">
@@ -561,6 +606,54 @@ export default function PhysiotherapistDashboard() {
                         resident={selectedResident.name}
                         onClose={() => setSelectedExercise(null)}
                     />
+                </Modal>
+            )}
+
+            {/* SECTION: My Profile */}
+            {activeSection === 'profile' && (
+                <div className="space-y-6">
+                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+                        <div className="bg-gradient-to-r from-brand-primary/10 via-brand-accent/5 to-transparent px-6 py-5 border-b border-gray-100">
+                            <div className="flex items-start gap-4">
+                                <div className="w-16 h-16 rounded-2xl bg-brand-primary/10 border-2 border-brand-primary/20 flex items-center justify-center flex-shrink-0">
+                                    <UserCircle className="w-8 h-8 text-brand-primary" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <h3 className="text-xl font-bold text-brand-dark">{profile.name}</h3>
+                                    <p className="text-sm text-brand-accent font-medium">{profile.title}</p>
+                                    <p className="text-xs text-brand-muted mt-1">{profile.institution}</p>
+                                    <div className="flex items-center gap-3 mt-2 flex-wrap">
+                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-brand-primary/10 text-brand-primary border border-brand-primary/20">{profile.license}</span>
+                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
+                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Users className="w-3 h-3" /> {profile.residentsManaged} residents</span>
+                                    </div>
+                                </div>
+                                <button onClick={() => setEditingProfile(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-gray-200 text-brand-dark hover:border-brand-accent hover:shadow-sm transition-all">
+                                    <Pencil className="w-3.5 h-3.5 text-brand-accent" /> Edit Profile
+                                </button>
+                            </div>
+                        </div>
+                        <div className="p-6">
+                            <p className="text-sm text-brand-dark leading-relaxed mb-5">{profile.bio}</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <ProfileField icon={GraduationCap} label="Education" value={profile.education} />
+                                <ProfileField icon={FileText} label="Certifications" value={profile.certifications} />
+                                <ProfileField icon={Mail} label="Email" value={profile.email} />
+                                <ProfileField icon={Phone} label="Phone" value={profile.phone} />
+                                <ProfileField icon={Building2} label="Office" value={profile.office} />
+                                <ProfileField icon={Globe} label="Specialization" value={profile.specialization} />
+                                <ProfileField icon={Clock} label="Shift" value={profile.shiftStart + ' -- ' + profile.shiftEnd} />
+                                <ProfileField icon={Activity} label="Status" value="On Shift" valueColor="text-emerald-600" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* MODAL: Edit Profile */}
+            {editingProfile && (
+                <Modal onClose={() => setEditingProfile(false)}>
+                    <ProfileEditModal profile={profile} onClose={() => setEditingProfile(false)} onSave={(updated) => { setProfile(updated); saveProfile(updated); setEditingProfile(false) }} />
                 </Modal>
             )}
         </DashboardShell>
@@ -942,6 +1035,60 @@ function InfoRow({ icon: Icon, label, value }) {
             <div className="min-w-0">
                 <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
                 <p className="text-xs font-medium text-brand-dark truncate">{value}</p>
+            </div>
+        </div>
+    )
+}
+
+function ProfileField({ icon: Icon, label, value, valueColor }) {
+    return (
+        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-gray-50 border border-gray-100">
+            <Icon className="w-4 h-4 text-brand-muted flex-shrink-0 mt-0.5" />
+            <div className="min-w-0">
+                <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
+                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-brand-dark')}>{value}</p>
+            </div>
+        </div>
+    )
+}
+
+function ProfileEditModal({ profile, onClose, onSave }) {
+    const [form, setForm] = useState({ ...profile })
+    const update = (key, val) => setForm(prev => ({ ...prev, [key]: val }))
+    const fields = [
+        { key: 'name', label: 'Full Name', type: 'text' }, { key: 'title', label: 'Title / Role', type: 'text' },
+        { key: 'license', label: 'License Number', type: 'text' }, { key: 'specialization', label: 'Specialization', type: 'text' },
+        { key: 'email', label: 'Email', type: 'email' }, { key: 'phone', label: 'Phone', type: 'tel' },
+        { key: 'office', label: 'Office Location', type: 'text' }, { key: 'institution', label: 'Institution', type: 'text' },
+        { key: 'education', label: 'Education', type: 'text' }, { key: 'certifications', label: 'Certifications', type: 'text' },
+        { key: 'shiftStart', label: 'Shift Start', type: 'time' }, { key: 'shiftEnd', label: 'Shift End', type: 'time' },
+    ]
+    return (
+        <div>
+            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-brand-light">
+                <div className="flex items-center gap-3">
+                    <Pencil className="w-5 h-5 text-brand-accent" />
+                    <div><h3 className="text-sm font-bold text-brand-dark">Edit Profile</h3><p className="text-[11px] text-brand-muted">Update your personal and professional information</p></div>
+                </div>
+                <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
+            </div>
+            <div className="p-6 space-y-4 max-h-[65vh] overflow-y-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {fields.map(f => (
+                        <div key={f.key}>
+                            <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">{f.label}</label>
+                            <input type={f.type} value={form[f.key] || ''} onChange={e => update(f.key, e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent text-brand-dark" />
+                        </div>
+                    ))}
+                </div>
+                <div>
+                    <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">Bio</label>
+                    <textarea rows={3} value={form.bio || ''} onChange={e => update('bio', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark" />
+                </div>
+            </div>
+            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-2">
+                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-gray-200 text-brand-dark hover:bg-gray-50 transition-colors">Cancel</button>
+                <button onClick={() => onSave(form)} className="flex items-center gap-2 px-5 py-2 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors"><Save className="w-4 h-4" /> Save Changes</button>
             </div>
         </div>
     )
