@@ -9,8 +9,36 @@ import {
     Brain, TrendingDown, Flower2, ShieldCheck, BookOpen, Flame, Calendar,
     ChevronDown, UserCheck, Circle, Clock, AlertTriangle, X, ChevronRight,
     CheckCircle2, AlertCircle, Info, Send, Plus, Eye, FileText,
-    Heart, MessageCircle, Activity, TrendingUp, Minus, ShieldAlert
+    Heart, MessageCircle, Activity, TrendingUp, Minus, ShieldAlert,
+    CalendarDays, UserCircle, Pencil, GraduationCap, Briefcase, Building2, Globe, Phone, Mail, Save
 } from 'lucide-react'
+
+/* ================================================================
+   PROFILE DATA
+   ================================================================ */
+
+const PROFILE_STORAGE_KEY = 'longevai-psychologist-profile'
+
+const DEFAULT_PROFILE = {
+    name: 'Dr. Alejandra Vidal',
+    title: 'Clinical Psychologist -- Thanatology Specialist',
+    license: 'PSY-5521-MX',
+    specialization: 'Geropsychology, Grief & End-of-Life Counseling',
+    email: 'a.vidal@longevai.care',
+    phone: '+52 55 8421 0093',
+    office: 'Psychology Suite -- Building A, Room 110',
+    institution: 'LongevAI Residential Care',
+    education: 'Ph.D. Clinical Psychology, UNAM; M.A. Thanatology, ITESM',
+    certifications: 'Board Certified Geropsychologist, Certified Thanatologist (ALAF)',
+    shiftStart: '09:00',
+    shiftEnd: '17:00',
+    bio: 'Specialist in emotional wellbeing for older adults. Focus areas include grief processing, end-of-life counseling, depression management, and quality-of-life optimization within residential care settings.',
+}
+
+function loadProfile() {
+    try { const s = localStorage.getItem(PROFILE_STORAGE_KEY); return s ? { ...DEFAULT_PROFILE, ...JSON.parse(s) } : DEFAULT_PROFILE } catch { return DEFAULT_PROFILE }
+}
+function saveProfile(p) { localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(p)) }
 
 /* ================================================================
    PER-RESIDENT DATA
@@ -231,6 +259,8 @@ export default function PsychologistDashboard() {
     const [selectedResident, setSelectedResident] = useState(RESIDENTS_LIST[0])
     const [selectedSession, setSelectedSession] = useState(null)
     const [selectedGdsPoint, setSelectedGdsPoint] = useState(null)
+    const [profile, setProfile] = useState(loadProfile)
+    const [editingProfile, setEditingProfile] = useState(false)
 
     /* Clinical notes — persisted in localStorage, keyed by residentId:sessionId */
     const [clinicalNotes, setClinicalNotes] = useState(() => {
@@ -263,12 +293,20 @@ export default function PsychologistDashboard() {
             roleId="psychologist"
             roleTag="Psychologist -- Thanatology Specialist"
             title="Emotional Monitoring & Therapeutic Progress"
-            tagline="GDS trajectories, WHOQOL scores, risk levels, and session logs -- honoring the emotional dimension of care."
-            badges={['Per-patient view', 'Modules 2, 3', selectedResident.name]}
             activeSection={activeSection}
             onSectionChange={setActiveSection}
             notifications={PSY_ALERTS}
         >
+            {/* Date bar */}
+            <div className="flex items-center justify-between bg-white rounded-2xl border border-gray-200 px-5 py-3 mb-6">
+                <div className="flex items-center gap-3">
+                    <CalendarDays className="w-4 h-4 text-brand-accent" />
+                    <span className="text-sm font-semibold text-brand-dark">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                </div>
+                <button onClick={() => { setActiveSection('profile') }} className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors text-xs font-medium text-brand-dark">
+                    <UserCircle className="w-4 h-4 text-brand-accent" /> My Profile
+                </button>
+            </div>
             {/* Resident Selector */}
             <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6">
                 <div className="flex flex-wrap items-center gap-4">
@@ -581,6 +619,59 @@ export default function PsychologistDashboard() {
                         })}
                     </div>
                 </SectionCard>
+            )}
+
+            {/* ── SECTION: PROFILE ── */}
+            {activeSection === 'profile' && (
+                <div className="space-y-6">
+                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+                        <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <UserCircle className="w-5 h-5 text-brand-accent" />
+                                <div>
+                                    <h3 className="text-sm font-semibold text-brand-dark">My Profile</h3>
+                                    <p className="text-[11px] text-brand-muted">Personal and professional information</p>
+                                </div>
+                            </div>
+                            <button onClick={() => setEditingProfile(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors text-xs font-medium text-brand-dark">
+                                <Pencil className="w-3.5 h-3.5 text-brand-accent" /> Edit
+                            </button>
+                        </div>
+                        <div className="p-5">
+                            <div className="flex items-center gap-4 mb-6">
+                                <div className="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center">
+                                    <UserCircle className="w-9 h-9 text-brand-primary" />
+                                </div>
+                                <div>
+                                    <h4 className="text-lg font-bold text-brand-dark">{profile.name}</h4>
+                                    <p className="text-xs text-brand-muted">{profile.title}</p>
+                                    <p className="text-[10px] text-brand-accent font-semibold mt-0.5">License: {profile.license}</p>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                                <ProfileField icon={Brain} label="Specialization" value={profile.specialization} />
+                                <ProfileField icon={Mail} label="Email" value={profile.email} />
+                                <ProfileField icon={Phone} label="Phone" value={profile.phone} />
+                                <ProfileField icon={Building2} label="Office" value={profile.office} />
+                                <ProfileField icon={Globe} label="Institution" value={profile.institution} />
+                                <ProfileField icon={GraduationCap} label="Education" value={profile.education} />
+                                <ProfileField icon={Briefcase} label="Certifications" value={profile.certifications} />
+                                <ProfileField icon={Clock} label="Shift Hours" value={profile.shiftStart + ' -- ' + profile.shiftEnd} />
+                            </div>
+                            {profile.bio && (
+                                <div className="mt-4 p-3 rounded-lg bg-gray-50 border border-gray-100">
+                                    <p className="text-[10px] text-brand-muted uppercase tracking-wider mb-1">Bio</p>
+                                    <p className="text-sm text-brand-dark leading-relaxed">{profile.bio}</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    {editingProfile && (
+                        <Modal onClose={() => setEditingProfile(false)}>
+                            <ProfileEditModal profile={profile} onClose={() => setEditingProfile(false)} onSave={p => { setProfile(p); saveProfile(p); setEditingProfile(false) }} />
+                        </Modal>
+                    )}
+                </div>
             )}
 
             {/* ── MODALS ── */}
