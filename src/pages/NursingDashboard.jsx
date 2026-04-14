@@ -162,7 +162,7 @@ const EATEN_CONFIG = {
     full: { label: 'Full', bg: 'bg-emerald-100 text-emerald-700', pct: 100 },
     partial: { label: 'Partial', bg: 'bg-amber-100 text-amber-700', pct: 60 },
     refused: { label: 'Refused', bg: 'bg-red-100 text-red-700', pct: 0 },
-    'n/a': { label: 'N/A', bg: 'bg-gray-100 text-gray-500', pct: 0 },
+    'n/a': { label: 'N/A', bg: 'bg-slate-100 text-gray-500', pct: 0 },
 }
 
 /* ================================================================
@@ -400,19 +400,19 @@ export default function NursingDashboard() {
             {/* Date Bar + Profile Button */}
             <div className="flex items-center justify-between mb-4 px-1">
                 <div className="flex items-center gap-2">
-                    <CalendarDays className="w-4 h-4 text-brand-accent" />
-                    <span className="text-sm font-semibold text-brand-dark">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                    <CalendarDays className="w-4 h-4 text-indigo-500" />
+                    <span className="text-sm font-semibold text-slate-800">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
                 </div>
-                <button onClick={() => setActiveSection('profile')} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-gray-200 hover:border-brand-accent/30 hover:shadow-sm transition-all">
-                    <div className="w-5 h-5 rounded-full bg-brand-primary/10 flex items-center justify-center">
-                        <UserCircle className="w-3.5 h-3.5 text-brand-primary" />
+                <button onClick={() => setActiveSection('profile')} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200/80 hover:border-indigo-500/30 hover:shadow-sm transition-all">
+                    <div className="w-5 h-5 rounded-full bg-indigo-600/10 flex items-center justify-center">
+                        <UserCircle className="w-3.5 h-3.5 text-indigo-600" />
                     </div>
-                    <span className="text-[11px] font-medium text-brand-dark hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
+                    <span className="text-[11px] font-medium text-slate-800 hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
                 </button>
             </div>
 
             {/* ── LIVE SHIFT BAR ── */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6">
+            <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 mb-6">
                 <div className="flex flex-wrap items-center gap-4">
                     <div className="flex items-center gap-3">
                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${shift.id === 'morning' ? 'bg-amber-100' : shift.id === 'afternoon' ? 'bg-sky-100' : 'bg-indigo-100'}`}>
@@ -420,14 +420,14 @@ export default function NursingDashboard() {
                         </div>
                         <div>
                             <div className="flex items-center gap-2">
-                                <span className="text-sm font-bold text-brand-dark">{shift.label} Shift</span>
-                                <span className="text-xs text-brand-muted">({String(shift.start).padStart(2, '0')}:00 -- {String(shift.end).padStart(2, '0')}:00)</span>
+                                <span className="text-sm font-bold text-slate-800">{shift.label} Shift</span>
+                                <span className="text-xs text-slate-500">({String(shift.start).padStart(2, '0')}:00 -- {String(shift.end).padStart(2, '0')}:00)</span>
                             </div>
                             <div className="flex items-center gap-2 mt-0.5">
-                                <Clock className="w-3 h-3 text-brand-muted" />
-                                <span className="text-xs font-mono text-brand-dark">{now.toLocaleTimeString()}</span>
-                                <span className="text-[10px] text-brand-muted">|</span>
-                                <span className={`text-[10px] font-semibold ${remainingMin <= 60 ? 'text-amber-600' : 'text-brand-muted'}`}>
+                                <Clock className="w-3 h-3 text-slate-500" />
+                                <span className="text-xs font-mono text-slate-800">{now.toLocaleTimeString()}</span>
+                                <span className="text-[10px] text-slate-500">|</span>
+                                <span className={`text-[10px] font-semibold ${remainingMin <= 60 ? 'text-amber-600' : 'text-slate-500'}`}>
                                     {remainH}h {remainM}m remaining
                                 </span>
                             </div>
@@ -435,24 +435,24 @@ export default function NursingDashboard() {
                     </div>
                     <div className="flex-1 min-w-[200px]">
                         <div className="flex items-center justify-between mb-1">
-                            <span className="text-[10px] font-semibold text-brand-muted uppercase">Shift Progress</span>
-                            <span className="text-[10px] font-bold text-brand-dark">{progress}%</span>
+                            <span className="text-[10px] font-semibold text-slate-500 uppercase">Shift Progress</span>
+                            <span className="text-[10px] font-bold text-slate-800">{progress}%</span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2.5">
                             <div
-                                className={`h-2.5 rounded-full transition-all duration-1000 ${progress >= 90 ? 'bg-red-500' : progress >= 75 ? 'bg-amber-500' : 'bg-brand-primary'}`}
+                                className={`h-2.5 rounded-full transition-all duration-1000 ${progress >= 90 ? 'bg-red-500' : progress >= 75 ? 'bg-amber-500' : 'bg-indigo-600'}`}
                                 style={{ width: progress + '%' }}
                             />
                         </div>
                     </div>
                     <div className="flex items-center gap-3">
-                        <div className="text-center px-3 py-1.5 bg-brand-primary/5 rounded-lg border border-brand-primary/10">
-                            <p className="text-lg font-bold text-brand-dark">{shiftCompleteness}%</p>
-                            <p className="text-[9px] font-semibold text-brand-muted uppercase">Documented</p>
+                        <div className="text-center px-3 py-1.5 bg-indigo-600/5 rounded-lg border border-indigo-600/10">
+                            <p className="text-lg font-bold text-slate-800">{shiftCompleteness}%</p>
+                            <p className="text-[9px] font-semibold text-slate-500 uppercase">Documented</p>
                         </div>
                         <div className="flex items-center gap-1.5">
                             {SHIFTS.map(s => (
-                                <div key={s.id} className={`px-2 py-1 rounded text-[10px] font-semibold border ${s.id === shift.id ? (s.id === 'morning' ? 'bg-amber-100 text-amber-700 border-amber-200' : s.id === 'afternoon' ? 'bg-sky-100 text-sky-700 border-sky-200' : 'bg-indigo-100 text-indigo-700 border-indigo-200') : 'bg-gray-50 text-gray-400 border-gray-100'}`}>
+                                <div key={s.id} className={`px-2 py-1 rounded text-[10px] font-semibold border ${s.id === shift.id ? (s.id === 'morning' ? 'bg-amber-100 text-amber-700 border-amber-200' : s.id === 'afternoon' ? 'bg-sky-100 text-sky-700 border-sky-200' : 'bg-indigo-100 text-indigo-700 border-indigo-200') : 'bg-slate-50 text-gray-400 border-slate-100'}`}>
                                     {s.label.charAt(0)}
                                 </div>
                             ))}
@@ -472,7 +472,7 @@ export default function NursingDashboard() {
                             const catLabels = { overnight: 'Overnight Events', priority: 'Priority Residents', staff: 'Staffing & Admin', task: 'Shift Tasks' }
                             return (
                                 <div key={cat} className="mb-4 last:mb-0">
-                                    <p className="text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-2">{catLabels[cat]}</p>
+                                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">{catLabels[cat]}</p>
                                     <div className="space-y-2">
                                         {items.map(item => {
                                             const checked = !!briefingChecked[item.id]
@@ -481,7 +481,7 @@ export default function NursingDashboard() {
                                                 <div
                                                     key={item.id}
                                                     onClick={() => toggleBriefing(item.id)}
-                                                    className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${checked ? 'border-emerald-200 bg-emerald-50/50 opacity-75' : item.severity === 'critical' ? 'border-red-200 bg-red-50/30' : item.severity === 'warning' ? 'border-amber-200 bg-amber-50/30' : 'border-gray-100 bg-gray-50'}`}
+                                                    className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${checked ? 'border-emerald-200 bg-emerald-50/50 opacity-75' : item.severity === 'critical' ? 'border-red-200 bg-red-50/30' : item.severity === 'warning' ? 'border-amber-200 bg-amber-50/30' : 'border-slate-100 bg-slate-50'}`}
                                                 >
                                                     <div className="flex-shrink-0 mt-0.5">
                                                         {checked ? (
@@ -492,10 +492,10 @@ export default function NursingDashboard() {
                                                     </div>
                                                     <div className="flex-1 min-w-0">
                                                         <div className="flex items-center gap-2 flex-wrap">
-                                                            <Icon className={`w-3.5 h-3.5 ${item.severity === 'critical' ? 'text-red-500' : item.severity === 'warning' ? 'text-amber-500' : 'text-brand-muted'}`} />
-                                                            <span className={`text-[10px] font-bold uppercase ${item.severity === 'critical' ? 'text-red-600' : item.severity === 'warning' ? 'text-amber-600' : 'text-brand-muted'}`}>{item.label}</span>
+                                                            <Icon className={`w-3.5 h-3.5 ${item.severity === 'critical' ? 'text-red-500' : item.severity === 'warning' ? 'text-amber-500' : 'text-slate-500'}`} />
+                                                            <span className={`text-[10px] font-bold uppercase ${item.severity === 'critical' ? 'text-red-600' : item.severity === 'warning' ? 'text-amber-600' : 'text-slate-500'}`}>{item.label}</span>
                                                         </div>
-                                                        <p className={`text-xs mt-1 leading-relaxed ${checked ? 'text-brand-muted line-through' : 'text-brand-dark'}`}>{item.text}</p>
+                                                        <p className={`text-xs mt-1 leading-relaxed ${checked ? 'text-slate-500 line-through' : 'text-slate-800'}`}>{item.text}</p>
                                                         {checked && briefingChecked[item.id] && (
                                                             <p className="text-[10px] text-emerald-600 mt-1 flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> Reviewed at {briefingChecked[item.id]}</p>
                                                         )}
@@ -515,10 +515,10 @@ export default function NursingDashboard() {
                             {ALL_RESIDENTS.map(r => {
                                 const st = STATUS_CONFIG[r.status]
                                 return (
-                                    <div key={r.id} className={`p-2.5 rounded-xl border text-center cursor-default ${r.status === 'critical' ? 'border-red-200 bg-red-50/40' : r.status === 'attention' ? 'border-amber-200 bg-amber-50/40' : 'border-gray-100 bg-gray-50'}`}>
+                                    <div key={r.id} className={`p-2.5 rounded-xl border text-center cursor-default ${r.status === 'critical' ? 'border-red-200 bg-red-50/40' : r.status === 'attention' ? 'border-amber-200 bg-amber-50/40' : 'border-slate-100 bg-slate-50'}`}>
                                         <Circle className={`w-2.5 h-2.5 fill-current mx-auto mb-1 ${st.dot}`} />
-                                        <p className="text-xs font-semibold text-brand-dark truncate">{r.name.split(' ')[0]}</p>
-                                        <p className="text-[10px] text-brand-muted">Rm {r.room}</p>
+                                        <p className="text-xs font-semibold text-slate-800 truncate">{r.name.split(' ')[0]}</p>
+                                        <p className="text-[10px] text-slate-500">Rm {r.room}</p>
                                         <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded mt-1 inline-block ${st.bg}`}>{st.label}</span>
                                     </div>
                                 )
@@ -533,20 +533,20 @@ export default function NursingDashboard() {
                 <div className="space-y-6">
                     <SectionCard title="Per-Resident Shift Log" icon={FileText} subtitle="Structured vitals entry with range indicators">
                         {/* Resident selector */}
-                        <div className="bg-gray-50 rounded-xl p-3 mb-4 flex items-center gap-3 flex-wrap">
-                            <UserCheck className="w-4 h-4 text-brand-accent" />
-                            <span className="text-xs font-semibold text-brand-dark">Resident:</span>
+                        <div className="bg-slate-50 rounded-xl p-3 mb-4 flex items-center gap-3 flex-wrap">
+                            <UserCheck className="w-4 h-4 text-indigo-500" />
+                            <span className="text-xs font-semibold text-slate-800">Resident:</span>
                             <div className="relative">
                                 <select
                                     value={logResident.id}
                                     onChange={e => { setLogResident(ALL_RESIDENTS.find(r => r.id === Number(e.target.value))); setLogFields({ vitals: '', medications: '', observations: '', mood: '' }); setLogStatus('stable') }}
-                                    className="appearance-none bg-white border border-gray-200 rounded-lg px-3 py-1.5 pr-7 text-xs font-medium text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-accent/30"
+                                    className="appearance-none bg-white border border-slate-200/80 rounded-lg px-3 py-1.5 pr-7 text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
                                 >
                                     {ALL_RESIDENTS.map(r => (
                                         <option key={r.id} value={r.id}>{r.name} (Rm {r.room})</option>
                                     ))}
                                 </select>
-                                <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-brand-muted pointer-events-none" />
+                                <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-500 pointer-events-none" />
                             </div>
                             <div className="ml-auto flex items-center gap-2">
                                 {shiftLogs[logResident.id + ':' + shift.id] && (
@@ -567,7 +567,7 @@ export default function NursingDashboard() {
                         {/* Current vitals display */}
                         {VITALS_DATA[logResident.id] && (
                             <div className="mb-4">
-                                <p className="text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Latest Vitals (click for detail)</p>
+                                <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Latest Vitals (click for detail)</p>
                                 <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                                     {[
                                         { key: 'bp', label: 'BP', value: VITALS_DATA[logResident.id].bp, icon: Heart, unit: 'mmHg', status: VITALS_DATA[logResident.id].bpTrend },
@@ -587,16 +587,16 @@ export default function NursingDashboard() {
                                                 className={`p-2.5 rounded-xl border text-center cursor-pointer hover:shadow-sm transition-all ${colors[v.status] || colors.normal}`}
                                             >
                                                 <Icon className={`w-3.5 h-3.5 mx-auto mb-1 ${textColors[v.status] || textColors.normal}`} />
-                                                <p className="text-[9px] font-semibold text-brand-muted uppercase">{v.label}</p>
+                                                <p className="text-[9px] font-semibold text-slate-500 uppercase">{v.label}</p>
                                                 <p className={`text-sm font-bold ${textColors[v.status] || textColors.normal}`}>{v.value}</p>
-                                                <p className="text-[9px] text-brand-muted">{v.unit}</p>
+                                                <p className="text-[9px] text-slate-500">{v.unit}</p>
                                             </div>
                                         )
                                     })}
                                 </div>
                                 {VITALS_DATA[logResident.id].notes && (
-                                    <p className="text-[11px] text-brand-muted mt-2 p-2 bg-gray-50 rounded-lg border border-gray-100">
-                                        <Info className="w-3 h-3 inline mr-1 text-brand-muted" />{VITALS_DATA[logResident.id].notes}
+                                    <p className="text-[11px] text-slate-500 mt-2 p-2 bg-slate-50 rounded-lg border border-slate-100">
+                                        <Info className="w-3 h-3 inline mr-1 text-slate-500" />{VITALS_DATA[logResident.id].notes}
                                     </p>
                                 )}
                             </div>
@@ -604,9 +604,9 @@ export default function NursingDashboard() {
 
                         {/* Previous shift log if exists */}
                         {shiftLogs[logResident.id + ':' + shift.id] && (
-                            <div className="p-3 rounded-xl bg-brand-primary/5 border border-brand-primary/10 mb-4">
-                                <p className="text-[10px] font-semibold text-brand-primary uppercase mb-1">Previously Logged This Shift</p>
-                                <p className="text-[10px] text-brand-muted">Logged at {shiftLogs[logResident.id + ':' + shift.id].timestamp}</p>
+                            <div className="p-3 rounded-xl bg-indigo-600/5 border border-indigo-600/10 mb-4">
+                                <p className="text-[10px] font-semibold text-indigo-600 uppercase mb-1">Previously Logged This Shift</p>
+                                <p className="text-[10px] text-slate-500">Logged at {shiftLogs[logResident.id + ':' + shift.id].timestamp}</p>
                             </div>
                         )}
 
@@ -621,13 +621,13 @@ export default function NursingDashboard() {
                                 const Icon = f.icon
                                 return (
                                     <div key={f.key}>
-                                        <label className="flex items-center gap-1.5 text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">
+                                        <label className="flex items-center gap-1.5 text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">
                                             <Icon className="w-3 h-3" /> {f.label}
                                         </label>
                                         <textarea
                                             rows={2} value={logFields[f.key]}
                                             onChange={e => setLogFields({ ...logFields, [f.key]: e.target.value })}
-                                            className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-brand-accent/30 resize-none text-brand-dark placeholder-brand-muted/50"
+                                            className="w-full px-3 py-2 text-xs border border-slate-200/80 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 resize-none text-slate-800 placeholder-slate-500/50"
                                             placeholder={f.placeholder}
                                         />
                                     </div>
@@ -636,7 +636,7 @@ export default function NursingDashboard() {
                         </div>
 
                         <div className="flex items-center gap-3 mt-4">
-                            <button onClick={saveShiftLog} className="flex items-center gap-2 px-5 py-2.5 bg-brand-primary text-white text-xs font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors">
+                            <button onClick={saveShiftLog} className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white text-xs font-semibold rounded-xl hover:bg-indigo-700 transition-colors">
                                 <Send className="w-3.5 h-3.5" /> Submit Shift Log
                             </button>
                             {logSaved && (
@@ -653,10 +653,10 @@ export default function NursingDashboard() {
                             {ALL_RESIDENTS.map(r => {
                                 const logged = !!shiftLogs[r.id + ':' + shift.id]
                                 return (
-                                    <div key={r.id} className={`p-2.5 rounded-xl border text-center ${logged ? 'border-emerald-200 bg-emerald-50' : 'border-gray-100 bg-gray-50'}`}>
+                                    <div key={r.id} className={`p-2.5 rounded-xl border text-center ${logged ? 'border-emerald-200 bg-emerald-50' : 'border-slate-100 bg-slate-50'}`}>
                                         {logged ? <CheckCircle2 className="w-4 h-4 text-emerald-500 mx-auto mb-1" /> : <Circle className="w-4 h-4 text-gray-300 mx-auto mb-1" />}
-                                        <p className="text-[11px] font-semibold text-brand-dark truncate">{r.name.split(' ')[0]}</p>
-                                        <p className="text-[10px] text-brand-muted">Rm {r.room}</p>
+                                        <p className="text-[11px] font-semibold text-slate-800 truncate">{r.name.split(' ')[0]}</p>
+                                        <p className="text-[10px] text-slate-500">Rm {r.room}</p>
                                     </div>
                                 )
                             })}
@@ -683,13 +683,13 @@ export default function NursingDashboard() {
                         return (
                             <div>
                                 {/* Summary bar */}
-                                <div className="flex flex-wrap items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100 mb-4">
-                                    <span className="text-xs font-semibold text-brand-dark">Summary:</span>
+                                <div className="flex flex-wrap items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 mb-4">
+                                    <span className="text-xs font-semibold text-slate-800">Summary:</span>
                                     <span className="text-[10px] px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded font-semibold">{fullCount} Full</span>
                                     <span className="text-[10px] px-2 py-0.5 bg-amber-100 text-amber-700 rounded font-semibold">{partialCount} Partial</span>
                                     <span className="text-[10px] px-2 py-0.5 bg-red-100 text-red-700 rounded font-semibold">{refusedCount} Refused</span>
-                                    <span className="text-[10px] px-2 py-0.5 bg-gray-100 text-gray-500 rounded font-semibold">{naCount} N/A</span>
-                                    <span className="ml-auto text-[10px] font-semibold text-brand-muted">Avg Est. Intake: <strong className="text-brand-dark">{avgCalories} kcal</strong></span>
+                                    <span className="text-[10px] px-2 py-0.5 bg-slate-100 text-gray-500 rounded font-semibold">{naCount} N/A</span>
+                                    <span className="ml-auto text-[10px] font-semibold text-slate-500">Avg Est. Intake: <strong className="text-slate-800">{avgCalories} kcal</strong></span>
                                 </div>
 
                                 {/* Meal cards */}
@@ -698,16 +698,16 @@ export default function NursingDashboard() {
                                         const config = EATEN_CONFIG[m.eaten]
                                         const statusOptions = ['full', 'partial', 'refused', 'n/a']
                                         return (
-                                            <div key={i} className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${m.eaten === 'refused' ? 'border-red-200 bg-red-50/30' : m.eaten === 'partial' ? 'border-amber-200 bg-amber-50/20' : 'border-gray-100 bg-gray-50'}`}>
+                                            <div key={i} className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${m.eaten === 'refused' ? 'border-red-200 bg-red-50/30' : m.eaten === 'partial' ? 'border-amber-200 bg-amber-50/20' : 'border-slate-100 bg-slate-50'}`}>
                                                 <div className="flex-shrink-0">
                                                     {m.served ? <CheckCircle2 className="w-4 h-4 text-emerald-500" /> : <Circle className="w-4 h-4 text-gray-300" />}
                                                 </div>
                                                 <div className="flex-1 min-w-0">
                                                     <div className="flex items-center gap-2">
-                                                        <span className="text-xs font-semibold text-brand-dark">{m.resident}</span>
-                                                        <span className="text-[10px] text-brand-muted">Rm {m.room}</span>
+                                                        <span className="text-xs font-semibold text-slate-800">{m.resident}</span>
+                                                        <span className="text-[10px] text-slate-500">Rm {m.room}</span>
                                                     </div>
-                                                    <p className="text-[11px] text-brand-muted">{m.dish}</p>
+                                                    <p className="text-[11px] text-slate-500">{m.dish}</p>
                                                     {m.notes && <p className="text-[10px] text-amber-600 mt-0.5">{m.notes}</p>}
                                                 </div>
                                                 <div className="flex items-center gap-1.5 flex-shrink-0">
@@ -715,13 +715,13 @@ export default function NursingDashboard() {
                                                         <button
                                                             key={s}
                                                             onClick={() => toggleMealStatus(m.residentId, s)}
-                                                            className={`text-[9px] font-bold uppercase px-2 py-1 rounded-lg border transition-all ${m.eaten === s ? EATEN_CONFIG[s].bg + ' border-current' : 'bg-white text-gray-400 border-gray-200 hover:border-gray-300'}`}
+                                                            className={`text-[9px] font-bold uppercase px-2 py-1 rounded-lg border transition-all ${m.eaten === s ? EATEN_CONFIG[s].bg + ' border-current' : 'bg-white text-gray-400 border-slate-200/80 hover:border-gray-300'}`}
                                                         >
                                                             {EATEN_CONFIG[s].label}
                                                         </button>
                                                     ))}
                                                 </div>
-                                                <span className="text-[10px] font-semibold text-brand-muted flex-shrink-0 w-12 text-right">
+                                                <span className="text-[10px] font-semibold text-slate-500 flex-shrink-0 w-12 text-right">
                                                     {Math.round(m.calories * (EATEN_CONFIG[m.eaten]?.pct || 0) / 100)} cal
                                                 </span>
                                             </div>
@@ -731,7 +731,7 @@ export default function NursingDashboard() {
 
                                 {/* Intake distribution chart */}
                                 <div className="mt-6">
-                                    <p className="text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Intake Distribution</p>
+                                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Intake Distribution</p>
                                     <div className="h-48">
                                         <ResponsiveContainer width="100%" height="100%">
                                             <PieChart>
@@ -769,22 +769,22 @@ export default function NursingDashboard() {
                                 <div
                                     key={inc.id}
                                     onClick={() => setSelectedIncident(inc)}
-                                    className={`p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ${inc.severity === 'moderate' ? 'border-amber-200 bg-amber-50/30' : 'border-gray-200 bg-gray-50'}`}
+                                    className={`p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ${inc.severity === 'moderate' ? 'border-amber-200 bg-amber-50/30' : 'border-slate-200/80 bg-slate-50'}`}
                                 >
                                     <div className="flex items-center justify-between mb-2">
                                         <div className="flex items-center gap-2">
-                                            <span className="text-[10px] font-mono text-brand-muted">{inc.id}</span>
-                                            <span className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${inc.severity === 'moderate' ? 'bg-amber-100 text-amber-700' : 'bg-gray-100 text-gray-600'}`}>{inc.severity}</span>
-                                            <span className="text-xs font-semibold text-brand-dark">{inc.type}</span>
+                                            <span className="text-[10px] font-mono text-slate-500">{inc.id}</span>
+                                            <span className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${inc.severity === 'moderate' ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-gray-600'}`}>{inc.severity}</span>
+                                            <span className="text-xs font-semibold text-slate-800">{inc.type}</span>
                                         </div>
                                         <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded border ${escConfig.color}`}>{escConfig.label}</span>
                                     </div>
                                     <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-xs text-brand-dark font-medium">{inc.resident}</span>
-                                        <span className="text-[10px] text-brand-muted">Rm {inc.room}</span>
-                                        <span className="text-[10px] text-brand-muted ml-auto">{inc.date} at {inc.time}</span>
+                                        <span className="text-xs text-slate-800 font-medium">{inc.resident}</span>
+                                        <span className="text-[10px] text-slate-500">Rm {inc.room}</span>
+                                        <span className="text-[10px] text-slate-500 ml-auto">{inc.date} at {inc.time}</span>
                                     </div>
-                                    <p className="text-xs text-brand-muted line-clamp-2">{inc.description}</p>
+                                    <p className="text-xs text-slate-500 line-clamp-2">{inc.description}</p>
 
                                     {/* Mini escalation pipeline */}
                                     <div className="flex items-center gap-1 mt-3">
@@ -792,9 +792,9 @@ export default function NursingDashboard() {
                                             const reached = ESCALATION_ORDER.indexOf(inc.escalation) >= i
                                             return (
                                                 <div key={stage} className="flex items-center gap-1">
-                                                    <div className={`w-2 h-2 rounded-full ${reached ? (stage === 'resolved' ? 'bg-emerald-500' : 'bg-brand-primary') : 'bg-gray-300'}`} />
-                                                    <span className={`text-[9px] ${reached ? 'text-brand-dark font-semibold' : 'text-gray-400'}`}>{ESCALATION_PIPELINE[stage].label}</span>
-                                                    {i < ESCALATION_ORDER.length - 1 && <ArrowRight className={`w-3 h-3 ${reached ? 'text-brand-primary' : 'text-gray-300'}`} />}
+                                                    <div className={`w-2 h-2 rounded-full ${reached ? (stage === 'resolved' ? 'bg-emerald-500' : 'bg-indigo-600') : 'bg-gray-300'}`} />
+                                                    <span className={`text-[9px] ${reached ? 'text-slate-800 font-semibold' : 'text-gray-400'}`}>{ESCALATION_PIPELINE[stage].label}</span>
+                                                    {i < ESCALATION_ORDER.length - 1 && <ArrowRight className={`w-3 h-3 ${reached ? 'text-indigo-600' : 'text-gray-300'}`} />}
                                                 </div>
                                             )
                                         })}
@@ -818,24 +818,24 @@ export default function NursingDashboard() {
                                     <div
                                         key={s.id}
                                         onClick={() => setSelectedStaff(s)}
-                                        className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer hover:shadow-md transition-all ${isCurrentShift ? 'border-emerald-200 bg-emerald-50/40' : 'border-gray-100 bg-gray-50'}`}
+                                        className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer hover:shadow-md transition-all ${isCurrentShift ? 'border-emerald-200 bg-emerald-50/40' : 'border-slate-100 bg-slate-50'}`}
                                     >
                                         <Circle className={`w-3 h-3 fill-current flex-shrink-0 ${s.status === 'on-duty' ? 'text-emerald-500' : s.status === 'scheduled' ? 'text-sky-400' : 'text-gray-300'}`} />
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2 flex-wrap">
-                                                <span className="text-sm font-semibold text-brand-dark">{s.name}</span>
-                                                <span className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${s.status === 'on-duty' ? 'bg-emerald-100 text-emerald-700' : s.status === 'scheduled' ? 'bg-sky-100 text-sky-700' : 'bg-gray-100 text-gray-500'}`}>{s.status === 'on-duty' ? s.shift : s.shift}</span>
-                                                <span className="text-[10px] text-brand-muted">{s.role}</span>
+                                                <span className="text-sm font-semibold text-slate-800">{s.name}</span>
+                                                <span className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${s.status === 'on-duty' ? 'bg-emerald-100 text-emerald-700' : s.status === 'scheduled' ? 'bg-sky-100 text-sky-700' : 'bg-slate-100 text-gray-500'}`}>{s.status === 'on-duty' ? s.shift : s.shift}</span>
+                                                <span className="text-[10px] text-slate-500">{s.role}</span>
                                             </div>
                                             <div className="flex items-center gap-2 mt-0.5">
-                                                <span className="text-[10px] text-brand-muted">Rooms: {s.rooms.length > 0 ? s.rooms.join(', ') : 'N/A'}</span>
+                                                <span className="text-[10px] text-slate-500">Rooms: {s.rooms.length > 0 ? s.rooms.join(', ') : 'N/A'}</span>
                                                 {s.specialNote && <span className="text-[10px] text-amber-600 font-medium">-- {s.specialNote}</span>}
                                             </div>
                                         </div>
                                         {taskPct !== null && (
                                             <div className="flex flex-col items-end flex-shrink-0">
                                                 <span className={`text-sm font-bold ${taskPct >= 80 ? 'text-emerald-600' : taskPct >= 50 ? 'text-amber-600' : 'text-red-600'}`}>{taskPct}%</span>
-                                                <span className="text-[9px] text-brand-muted">{s.tasksCompleted}/{s.tasksTotal} tasks</span>
+                                                <span className="text-[9px] text-slate-500">{s.tasksCompleted}/{s.tasksTotal} tasks</span>
                                             </div>
                                         )}
                                         <ChevronRight className="w-4 h-4 text-gray-300 flex-shrink-0" />
@@ -866,9 +866,9 @@ export default function NursingDashboard() {
                             </ResponsiveContainer>
                         </div>
                         <div className="flex items-center gap-4 mt-2 justify-center">
-                            <span className="flex items-center gap-1.5 text-[10px] text-brand-muted"><div className="w-3 h-3 rounded bg-amber-400" /> Morning</span>
-                            <span className="flex items-center gap-1.5 text-[10px] text-brand-muted"><div className="w-3 h-3 rounded bg-sky-400" /> Afternoon</span>
-                            <span className="flex items-center gap-1.5 text-[10px] text-brand-muted"><div className="w-3 h-3 rounded bg-indigo-400" /> Night</span>
+                            <span className="flex items-center gap-1.5 text-[10px] text-slate-500"><div className="w-3 h-3 rounded bg-amber-400" /> Morning</span>
+                            <span className="flex items-center gap-1.5 text-[10px] text-slate-500"><div className="w-3 h-3 rounded bg-sky-400" /> Afternoon</span>
+                            <span className="flex items-center gap-1.5 text-[10px] text-slate-500"><div className="w-3 h-3 rounded bg-indigo-400" /> Night</span>
                         </div>
                     </SectionCard>
                 </div>
@@ -880,7 +880,7 @@ export default function NursingDashboard() {
                     headerRight={
                         <div className="flex items-center gap-1">
                             {['all', 'pending', 'confirmed', 'overdue'].map(f => (
-                                <button key={f} onClick={() => setInstructionFilter(f)} className={`text-[9px] font-bold uppercase px-2 py-0.5 rounded border transition-all ${instructionFilter === f ? 'bg-brand-primary text-white border-brand-primary' : 'bg-white text-brand-muted border-gray-200 hover:border-gray-300'}`}>{f}</button>
+                                <button key={f} onClick={() => setInstructionFilter(f)} className={`text-[9px] font-bold uppercase px-2 py-0.5 rounded border transition-all ${instructionFilter === f ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-500 border-slate-200/80 hover:border-gray-300'}`}>{f}</button>
                             ))}
                         </div>
                     }
@@ -904,12 +904,12 @@ export default function NursingDashboard() {
                             const priorityColors = {
                                 critical: 'border-red-200 bg-red-50/40',
                                 high: 'border-amber-200 bg-amber-50/30',
-                                medium: 'border-gray-200 bg-gray-50',
+                                medium: 'border-slate-200/80 bg-slate-50',
                             }
                             const priorityBadge = {
                                 critical: 'bg-red-100 text-red-700',
                                 high: 'bg-amber-100 text-amber-700',
-                                medium: 'bg-gray-100 text-gray-600',
+                                medium: 'bg-slate-100 text-gray-600',
                             }
 
                             return (
@@ -917,19 +917,19 @@ export default function NursingDashboard() {
                                     <div className="flex items-start gap-3">
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2 flex-wrap mb-1">
-                                                <span className="text-xs font-semibold text-brand-dark">{order.resident}</span>
-                                                <span className="text-[10px] text-brand-muted">Rm {order.room}</span>
+                                                <span className="text-xs font-semibold text-slate-800">{order.resident}</span>
+                                                <span className="text-[10px] text-slate-500">Rm {order.room}</span>
                                                 <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded ${priorityBadge[order.priority]}`}>{order.priority}</span>
                                                 {!confirmed && (
-                                                    <span className={`text-[9px] font-semibold ml-auto flex items-center gap-1 ${isOverdue ? 'text-red-600' : diffH < 2 ? 'text-amber-600' : 'text-brand-muted'}`}>
+                                                    <span className={`text-[9px] font-semibold ml-auto flex items-center gap-1 ${isOverdue ? 'text-red-600' : diffH < 2 ? 'text-amber-600' : 'text-slate-500'}`}>
                                                         <Timer className="w-3 h-3" /> {countdown}
                                                     </span>
                                                 )}
                                             </div>
-                                            <p className="text-xs text-brand-dark leading-relaxed">{order.instruction}</p>
+                                            <p className="text-xs text-slate-800 leading-relaxed">{order.instruction}</p>
                                             <div className="flex items-center gap-2 mt-1.5">
-                                                <span className="text-[10px] text-brand-muted">{order.specialist} ({order.role})</span>
-                                                <span className="text-[10px] text-brand-muted">-- {order.date}</span>
+                                                <span className="text-[10px] text-slate-500">{order.specialist} ({order.role})</span>
+                                                <span className="text-[10px] text-slate-500">-- {order.date}</span>
                                             </div>
                                         </div>
                                         <div className="flex-shrink-0">
@@ -959,7 +959,7 @@ export default function NursingDashboard() {
                         }).length === 0 && instructionFilter !== 'all' && (
                             <div className="text-center py-6">
                                 <BadgeCheck className="w-6 h-6 text-gray-300 mx-auto mb-2" />
-                                <p className="text-xs text-brand-muted">No {instructionFilter} instructions</p>
+                                <p className="text-xs text-slate-500">No {instructionFilter} instructions</p>
                             </div>
                         )}
                     </div>
@@ -993,29 +993,29 @@ export default function NursingDashboard() {
             {/* SECTION: My Profile */}
             {activeSection === 'profile' && (
                 <div className="space-y-6">
-                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                        <div className="bg-gradient-to-r from-brand-primary/10 via-brand-accent/5 to-transparent px-6 py-5 border-b border-gray-100">
+                    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                        <div className="bg-gradient-to-r from-indigo-600/10 via-indigo-500/5 to-transparent px-6 py-5 border-b border-slate-100">
                             <div className="flex items-start gap-4">
-                                <div className="w-16 h-16 rounded-2xl bg-brand-primary/10 border-2 border-brand-primary/20 flex items-center justify-center flex-shrink-0">
-                                    <UserCircle className="w-8 h-8 text-brand-primary" />
+                                <div className="w-16 h-16 rounded-2xl bg-indigo-600/10 border-2 border-indigo-600/20 flex items-center justify-center flex-shrink-0">
+                                    <UserCircle className="w-8 h-8 text-indigo-600" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="text-xl font-bold text-brand-dark">{profile.name}</h3>
-                                    <p className="text-sm text-brand-accent font-medium">{profile.title}</p>
-                                    <p className="text-xs text-brand-muted mt-1">{profile.institution}</p>
+                                    <h3 className="text-xl font-bold text-slate-800">{profile.name}</h3>
+                                    <p className="text-sm text-indigo-500 font-medium">{profile.title}</p>
+                                    <p className="text-xs text-slate-500 mt-1">{profile.institution}</p>
                                     <div className="flex items-center gap-3 mt-2 flex-wrap">
-                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-brand-primary/10 text-brand-primary border border-brand-primary/20">{profile.license}</span>
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Users className="w-3 h-3" /> {profile.residentsManaged} residents</span>
+                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-indigo-600/10 text-indigo-600 border border-indigo-600/20">{profile.license}</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Users className="w-3 h-3" /> {profile.residentsManaged} residents</span>
                                     </div>
                                 </div>
-                                <button onClick={() => setEditingProfile(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-gray-200 text-brand-dark hover:border-brand-accent hover:shadow-sm transition-all">
-                                    <Pencil className="w-3.5 h-3.5 text-brand-accent" /> Edit Profile
+                                <button onClick={() => setEditingProfile(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-slate-200/80 text-slate-800 hover:border-indigo-500 hover:shadow-sm transition-all">
+                                    <Pencil className="w-3.5 h-3.5 text-indigo-500" /> Edit Profile
                                 </button>
                             </div>
                         </div>
                         <div className="p-6">
-                            <p className="text-sm text-brand-dark leading-relaxed mb-5">{profile.bio}</p>
+                            <p className="text-sm text-slate-800 leading-relaxed mb-5">{profile.bio}</p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <ProfileField icon={GraduationCap} label="Education" value={profile.education} />
                                 <ProfileField icon={FileText} label="Certifications" value={profile.certifications} />
@@ -1047,12 +1047,12 @@ export default function NursingDashboard() {
 
 function SectionCard({ title, icon: Icon, subtitle, headerRight, children }) {
     return (
-        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center gap-3">
-                <Icon className="w-5 h-5 text-brand-accent flex-shrink-0" />
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
+                <Icon className="w-5 h-5 text-indigo-500 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-semibold text-brand-dark">{title}</h3>
-                    {subtitle && <p className="text-[11px] text-brand-muted">{subtitle}</p>}
+                    <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
+                    {subtitle && <p className="text-[11px] text-slate-500">{subtitle}</p>}
                 </div>
                 {headerRight}
             </div>
@@ -1088,8 +1088,8 @@ function NoteSection({ notes, onAddNote }) {
 
     return (
         <div>
-            <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">
-                Nursing Notes {notes.length > 0 && <span className="text-brand-primary">({notes.length})</span>}
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                Nursing Notes {notes.length > 0 && <span className="text-indigo-600">({notes.length})</span>}
             </p>
             {notes.length > 0 && (
                 <div className="space-y-2 mb-3">
@@ -1098,8 +1098,8 @@ function NoteSection({ notes, onAddNote }) {
                             <div className="flex items-start gap-2">
                                 <FileText className="w-3.5 h-3.5 text-blue-500 mt-0.5 flex-shrink-0" />
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm text-brand-dark leading-relaxed">{note.text}</p>
-                                    <p className="text-[10px] text-brand-muted mt-1 flex items-center gap-1"><Clock className="w-3 h-3" /> {note.timestamp}</p>
+                                    <p className="text-sm text-slate-800 leading-relaxed">{note.text}</p>
+                                    <p className="text-[10px] text-slate-500 mt-1 flex items-center gap-1"><Clock className="w-3 h-3" /> {note.timestamp}</p>
                                 </div>
                             </div>
                         </div>
@@ -1107,18 +1107,18 @@ function NoteSection({ notes, onAddNote }) {
                 </div>
             )}
             {notes.length === 0 && !showForm && (
-                <div className="p-3 rounded-lg bg-gray-50 border border-gray-100 text-center mb-3">
-                    <p className="text-xs text-brand-muted">No nursing notes added yet</p>
+                <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 text-center mb-3">
+                    <p className="text-xs text-slate-500">No nursing notes added yet</p>
                 </div>
             )}
             {showForm && (
-                <div className="p-3 rounded-lg bg-gray-50 border border-gray-200 space-y-2 mb-3" style={{ animation: 'modalIn 0.2s ease-out' }}>
+                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200/80 space-y-2 mb-3" style={{ animation: 'modalIn 0.2s ease-out' }}>
                     <textarea autoFocus rows={3} value={text} onChange={e => setText(e.target.value)}
-                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark placeholder-brand-muted/50"
+                        className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800 placeholder-slate-500/50"
                         placeholder="Enter nursing observation, follow-up action, or care note..." />
                     <div className="flex items-center gap-2 justify-end">
-                        <button onClick={() => { setShowForm(false); setText('') }} className="px-3 py-1.5 text-xs font-medium text-brand-muted hover:text-brand-dark transition-colors rounded-lg">Cancel</button>
-                        <button onClick={handleSave} disabled={!text.trim()} className={`flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg transition-colors ${text.trim() ? 'bg-brand-primary text-white hover:bg-brand-primary-dark' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}>
+                        <button onClick={() => { setShowForm(false); setText('') }} className="px-3 py-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors rounded-lg">Cancel</button>
+                        <button onClick={handleSave} disabled={!text.trim()} className={`flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg transition-colors ${text.trim() ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}>
                             <Send className="w-3 h-3" /> Save Note
                         </button>
                     </div>
@@ -1130,7 +1130,7 @@ function NoteSection({ notes, onAddNote }) {
                     <p className="text-xs font-medium text-emerald-700">Nursing note saved successfully</p>
                 </div>
             )}
-            <button onClick={() => setShowForm(true)} disabled={showForm} className={`w-full flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl border transition-colors ${showForm ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-default' : 'bg-white text-brand-dark border-gray-200 hover:bg-gray-50'}`}>
+            <button onClick={() => setShowForm(true)} disabled={showForm} className={`w-full flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl border transition-colors ${showForm ? 'bg-slate-100 text-gray-400 border-slate-200/80 cursor-default' : 'bg-white text-slate-800 border-slate-200/80 hover:bg-slate-50'}`}>
                 <Plus className="w-3.5 h-3.5" /> Add Nursing Note
             </button>
         </div>
@@ -1144,12 +1144,12 @@ function NoteSection({ notes, onAddNote }) {
 function IncidentDetailModal({ incident, notes, onAddNote, onClose }) {
     return (
         <div>
-            <div className={`px-6 py-4 border-b flex items-center justify-between ${incident.severity === 'moderate' ? 'bg-amber-50 border-amber-200' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`px-6 py-4 border-b flex items-center justify-between ${incident.severity === 'moderate' ? 'bg-amber-50 border-amber-200' : 'bg-slate-50 border-slate-200/80'}`}>
                 <div className="flex items-center gap-3">
                     <AlertTriangle className={`w-5 h-5 ${incident.severity === 'moderate' ? 'text-amber-600' : 'text-gray-500'}`} />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">Incident {incident.id} -- {incident.type}</h3>
-                        <p className="text-[11px] text-brand-muted">{incident.resident} (Rm {incident.room}) -- {incident.date} at {incident.time}</p>
+                        <h3 className="text-sm font-bold text-slate-800">Incident {incident.id} -- {incident.type}</h3>
+                        <p className="text-[11px] text-slate-500">{incident.resident} (Rm {incident.room}) -- {incident.date} at {incident.time}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
@@ -1157,16 +1157,16 @@ function IncidentDetailModal({ incident, notes, onAddNote, onClose }) {
             <div className="p-6 space-y-4">
                 {/* Escalation pipeline */}
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Escalation Status</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Escalation Status</p>
                     <div className="flex items-center gap-1">
                         {ESCALATION_ORDER.map((stage, i) => {
                             const reached = ESCALATION_ORDER.indexOf(incident.escalation) >= i
                             return (
                                 <div key={stage} className="flex items-center gap-1 flex-1">
-                                    <div className={`flex-1 p-2 rounded-lg border text-center ${reached ? ESCALATION_PIPELINE[stage].color : 'bg-gray-50 border-gray-200 text-gray-400'}`}>
+                                    <div className={`flex-1 p-2 rounded-lg border text-center ${reached ? ESCALATION_PIPELINE[stage].color : 'bg-slate-50 border-slate-200/80 text-gray-400'}`}>
                                         <span className="text-[10px] font-bold uppercase">{ESCALATION_PIPELINE[stage].label}</span>
                                     </div>
-                                    {i < ESCALATION_ORDER.length - 1 && <ArrowRight className={`w-3 h-3 flex-shrink-0 ${reached ? 'text-brand-primary' : 'text-gray-300'}`} />}
+                                    {i < ESCALATION_ORDER.length - 1 && <ArrowRight className={`w-3 h-3 flex-shrink-0 ${reached ? 'text-indigo-600' : 'text-gray-300'}`} />}
                                 </div>
                             )
                         })}
@@ -1174,43 +1174,43 @@ function IncidentDetailModal({ incident, notes, onAddNote, onClose }) {
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Description</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{incident.description}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Description</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{incident.description}</p>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                     <div>
-                        <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Injury Assessment</p>
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Injury Assessment</p>
                         <div className={`p-3 rounded-lg border ${incident.injury === 'None' || incident.injury.includes('None') ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-200'}`}>
                             <p className={`text-xs font-medium ${incident.injury === 'None' || incident.injury.includes('None') ? 'text-emerald-700' : 'text-amber-700'}`}>{incident.injury}</p>
                         </div>
                     </div>
                     <div>
-                        <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Reported By</p>
-                        <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                            <p className="text-xs font-medium text-brand-dark">{incident.reportedBy}</p>
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Reported By</p>
+                        <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                            <p className="text-xs font-medium text-slate-800">{incident.reportedBy}</p>
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Immediate Response</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{incident.immediateResponse}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Immediate Response</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{incident.immediateResponse}</p>
                     </div>
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Follow-Up Actions</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Follow-Up Actions</p>
                     <div className="p-3 rounded-lg bg-blue-50 border border-blue-200">
                         <p className="text-sm text-blue-800 leading-relaxed">{incident.followUp}</p>
                     </div>
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Environment Factors</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Environment Factors</p>
                     <div className="flex flex-wrap gap-1.5">
                         {incident.environmentFactors.map((f, i) => (
                             <span key={i} className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-red-50 border border-red-200 text-red-700">{f}</span>
@@ -1219,7 +1219,7 @@ function IncidentDetailModal({ incident, notes, onAddNote, onClose }) {
                 </div>
 
                 <div className="flex flex-wrap gap-1.5">
-                    <span className="text-[10px] text-brand-muted mr-1">Notified:</span>
+                    <span className="text-[10px] text-slate-500 mr-1">Notified:</span>
                     {incident.notified.map((n, j) => (
                         <span key={j} className="text-[11px] font-medium px-2 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-200">{n}</span>
                     ))}
@@ -1235,30 +1235,30 @@ function StaffDetailModal({ staff, residents, onClose }) {
     const assignedResidents = residents.filter(r => staff.rooms.includes(r.room))
     return (
         <div>
-            <div className="px-6 py-4 border-b bg-gray-50 border-gray-200 flex items-center justify-between">
+            <div className="px-6 py-4 border-b bg-slate-50 border-slate-200/80 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <Users className="w-5 h-5 text-brand-accent" />
+                    <Users className="w-5 h-5 text-indigo-500" />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{staff.name}</h3>
-                        <p className="text-[11px] text-brand-muted">{staff.role} -- {staff.shift} shift -- {staff.phone}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{staff.name}</h3>
+                        <p className="text-[11px] text-slate-500">{staff.role} -- {staff.shift} shift -- {staff.phone}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
             <div className="p-6 space-y-4">
                 <div className="grid grid-cols-3 gap-3">
-                    <div className={`p-3 rounded-xl border text-center ${staff.status === 'on-duty' ? 'bg-emerald-50 border-emerald-200' : 'bg-gray-50 border-gray-200'}`}>
-                        <p className="text-[10px] uppercase font-semibold tracking-wider text-brand-muted">Status</p>
+                    <div className={`p-3 rounded-xl border text-center ${staff.status === 'on-duty' ? 'bg-emerald-50 border-emerald-200' : 'bg-slate-50 border-slate-200/80'}`}>
+                        <p className="text-[10px] uppercase font-semibold tracking-wider text-slate-500">Status</p>
                         <p className={`text-sm font-bold mt-0.5 ${staff.status === 'on-duty' ? 'text-emerald-700' : 'text-gray-600'}`}>{staff.status}</p>
                     </div>
-                    <div className="p-3 rounded-xl border border-gray-200 bg-gray-50 text-center">
-                        <p className="text-[10px] uppercase font-semibold tracking-wider text-brand-muted">Rooms</p>
-                        <p className="text-sm font-bold mt-0.5 text-brand-dark">{staff.rooms.length || '--'}</p>
+                    <div className="p-3 rounded-xl border border-slate-200/80 bg-slate-50 text-center">
+                        <p className="text-[10px] uppercase font-semibold tracking-wider text-slate-500">Rooms</p>
+                        <p className="text-sm font-bold mt-0.5 text-slate-800">{staff.rooms.length || '--'}</p>
                     </div>
                     {staff.tasksTotal > 0 && (
-                        <div className="p-3 rounded-xl border border-gray-200 bg-gray-50 text-center">
-                            <p className="text-[10px] uppercase font-semibold tracking-wider text-brand-muted">Tasks</p>
-                            <p className="text-sm font-bold mt-0.5 text-brand-dark">{staff.tasksCompleted}/{staff.tasksTotal}</p>
+                        <div className="p-3 rounded-xl border border-slate-200/80 bg-slate-50 text-center">
+                            <p className="text-[10px] uppercase font-semibold tracking-wider text-slate-500">Tasks</p>
+                            <p className="text-sm font-bold mt-0.5 text-slate-800">{staff.tasksCompleted}/{staff.tasksTotal}</p>
                         </div>
                     )}
                 </div>
@@ -1271,16 +1271,16 @@ function StaffDetailModal({ staff, residents, onClose }) {
 
                 {assignedResidents.length > 0 && (
                     <div>
-                        <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Assigned Residents</p>
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Assigned Residents</p>
                         <div className="space-y-1.5">
                             {assignedResidents.map(r => {
                                 const st = STATUS_CONFIG[r.status]
                                 return (
-                                    <div key={r.id} className={`flex items-center gap-3 p-2.5 rounded-lg border ${r.status === 'critical' ? 'border-red-200 bg-red-50/40' : r.status === 'attention' ? 'border-amber-200 bg-amber-50/40' : 'border-gray-100 bg-gray-50'}`}>
+                                    <div key={r.id} className={`flex items-center gap-3 p-2.5 rounded-lg border ${r.status === 'critical' ? 'border-red-200 bg-red-50/40' : r.status === 'attention' ? 'border-amber-200 bg-amber-50/40' : 'border-slate-100 bg-slate-50'}`}>
                                         <Circle className={`w-2.5 h-2.5 fill-current ${st.dot}`} />
                                         <div className="flex-1 min-w-0">
-                                            <span className="text-xs font-semibold text-brand-dark">{r.name}</span>
-                                            <p className="text-[10px] text-brand-muted">Rm {r.room} -- {r.conditions.join(', ')}</p>
+                                            <span className="text-xs font-semibold text-slate-800">{r.name}</span>
+                                            <p className="text-[10px] text-slate-500">Rm {r.room} -- {r.conditions.join(', ')}</p>
                                         </div>
                                         <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded ${st.bg}`}>{st.label}</span>
                                     </div>
@@ -1306,12 +1306,12 @@ function VitalsDetailModal({ resident, vitals, onClose }) {
 
     return (
         <div>
-            <div className="px-6 py-4 border-b bg-gray-50 border-gray-200 flex items-center justify-between">
+            <div className="px-6 py-4 border-b bg-slate-50 border-slate-200/80 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <Heart className="w-5 h-5 text-brand-accent" />
+                    <Heart className="w-5 h-5 text-indigo-500" />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">Vitals -- {resident.name}</h3>
-                        <p className="text-[11px] text-brand-muted">Rm {resident.room} -- Last updated: {vitals.lastUpdated}</p>
+                        <h3 className="text-sm font-bold text-slate-800">Vitals -- {resident.name}</h3>
+                        <p className="text-[11px] text-slate-500">Rm {resident.room} -- Last updated: {vitals.lastUpdated}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
@@ -1326,12 +1326,12 @@ function VitalsDetailModal({ resident, vitals, onClose }) {
                         <div key={v.key} className={`flex items-center gap-3 p-3 rounded-xl border ${statusColors[st] || statusColors.normal}`}>
                             <Icon className={`w-5 h-5 flex-shrink-0 ${textColors[st] || textColors.normal}`} />
                             <div className="flex-1 min-w-0">
-                                <p className="text-xs font-semibold text-brand-dark">{v.label}</p>
-                                {v.prev && <p className="text-[10px] text-brand-muted">Previous: {v.prev}</p>}
+                                <p className="text-xs font-semibold text-slate-800">{v.label}</p>
+                                {v.prev && <p className="text-[10px] text-slate-500">Previous: {v.prev}</p>}
                             </div>
                             <div className="text-right flex-shrink-0">
                                 <p className={`text-lg font-bold ${textColors[st] || textColors.normal}`}>{v.value}</p>
-                                <p className="text-[10px] text-brand-muted">{v.unit}</p>
+                                <p className="text-[10px] text-slate-500">{v.unit}</p>
                             </div>
                             {v.trend && (
                                 <div className="flex-shrink-0">
@@ -1342,9 +1342,9 @@ function VitalsDetailModal({ resident, vitals, onClose }) {
                     )
                 })}
                 {vitals.notes && (
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-1">Clinical Notes</p>
-                        <p className="text-sm text-brand-dark leading-relaxed">{vitals.notes}</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Clinical Notes</p>
+                        <p className="text-sm text-slate-800 leading-relaxed">{vitals.notes}</p>
                     </div>
                 )}
             </div>
@@ -1354,11 +1354,11 @@ function VitalsDetailModal({ resident, vitals, onClose }) {
 
 function ProfileField({ icon: Icon, label, value, valueColor }) {
     return (
-        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-gray-50 border border-gray-100">
-            <Icon className="w-4 h-4 text-brand-muted flex-shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-slate-50 border border-slate-100">
+            <Icon className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
             <div className="min-w-0">
-                <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
-                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-brand-dark')}>{value}</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider">{label}</p>
+                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-slate-800')}>{value}</p>
             </div>
         </div>
     )
@@ -1377,10 +1377,10 @@ function ProfileEditModal({ profile, onClose, onSave }) {
     ]
     return (
         <div>
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-brand-light">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-100">
                 <div className="flex items-center gap-3">
-                    <Pencil className="w-5 h-5 text-brand-accent" />
-                    <div><h3 className="text-sm font-bold text-brand-dark">Edit Profile</h3><p className="text-[11px] text-brand-muted">Update your personal and professional information</p></div>
+                    <Pencil className="w-5 h-5 text-indigo-500" />
+                    <div><h3 className="text-sm font-bold text-slate-800">Edit Profile</h3><p className="text-[11px] text-slate-500">Update your personal and professional information</p></div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
@@ -1388,19 +1388,19 @@ function ProfileEditModal({ profile, onClose, onSave }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {fields.map(f => (
                         <div key={f.key}>
-                            <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">{f.label}</label>
-                            <input type={f.type} value={form[f.key] || ''} onChange={e => update(f.key, e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent text-brand-dark" />
+                            <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">{f.label}</label>
+                            <input type={f.type} value={form[f.key] || ''} onChange={e => update(f.key, e.target.value)} className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-slate-800" />
                         </div>
                     ))}
                 </div>
                 <div>
-                    <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">Bio</label>
-                    <textarea rows={3} value={form.bio || ''} onChange={e => update('bio', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark" />
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Bio</label>
+                    <textarea rows={3} value={form.bio || ''} onChange={e => update('bio', e.target.value)} className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800" />
                 </div>
             </div>
-            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-2">
-                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-gray-200 text-brand-dark hover:bg-gray-50 transition-colors">Cancel</button>
-                <button onClick={() => onSave(form)} className="flex items-center gap-2 px-5 py-2 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors"><Save className="w-4 h-4" /> Save Changes</button>
+            <div className="px-6 py-4 border-t border-slate-100 flex justify-end gap-2">
+                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-slate-200/80 text-slate-800 hover:bg-slate-50 transition-colors">Cancel</button>
+                <button onClick={() => onSave(form)} className="flex items-center gap-2 px-5 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"><Save className="w-4 h-4" /> Save Changes</button>
             </div>
         </div>
     )

@@ -227,12 +227,12 @@ export default function GerontologistDashboard() {
             {/* Date Bar + Briefing Status */}
             <div className="flex items-center justify-between mb-4 px-1">
                 <div className="flex items-center gap-2">
-                    <CalendarDays className="w-4 h-4 text-brand-accent" />
-                    <span className="text-sm font-semibold text-brand-dark">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                    <CalendarDays className="w-4 h-4 text-indigo-500" />
+                    <span className="text-sm font-semibold text-slate-800">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
                 </div>
                 <div className="flex items-center gap-3">
                     <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-brand-muted">Briefing:</span>
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Briefing:</span>
                         {briefingHistory.length > 0 && briefingHistory[0].date === new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })
                             ? <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> Submitted</span>
                             : <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-amber-50 text-amber-700 border border-amber-200 flex items-center gap-1"><Clock className="w-3 h-3" /> Pending</span>
@@ -240,29 +240,29 @@ export default function GerontologistDashboard() {
                     </div>
                     <button
                         onClick={() => setActiveSection('profile')}
-                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-gray-200 hover:border-brand-accent/30 hover:shadow-sm transition-all"
+                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200/80 hover:border-indigo-500/30 hover:shadow-sm transition-all"
                     >
-                        <div className="w-5 h-5 rounded-full bg-brand-primary/10 flex items-center justify-center">
-                            <UserCircle className="w-3.5 h-3.5 text-brand-primary" />
+                        <div className="w-5 h-5 rounded-full bg-indigo-600/10 flex items-center justify-center">
+                            <UserCircle className="w-3.5 h-3.5 text-indigo-600" />
                         </div>
-                        <span className="text-[11px] font-medium text-brand-dark hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
+                        <span className="text-[11px] font-medium text-slate-800 hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
                     </button>
                 </div>
             </div>
 
             {/* Summary Bar -- always visible */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                <SummaryCard icon={Users} label="Active Residents" value={todayStats.totalResidents} color="text-brand-accent" onClick={() => setActiveSection('residents')} />
+                <SummaryCard icon={Users} label="Active Residents" value={todayStats.totalResidents} color="text-indigo-500" onClick={() => setActiveSection('residents')} />
                 <SummaryCard icon={AlertTriangle} label="Critical Alerts" value={todayStats.activeAlerts} color="text-red-500" onClick={() => setActiveSection('alerts')} />
-                <SummaryCard icon={Calendar} label="Today's Agenda" value={todayStats.agendaItems + ' items'} color="text-brand-primary" onClick={() => setActiveSection('agenda')} />
+                <SummaryCard icon={Calendar} label="Today's Agenda" value={todayStats.agendaItems + ' items'} color="text-indigo-600" onClick={() => setActiveSection('agenda')} />
                 <SummaryCard icon={Mail} label="Reports Due" value={todayStats.reportsDue} color="text-amber-500" onClick={() => setActiveSection('family-reports')} />
             </div>
 
             {/* Quick Actions */}
             <div className="flex items-center gap-2 flex-wrap mb-6">
-                <span className="text-[10px] font-semibold text-brand-muted uppercase tracking-wider mr-1">Quick Actions:</span>
-                <button onClick={() => setActiveSection('briefing')} className="flex items-center gap-1.5 text-[11px] font-medium px-3 py-1.5 rounded-lg bg-brand-light border border-gray-200 text-brand-dark hover:border-brand-accent hover:shadow-sm transition-all">
-                    <ClipboardList className="w-3.5 h-3.5 text-brand-accent" /> Morning Briefing
+                <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mr-1">Quick Actions:</span>
+                <button onClick={() => setActiveSection('briefing')} className="flex items-center gap-1.5 text-[11px] font-medium px-3 py-1.5 rounded-lg bg-slate-100 border border-slate-200/80 text-slate-800 hover:border-indigo-500 hover:shadow-sm transition-all">
+                    <ClipboardList className="w-3.5 h-3.5 text-indigo-500" /> Morning Briefing
                 </button>
                 <button onClick={() => { setFilterStatus('urgent'); setActiveSection('residents') }} className="flex items-center gap-1.5 text-[11px] font-medium px-3 py-1.5 rounded-lg bg-red-50 border border-red-200 text-red-700 hover:shadow-sm transition-all">
                     <AlertTriangle className="w-3.5 h-3.5" /> View Urgent Residents
@@ -270,8 +270,8 @@ export default function GerontologistDashboard() {
                 <button onClick={() => setActiveSection('family-reports')} className="flex items-center gap-1.5 text-[11px] font-medium px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-700 hover:shadow-sm transition-all">
                     <FilePlus className="w-3.5 h-3.5" /> Generate Report
                 </button>
-                <button onClick={() => setActiveSection('trends')} className="flex items-center gap-1.5 text-[11px] font-medium px-3 py-1.5 rounded-lg bg-brand-light border border-gray-200 text-brand-dark hover:border-brand-accent hover:shadow-sm transition-all">
-                    <TrendingUp className="w-3.5 h-3.5 text-brand-accent" /> Cohort Trends
+                <button onClick={() => setActiveSection('trends')} className="flex items-center gap-1.5 text-[11px] font-medium px-3 py-1.5 rounded-lg bg-slate-100 border border-slate-200/80 text-slate-800 hover:border-indigo-500 hover:shadow-sm transition-all">
+                    <TrendingUp className="w-3.5 h-3.5 text-indigo-500" /> Cohort Trends
                 </button>
             </div>
 
@@ -279,14 +279,14 @@ export default function GerontologistDashboard() {
             {activeSection === 'residents' && (
                 <div className="space-y-6">
                     <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-xs font-semibold text-brand-muted uppercase tracking-wider">Filter:</span>
+                        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Filter:</span>
                         {['all', 'stable', 'monitor', 'urgent'].map(status => (
                             <button
                                 key={status}
                                 onClick={() => setFilterStatus(status)}
                                 className={'text-xs font-medium px-3 py-1.5 rounded-lg border transition-all ' + (filterStatus === status
-                                    ? 'bg-brand-primary text-white border-brand-primary'
-                                    : 'bg-white text-brand-muted border-gray-200 hover:border-brand-accent'
+                                    ? 'bg-indigo-600 text-white border-indigo-600'
+                                    : 'bg-white text-slate-500 border-slate-200/80 hover:border-indigo-500'
                                 )}
                             >
                                 {status === 'all' ? 'All' : STATUS_CONFIG[status].label}
@@ -307,21 +307,21 @@ export default function GerontologistDashboard() {
                                     <div
                                         key={r.id}
                                         onClick={() => setSelectedResident(r)}
-                                        className={'flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all hover:shadow-md ' + (r.status === 'urgent' ? 'border-red-200 bg-red-50/50' : 'border-gray-100 bg-white')}
+                                        className={'flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all hover:shadow-md ' + (r.status === 'urgent' ? 'border-red-200 bg-red-50/50' : 'border-slate-100 bg-white')}
                                     >
                                         <div className="flex-shrink-0 mt-1">
                                             <Circle className={'w-3 h-3 fill-current ' + st.color + ' ' + st.textColor} />
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2">
-                                                <span className="font-semibold text-sm text-brand-dark">{r.name}</span>
-                                                <span className="text-[10px] text-brand-muted">Rm {r.room}</span>
+                                                <span className="font-semibold text-sm text-slate-800">{r.name}</span>
+                                                <span className="text-[10px] text-slate-500">Rm {r.room}</span>
                                             </div>
                                             <div className="flex items-center gap-2 mt-0.5">
                                                 <span className={'text-[10px] font-semibold uppercase px-1.5 py-0.5 rounded ' + st.bgColor + ' ' + st.textColor}>{st.label}</span>
-                                                <span className="text-[10px] text-brand-muted">Week {r.week}/16</span>
+                                                <span className="text-[10px] text-slate-500">Week {r.week}/16</span>
                                             </div>
-                                            <p className="text-xs text-brand-muted mt-1 line-clamp-1">{r.lastNote}</p>
+                                            <p className="text-xs text-slate-500 mt-1 line-clamp-1">{r.lastNote}</p>
                                         </div>
                                         <ChevronRight className="w-4 h-4 text-gray-300 flex-shrink-0 mt-1" />
                                     </div>
@@ -347,10 +347,10 @@ export default function GerontologistDashboard() {
                                 >
                                     <Icon className={'w-4 h-4 mt-0.5 flex-shrink-0 ' + cfg.color} />
                                     <div className="flex-1 min-w-0">
-                                        <p className="text-xs font-medium text-brand-dark">{a.message}</p>
+                                        <p className="text-xs font-medium text-slate-800">{a.message}</p>
                                         <div className="flex items-center gap-2 mt-1">
-                                            <span className="text-[10px] text-brand-muted">{a.area}</span>
-                                            <span className="text-[10px] text-brand-muted">{a.time}</span>
+                                            <span className="text-[10px] text-slate-500">{a.area}</span>
+                                            <span className="text-[10px] text-slate-500">{a.time}</span>
                                         </div>
                                     </div>
                                     <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" />
@@ -373,10 +373,10 @@ export default function GerontologistDashboard() {
                                     onClick={() => setSelectedAgendaItem(a)}
                                     className={'flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all hover:shadow-md ' + typeCfg.bg + ' ' + typeCfg.border}
                                 >
-                                    <span className="text-xs font-mono font-semibold text-brand-primary w-12 flex-shrink-0">{a.time}</span>
+                                    <span className="text-xs font-mono font-semibold text-indigo-600 w-12 flex-shrink-0">{a.time}</span>
                                     <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-brand-dark">{a.event}</p>
-                                        <p className="text-[11px] text-brand-muted truncate">{a.participants}</p>
+                                        <p className="text-sm font-medium text-slate-800">{a.event}</p>
+                                        <p className="text-[11px] text-slate-500 truncate">{a.participants}</p>
                                     </div>
                                     <span className={'text-[10px] font-semibold uppercase px-2 py-0.5 rounded ' + typeCfg.text}>{a.type}</span>
                                     <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
@@ -395,19 +395,19 @@ export default function GerontologistDashboard() {
                             const st = REPORT_STATUS[r.status]
                             const StIcon = st.icon
                             return (
-                                <div key={i} className="flex items-center gap-3 p-3 rounded-lg border border-gray-100 bg-white hover:shadow-md transition-all">
+                                <div key={i} className="flex items-center gap-3 p-3 rounded-lg border border-slate-100 bg-white hover:shadow-md transition-all">
                                     <div className={'w-8 h-8 rounded-lg flex items-center justify-center ' + st.bg}>
                                         <StIcon className={'w-4 h-4 ' + st.color} />
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-brand-dark truncate">{r.resident}</p>
-                                        <p className="text-[11px] text-brand-muted">Due: {r.dueDate} -- Sent to: {r.sentTo}</p>
+                                        <p className="text-sm font-medium text-slate-800 truncate">{r.resident}</p>
+                                        <p className="text-[11px] text-slate-500">Due: {r.dueDate} -- Sent to: {r.sentTo}</p>
                                     </div>
                                     <span className={'text-[10px] font-semibold uppercase px-2 py-0.5 rounded ' + st.bg + ' ' + st.color}>{st.label}</span>
                                     {r.status === 'due' && (
                                         <button
                                             onClick={() => setSelectedReport({ ...r, mode: 'generate' })}
-                                            className="ml-2 text-[10px] font-semibold px-3 py-1 rounded-lg bg-brand-primary text-white hover:bg-brand-primary-dark transition-colors"
+                                            className="ml-2 text-[10px] font-semibold px-3 py-1 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
                                         >
                                             Generate
                                         </button>
@@ -464,16 +464,16 @@ export default function GerontologistDashboard() {
                         </ResponsiveContainer>
                     </div>
                     <div className="mt-4 grid grid-cols-2 gap-4">
-                        <div className="p-4 rounded-xl bg-brand-light border border-gray-200">
-                            <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-1">Barthel Index (Avg)</p>
-                            <p className="text-2xl font-bold text-brand-dark">74</p>
+                        <div className="p-4 rounded-xl bg-slate-100 border border-slate-200/80">
+                            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Barthel Index (Avg)</p>
+                            <p className="text-2xl font-bold text-slate-800">74</p>
                             <p className="text-xs text-emerald-600 font-medium mt-1 flex items-center gap-1">
                                 <TrendingUp className="w-3 h-3" /> +12 pts from baseline
                             </p>
                         </div>
-                        <div className="p-4 rounded-xl bg-brand-light border border-gray-200">
-                            <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-1">GDS Score (Avg)</p>
-                            <p className="text-2xl font-bold text-brand-dark">7</p>
+                        <div className="p-4 rounded-xl bg-slate-100 border border-slate-200/80">
+                            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">GDS Score (Avg)</p>
+                            <p className="text-2xl font-bold text-slate-800">7</p>
                             <p className="text-xs text-emerald-600 font-medium mt-1 flex items-center gap-1">
                                 <TrendingUp className="w-3 h-3" /> -5 pts (improved)
                             </p>
@@ -500,12 +500,12 @@ export default function GerontologistDashboard() {
                                 { key: 'operational', label: 'Operational / Nursing' },
                             ].map(f => (
                                 <div key={f.key}>
-                                    <label className="block text-xs font-semibold text-brand-muted uppercase tracking-wider mb-1.5">{f.label}</label>
+                                    <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">{f.label}</label>
                                     <textarea
                                         rows={4}
                                         value={briefingNotes[f.key]}
                                         onChange={e => setBriefingNotes({ ...briefingNotes, [f.key]: e.target.value })}
-                                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark placeholder-brand-muted/50"
+                                        className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800 placeholder-slate-500/50"
                                         placeholder={'Enter ' + f.label.toLowerCase() + ' notes...'}
                                     />
                                 </div>
@@ -514,7 +514,7 @@ export default function GerontologistDashboard() {
                         <div className="flex justify-end mt-4">
                             <button
                                 onClick={handleBriefingSubmit}
-                                className="flex items-center gap-2 px-5 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors"
+                                className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"
                             >
                                 <Send className="w-4 h-4" /> Submit Briefing
                             </button>
@@ -526,12 +526,12 @@ export default function GerontologistDashboard() {
                         <SectionCard title="Briefing History" icon={FileText} subtitle={'Last ' + briefingHistory.length + ' submissions stored locally'}>
                             <div className="space-y-3">
                                 {briefingHistory.map(entry => (
-                                    <div key={entry.id} className="p-4 rounded-xl border border-gray-100 bg-gray-50/50">
+                                    <div key={entry.id} className="p-4 rounded-xl border border-slate-100 bg-slate-50 shadow-sm/50">
                                         <div className="flex items-center justify-between mb-3">
                                             <div className="flex items-center gap-2">
-                                                <Clock className="w-3.5 h-3.5 text-brand-muted" />
-                                                <span className="text-xs font-semibold text-brand-dark">{entry.date}</span>
-                                                <span className="text-[10px] text-brand-muted">{entry.time}</span>
+                                                <Clock className="w-3.5 h-3.5 text-slate-500" />
+                                                <span className="text-xs font-semibold text-slate-800">{entry.date}</span>
+                                                <span className="text-[10px] text-slate-500">{entry.time}</span>
                                             </div>
                                             <button
                                                 onClick={() => handleDeleteBriefing(entry.id)}
@@ -548,9 +548,9 @@ export default function GerontologistDashboard() {
                                                 { key: 'emotional', label: 'Emotional' },
                                                 { key: 'operational', label: 'Operational' },
                                             ].map(f => entry.notes[f.key] ? (
-                                                <div key={f.key} className="p-2.5 rounded-lg bg-white border border-gray-100">
-                                                    <p className="text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">{f.label}</p>
-                                                    <p className="text-xs text-brand-dark line-clamp-2">{entry.notes[f.key]}</p>
+                                                <div key={f.key} className="p-2.5 rounded-lg bg-white border border-slate-100">
+                                                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">{f.label}</p>
+                                                    <p className="text-xs text-slate-800 line-clamp-2">{entry.notes[f.key]}</p>
                                                 </div>
                                             ) : null)}
                                         </div>
@@ -566,32 +566,32 @@ export default function GerontologistDashboard() {
             {activeSection === 'profile' && (
                 <div className="space-y-6">
                     {/* Profile Card */}
-                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                        <div className="bg-gradient-to-r from-brand-primary/10 via-brand-accent/5 to-transparent px-6 py-5 border-b border-gray-100">
+                    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                        <div className="bg-gradient-to-r from-indigo-600/10 via-indigo-500/5 to-transparent px-6 py-5 border-b border-slate-100">
                             <div className="flex items-start gap-4">
-                                <div className="w-16 h-16 rounded-2xl bg-brand-primary/10 border-2 border-brand-primary/20 flex items-center justify-center flex-shrink-0">
-                                    <UserCircle className="w-8 h-8 text-brand-primary" />
+                                <div className="w-16 h-16 rounded-2xl bg-indigo-600/10 border-2 border-indigo-600/20 flex items-center justify-center flex-shrink-0">
+                                    <UserCircle className="w-8 h-8 text-indigo-600" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="text-xl font-bold text-brand-dark">{profile.name}</h3>
-                                    <p className="text-sm text-brand-accent font-medium">{profile.title}</p>
-                                    <p className="text-xs text-brand-muted mt-1">{profile.institution}</p>
+                                    <h3 className="text-xl font-bold text-slate-800">{profile.name}</h3>
+                                    <p className="text-sm text-indigo-500 font-medium">{profile.title}</p>
+                                    <p className="text-xs text-slate-500 mt-1">{profile.institution}</p>
                                     <div className="flex items-center gap-3 mt-2 flex-wrap">
-                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-brand-primary/10 text-brand-primary border border-brand-primary/20">{profile.license}</span>
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Users className="w-3 h-3" /> {profile.residentsManaged} residents</span>
+                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-indigo-600/10 text-indigo-600 border border-indigo-600/20">{profile.license}</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Users className="w-3 h-3" /> {profile.residentsManaged} residents</span>
                                     </div>
                                 </div>
                                 <button
                                     onClick={() => setEditingProfile(true)}
-                                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-gray-200 text-brand-dark hover:border-brand-accent hover:shadow-sm transition-all"
+                                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-slate-200/80 text-slate-800 hover:border-indigo-500 hover:shadow-sm transition-all"
                                 >
-                                    <Pencil className="w-3.5 h-3.5 text-brand-accent" /> Edit Profile
+                                    <Pencil className="w-3.5 h-3.5 text-indigo-500" /> Edit Profile
                                 </button>
                             </div>
                         </div>
                         <div className="p-6">
-                            <p className="text-sm text-brand-dark leading-relaxed mb-5">{profile.bio}</p>
+                            <p className="text-sm text-slate-800 leading-relaxed mb-5">{profile.bio}</p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <ProfileField icon={GraduationCap} label="Education" value={profile.education} />
                                 <ProfileField icon={FileText} label="Certifications" value={profile.certifications} />
@@ -660,14 +660,14 @@ function SummaryCard({ icon: Icon, label, value, color, onClick }) {
     return (
         <div
             onClick={onClick}
-            className="bg-white rounded-xl border border-gray-200 p-4 flex items-center gap-3 cursor-pointer hover:shadow-md hover:border-brand-accent/30 transition-all"
+            className="bg-white rounded-xl border border-slate-200/80 shadow-sm p-4 flex items-center gap-3 cursor-pointer hover:shadow-md hover:border-indigo-500/30 transition-all"
         >
-            <div className="w-10 h-10 rounded-lg bg-brand-light flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center">
                 <Icon className={'w-5 h-5 ' + color} />
             </div>
             <div>
-                <p className="text-2xl font-bold text-brand-dark">{value}</p>
-                <p className="text-xs text-brand-muted">{label}</p>
+                <p className="text-2xl font-bold text-slate-800">{value}</p>
+                <p className="text-xs text-slate-500">{label}</p>
             </div>
         </div>
     )
@@ -675,12 +675,12 @@ function SummaryCard({ icon: Icon, label, value, color, onClick }) {
 
 function SectionCard({ title, icon: Icon, subtitle, children }) {
     return (
-        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center gap-3">
-                <Icon className="w-5 h-5 text-brand-accent" />
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
+                <Icon className="w-5 h-5 text-indigo-500" />
                 <div>
-                    <h3 className="text-sm font-semibold text-brand-dark">{title}</h3>
-                    {subtitle && <p className="text-[11px] text-brand-muted">{subtitle}</p>}
+                    <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
+                    {subtitle && <p className="text-[11px] text-slate-500">{subtitle}</p>}
                 </div>
             </div>
             <div className="p-5">
@@ -709,26 +709,26 @@ function ResidentDetailModal({ resident, onClose }) {
     const st = STATUS_CONFIG[resident.status]
     return (
         <div>
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className={'w-10 h-10 rounded-full flex items-center justify-center ' + st.bgColor}>
                         <User className={'w-5 h-5 ' + st.textColor} />
                     </div>
                     <div>
-                        <h3 className="text-lg font-bold text-brand-dark">{resident.name}</h3>
-                        <p className="text-xs text-brand-muted">Room {resident.room} -- Age {resident.age}</p>
+                        <h3 className="text-lg font-bold text-slate-800">{resident.name}</h3>
+                        <p className="text-xs text-slate-500">Room {resident.room} -- Age {resident.age}</p>
                     </div>
                 </div>
-                <button onClick={onClose} className="p-1 rounded-lg hover:bg-gray-100 transition-colors">
+                <button onClick={onClose} className="p-1 rounded-lg hover:bg-slate-100 transition-colors">
                     <X className="w-5 h-5 text-gray-400" />
                 </button>
             </div>
             <div className="p-6 space-y-4">
                 <div className="flex items-center gap-2">
                     <span className={'text-xs font-semibold uppercase px-2 py-0.5 rounded ' + st.bgColor + ' ' + st.textColor}>{st.label}</span>
-                    <span className="text-xs text-brand-muted">Week {resident.week}/16</span>
+                    <span className="text-xs text-slate-500">Week {resident.week}/16</span>
                     <div className="flex-1 bg-gray-200 rounded-full h-1.5 ml-2">
-                        <div className="bg-brand-primary h-1.5 rounded-full" style={{ width: ((resident.week / 16) * 100) + '%' }} />
+                        <div className="bg-indigo-600 h-1.5 rounded-full" style={{ width: ((resident.week / 16) * 100) + '%' }} />
                     </div>
                 </div>
 
@@ -740,18 +740,18 @@ function ResidentDetailModal({ resident, onClose }) {
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Conditions</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Conditions</p>
                     <div className="flex flex-wrap gap-1.5">
                         {resident.conditions.map((c, i) => (
-                            <span key={i} className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-brand-light border border-gray-200 text-brand-dark">{c}</span>
+                            <span key={i} className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200/80 text-slate-800">{c}</span>
                         ))}
                     </div>
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Latest Note</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark">{resident.lastNote}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Latest Note</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800">{resident.lastNote}</p>
                     </div>
                 </div>
             </div>
@@ -768,8 +768,8 @@ function AlertDetailModal({ alert, onClose, onViewResident }) {
                 <div className="flex items-center gap-3">
                     <Icon className={'w-5 h-5 ' + cfg.color} />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{alert.area} Alert</h3>
-                        <p className="text-[11px] text-brand-muted">{alert.time} -- {alert.resident}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{alert.area} Alert</h3>
+                        <p className="text-[11px] text-slate-500">{alert.time} -- {alert.resident}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -778,28 +778,28 @@ function AlertDetailModal({ alert, onClose, onViewResident }) {
             </div>
             <div className="p-6 space-y-4">
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Summary</p>
-                    <p className="text-sm font-medium text-brand-dark">{alert.message}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Summary</p>
+                    <p className="text-sm font-medium text-slate-800">{alert.message}</p>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Detail</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{alert.detail}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Detail</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{alert.detail}</p>
                     </div>
                 </div>
                 {onViewResident && alert.resident && (
                     <button
                         onClick={() => onViewResident(alert.resident)}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-brand-light text-brand-dark text-sm font-medium rounded-xl border border-gray-200 hover:bg-gray-100 transition-colors mb-2"
+                        className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-slate-100 text-slate-800 text-sm font-medium rounded-xl border border-slate-200/80 hover:bg-slate-100 transition-colors mb-2"
                     >
-                        <ExternalLink className="w-4 h-4 text-brand-accent" /> View {alert.resident}'s Profile
+                        <ExternalLink className="w-4 h-4 text-indigo-500" /> View {alert.resident}'s Profile
                     </button>
                 )}
                 <div className="flex gap-2">
-                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors">
+                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors">
                         <CheckCircle2 className="w-4 h-4" /> Acknowledge
                     </button>
-                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-brand-dark text-sm font-semibold rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors">
+                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-slate-800 text-sm font-semibold rounded-xl border border-slate-200/80 hover:bg-slate-50 transition-colors">
                         <FileText className="w-4 h-4" /> Add Note
                     </button>
                 </div>
@@ -816,8 +816,8 @@ function AgendaDetailModal({ item, onClose }) {
                 <div className="flex items-center gap-3">
                     <Calendar className={'w-5 h-5 ' + typeCfg.text} />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{item.event}</h3>
-                        <p className="text-[11px] text-brand-muted">{item.time} -- {item.type}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{item.event}</h3>
+                        <p className="text-[11px] text-slate-500">{item.time} -- {item.type}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -830,13 +830,13 @@ function AgendaDetailModal({ item, onClose }) {
                     <InfoRow icon={MapPin} label="Location" value={item.location} />
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Participants</p>
-                    <p className="text-sm text-brand-dark">{item.participants}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Participants</p>
+                    <p className="text-sm text-slate-800">{item.participants}</p>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Notes</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{item.notes}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Notes</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{item.notes}</p>
                     </div>
                 </div>
             </div>
@@ -846,11 +846,11 @@ function AgendaDetailModal({ item, onClose }) {
 
 function InfoRow({ icon: Icon, label, value }) {
     return (
-        <div className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-            <Icon className="w-3.5 h-3.5 text-brand-muted flex-shrink-0" />
+        <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+            <Icon className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" />
             <div className="min-w-0">
-                <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
-                <p className="text-xs font-medium text-brand-dark truncate">{value}</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider">{label}</p>
+                <p className="text-xs font-medium text-slate-800 truncate">{value}</p>
             </div>
         </div>
     )
@@ -868,7 +868,7 @@ const REPORT_TEMPLATES = {
 function FamilyReportModal({ report, onClose, onSend }) {
     const isEditable = report.mode === 'edit' || report.mode === 'generate'
     const modeConfig = {
-        generate: { title: 'Generate Report', icon: FileText, color: 'text-brand-primary', bg: 'bg-brand-light' },
+        generate: { title: 'Generate Report', icon: FileText, color: 'text-indigo-600', bg: 'bg-slate-100' },
         edit: { title: 'Edit Draft Report', icon: Edit3, color: 'text-blue-600', bg: 'bg-blue-50' },
         view: { title: 'View Delivered Report', icon: Eye, color: 'text-emerald-600', bg: 'bg-emerald-50' },
     }
@@ -897,8 +897,8 @@ function FamilyReportModal({ report, onClose, onSend }) {
                 <div className="flex items-center gap-3">
                     <Icon className={'w-5 h-5 ' + cfg.color} />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{cfg.title}</h3>
-                        <p className="text-[11px] text-brand-muted">{report.resident} -- Due: {report.dueDate}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{cfg.title}</h3>
+                        <p className="text-[11px] text-slate-500">{report.resident} -- Due: {report.dueDate}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -926,17 +926,17 @@ function FamilyReportModal({ report, onClose, onSend }) {
                 )}
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Report Content</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Report Content</p>
                     {isEditable && !sent ? (
                         <textarea
                             rows={10}
                             value={content}
                             onChange={e => setContent(e.target.value)}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark leading-relaxed"
+                            className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800 leading-relaxed"
                         />
                     ) : (
-                        <div className="p-4 rounded-lg bg-gray-50 border border-gray-100">
-                            <p className="text-sm text-brand-dark leading-relaxed">{content}</p>
+                        <div className="p-4 rounded-lg bg-slate-50 border border-slate-100">
+                            <p className="text-sm text-slate-800 leading-relaxed">{content}</p>
                         </div>
                     )}
                 </div>
@@ -945,7 +945,7 @@ function FamilyReportModal({ report, onClose, onSend }) {
                     <div className="flex gap-2">
                         <button
                             onClick={handleSave}
-                            className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors"
+                            className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"
                         >
                             <Save className="w-4 h-4" /> Save Draft
                         </button>
@@ -964,11 +964,11 @@ function FamilyReportModal({ report, onClose, onSend }) {
 
 function ProfileField({ icon: Icon, label, value, valueColor }) {
     return (
-        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-gray-50 border border-gray-100">
-            <Icon className="w-4 h-4 text-brand-muted flex-shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-slate-50 border border-slate-100">
+            <Icon className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
             <div className="min-w-0">
-                <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
-                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-brand-dark')}>{value}</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider">{label}</p>
+                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-slate-800')}>{value}</p>
             </div>
         </div>
     )
@@ -1002,12 +1002,12 @@ function ProfileEditModal({ profile, onClose, onSave }) {
 
     return (
         <div>
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-brand-light">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-100">
                 <div className="flex items-center gap-3">
-                    <Pencil className="w-5 h-5 text-brand-accent" />
+                    <Pencil className="w-5 h-5 text-indigo-500" />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">Edit Profile</h3>
-                        <p className="text-[11px] text-brand-muted">Update your personal and professional information</p>
+                        <h3 className="text-sm font-bold text-slate-800">Edit Profile</h3>
+                        <p className="text-[11px] text-slate-500">Update your personal and professional information</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -1018,33 +1018,33 @@ function ProfileEditModal({ profile, onClose, onSave }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {fields.map(f => (
                         <div key={f.key}>
-                            <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">{f.label}</label>
+                            <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">{f.label}</label>
                             <input
                                 type={f.type}
                                 value={form[f.key] || ''}
                                 onChange={e => update(f.key, e.target.value)}
-                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent text-brand-dark"
+                                className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-slate-800"
                             />
                         </div>
                     ))}
                 </div>
                 <div>
-                    <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">Bio</label>
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Bio</label>
                     <textarea
                         rows={3}
                         value={form.bio || ''}
                         onChange={e => update('bio', e.target.value)}
-                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark"
+                        className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800"
                     />
                 </div>
             </div>
-            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-2">
-                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-gray-200 text-brand-dark hover:bg-gray-50 transition-colors">
+            <div className="px-6 py-4 border-t border-slate-100 flex justify-end gap-2">
+                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-slate-200/80 text-slate-800 hover:bg-slate-50 transition-colors">
                     Cancel
                 </button>
                 <button
                     onClick={handleSave}
-                    className="flex items-center gap-2 px-5 py-2 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors"
+                    className="flex items-center gap-2 px-5 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"
                 >
                     <Save className="w-4 h-4" /> Save Changes
                 </button>

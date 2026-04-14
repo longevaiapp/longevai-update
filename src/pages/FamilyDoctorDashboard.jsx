@@ -207,8 +207,8 @@ const MED_TYPE_STYLE = {
     start: { label: 'Started', color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' },
     increase: { label: 'Increased', color: 'text-amber-700', bg: 'bg-amber-50', border: 'border-amber-200' },
     decrease: { label: 'Decreased', color: 'text-blue-700', bg: 'bg-blue-50', border: 'border-blue-200' },
-    maintain: { label: 'Maintained', color: 'text-brand-muted', bg: 'bg-gray-50', border: 'border-gray-200' },
-    review: { label: 'Reviewed', color: 'text-brand-primary', bg: 'bg-brand-light', border: 'border-brand-primary/20' },
+    maintain: { label: 'Maintained', color: 'text-slate-500', bg: 'bg-slate-50', border: 'border-slate-200/80' },
+    review: { label: 'Reviewed', color: 'text-indigo-600', bg: 'bg-slate-100', border: 'border-indigo-600/20' },
     stop: { label: 'Stopped', color: 'text-red-700', bg: 'bg-red-50', border: 'border-red-200' },
 }
 
@@ -260,47 +260,47 @@ export default function FamilyDoctorDashboard() {
             {/* Date Bar + Profile */}
             <div className="flex items-center justify-between mb-4 px-1">
                 <div className="flex items-center gap-2">
-                    <CalendarDays className="w-4 h-4 text-brand-accent" />
-                    <span className="text-sm font-semibold text-brand-dark">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                    <CalendarDays className="w-4 h-4 text-indigo-500" />
+                    <span className="text-sm font-semibold text-slate-800">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
                 </div>
                 <button
                     onClick={() => setActiveSection('profile')}
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-gray-200 hover:border-brand-accent/30 hover:shadow-sm transition-all"
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200/80 hover:border-indigo-500/30 hover:shadow-sm transition-all"
                 >
-                    <div className="w-5 h-5 rounded-full bg-brand-primary/10 flex items-center justify-center">
-                        <UserCircle className="w-3.5 h-3.5 text-brand-primary" />
+                    <div className="w-5 h-5 rounded-full bg-indigo-600/10 flex items-center justify-center">
+                        <UserCircle className="w-3.5 h-3.5 text-indigo-600" />
                     </div>
-                    <span className="text-[11px] font-medium text-brand-dark hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
+                    <span className="text-[11px] font-medium text-slate-800 hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
                 </button>
             </div>
 
             {/* Resident Selector */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6">
+            <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 mb-6">
                 <div className="flex flex-wrap items-center gap-4">
                     <div className="flex items-center gap-2">
-                        <UserCheck className="w-5 h-5 text-brand-accent" />
-                        <span className="text-sm font-semibold text-brand-dark">Patient:</span>
+                        <UserCheck className="w-5 h-5 text-indigo-500" />
+                        <span className="text-sm font-semibold text-slate-800">Patient:</span>
                     </div>
                     <div className="relative">
                         <select
                             value={selectedResident.id}
                             onChange={e => setSelectedResident(RESIDENTS_LIST.find(r => r.id === Number(e.target.value)))}
-                            className="appearance-none bg-brand-light border border-gray-200 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-accent/30"
+                            className="appearance-none bg-slate-100 border border-slate-200/80 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
                         >
                             {RESIDENTS_LIST.map(r => (
                                 <option key={r.id} value={r.id}>{r.name} (Rm {r.room})</option>
                             ))}
                         </select>
-                        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-muted pointer-events-none" />
+                        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
                     </div>
-                    <div className="flex flex-wrap gap-3 text-xs text-brand-muted">
-                        <span>Age: <strong className="text-brand-dark">{selectedResident.age}</strong></span>
-                        <span>Week: <strong className="text-brand-dark">{selectedResident.week}/16</strong></span>
-                        <span>Doctor: <strong className="text-brand-dark">{selectedResident.doctor}</strong></span>
+                    <div className="flex flex-wrap gap-3 text-xs text-slate-500">
+                        <span>Age: <strong className="text-slate-800">{selectedResident.age}</strong></span>
+                        <span>Week: <strong className="text-slate-800">{selectedResident.week}/16</strong></span>
+                        <span>Doctor: <strong className="text-slate-800">{selectedResident.doctor}</strong></span>
                     </div>
                     <div className="ml-auto flex flex-wrap gap-1.5">
                         {selectedResident.conditions.map((c, i) => (
-                            <span key={i} className="text-[10px] font-medium px-2 py-0.5 rounded-lg bg-brand-light border border-gray-200 text-brand-dark">{c}</span>
+                            <span key={i} className="text-[10px] font-medium px-2 py-0.5 rounded-lg bg-slate-100 border border-slate-200/80 text-slate-800">{c}</span>
                         ))}
                     </div>
                 </div>
@@ -335,7 +335,7 @@ export default function FamilyDoctorDashboard() {
                                     </AreaChart>
                                 </ResponsiveContainer>
                             </div>
-                            <div className="flex gap-3 mt-2 text-[10px] text-brand-muted">
+                            <div className="flex gap-3 mt-2 text-[10px] text-slate-500">
                                 <span className={'px-2 py-0.5 rounded border ' + (bpOk ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-red-50 border-red-200 text-red-700')}>
                                     {bpOk ? 'Within target (<140/90)' : 'Above target (>140/90)'}
                                 </span>
@@ -357,7 +357,7 @@ export default function FamilyDoctorDashboard() {
                                     </LineChart>
                                 </ResponsiveContainer>
                             </div>
-                            <div className="flex gap-3 mt-2 text-[10px] text-brand-muted flex-wrap">
+                            <div className="flex gap-3 mt-2 text-[10px] text-slate-500 flex-wrap">
                                 <span className={'px-2 py-0.5 rounded border ' + (glucOk ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-amber-50 border-amber-200 text-amber-700')}>
                                     Glucose {glucOk ? 'in range' : 'check'} (80-130)
                                 </span>
@@ -379,7 +379,7 @@ export default function FamilyDoctorDashboard() {
                                 <div
                                     key={m.id}
                                     onClick={() => setSelectedMedication(m)}
-                                    className="flex items-center gap-3 p-3 rounded-lg border border-gray-100 bg-white hover:shadow-md cursor-pointer transition-all relative group"
+                                    className="flex items-center gap-3 p-3 rounded-lg border border-slate-100 bg-white hover:shadow-md cursor-pointer transition-all relative group"
                                 >
                                     {i < data.medications.length - 1 && (
                                         <div className="absolute left-[22px] top-12 bottom-0 w-px bg-gray-200" />
@@ -387,12 +387,12 @@ export default function FamilyDoctorDashboard() {
                                     <div className={'w-3.5 h-3.5 rounded-full flex-shrink-0 border-2 ' + ms.border + ' ' + ms.bg} />
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2">
-                                            <span className="text-sm font-semibold text-brand-dark">{m.drug}</span>
-                                            <span className="text-[10px] text-brand-muted">{m.dose}</span>
+                                            <span className="text-sm font-semibold text-slate-800">{m.drug}</span>
+                                            <span className="text-[10px] text-slate-500">{m.dose}</span>
                                             <span className={'text-[10px] font-semibold uppercase px-1.5 py-0.5 rounded ' + ms.bg + ' ' + ms.color}>{ms.label}</span>
                                         </div>
-                                        <p className="text-xs text-brand-muted mt-0.5">{m.change}</p>
-                                        <div className="flex items-center gap-2 mt-0.5 text-[10px] text-brand-muted">
+                                        <p className="text-xs text-slate-500 mt-0.5">{m.change}</p>
+                                        <div className="flex items-center gap-2 mt-0.5 text-[10px] text-slate-500">
                                             <span>{m.date}</span>
                                             <span>by {m.doctor}</span>
                                         </div>
@@ -414,8 +414,8 @@ export default function FamilyDoctorDashboard() {
                     {data.incidents.length === 0 ? (
                         <div className="text-center py-8">
                             <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
-                            <p className="text-sm font-medium text-brand-dark">No incidents recorded</p>
-                            <p className="text-xs text-brand-muted mt-1">Clean record for this patient</p>
+                            <p className="text-sm font-medium text-slate-800">No incidents recorded</p>
+                            <p className="text-xs text-slate-500 mt-1">Clean record for this patient</p>
                         </div>
                     ) : (
                         <div className="space-y-3">
@@ -430,7 +430,7 @@ export default function FamilyDoctorDashboard() {
                                         <div className="flex items-center justify-between mb-1.5">
                                             <div className="flex items-center gap-2">
                                                 <span className={'text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ' + ss.badge}>{inc.severity}</span>
-                                                <span className="text-sm font-semibold text-brand-dark">{inc.type}</span>
+                                                <span className="text-sm font-semibold text-slate-800">{inc.type}</span>
                                             </div>
                                             <div className="flex items-center gap-1.5">
                                                 {inc.status === 'resolved' ? (
@@ -438,11 +438,11 @@ export default function FamilyDoctorDashboard() {
                                                 ) : (
                                                     <AlertCircle className="w-3.5 h-3.5 text-red-500" />
                                                 )}
-                                                <span className="text-[10px] text-brand-muted capitalize">{inc.status}</span>
+                                                <span className="text-[10px] text-slate-500 capitalize">{inc.status}</span>
                                             </div>
                                         </div>
-                                        <p className="text-xs text-brand-muted">{inc.response}</p>
-                                        <div className="flex items-center gap-3 mt-1.5 text-[10px] text-brand-muted">
+                                        <p className="text-xs text-slate-500">{inc.response}</p>
+                                        <div className="flex items-center gap-3 mt-1.5 text-[10px] text-slate-500">
                                             <span>{inc.date} at {inc.time}</span>
                                             <span>{inc.location}</span>
                                             <span>By: {inc.reporter}</span>
@@ -463,12 +463,12 @@ export default function FamilyDoctorDashboard() {
                             <div
                                 key={s.id}
                                 onClick={() => setSelectedSpecialist(s)}
-                                className={'p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ' + (s.status === 'urgent' ? 'border-red-200 bg-red-50/50' : 'border-gray-100 bg-gray-50')}
+                                className={'p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ' + (s.status === 'urgent' ? 'border-red-200 bg-red-50/50' : 'border-slate-100 bg-slate-50')}
                             >
                                 <div className="flex items-center justify-between mb-2">
                                     <div className="flex items-center gap-2">
-                                        <Microscope className="w-4 h-4 text-brand-accent" />
-                                        <span className="text-sm font-semibold text-brand-dark">{s.specialist}</span>
+                                        <Microscope className="w-4 h-4 text-indigo-500" />
+                                        <span className="text-sm font-semibold text-slate-800">{s.specialist}</span>
                                     </div>
                                     <div className="flex items-center gap-1.5">
                                         {s.status === 'urgent' ? (
@@ -479,15 +479,15 @@ export default function FamilyDoctorDashboard() {
                                         <span className={'text-[10px] font-semibold uppercase ' + (s.status === 'urgent' ? 'text-red-600' : 'text-emerald-600')}>{s.status}</span>
                                     </div>
                                 </div>
-                                <p className="text-xs text-brand-muted mb-2">{s.update}</p>
-                                <div className="p-2 rounded-lg bg-brand-primary/5 border border-brand-primary/10 mb-2">
-                                    <p className="text-[11px] text-brand-primary font-medium">Clinical implication: {s.implications}</p>
+                                <p className="text-xs text-slate-500 mb-2">{s.update}</p>
+                                <div className="p-2 rounded-lg bg-indigo-600/5 border border-indigo-600/10 mb-2">
+                                    <p className="text-[11px] text-indigo-600 font-medium">Clinical implication: {s.implications}</p>
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-1 text-[10px] text-brand-muted">
+                                    <div className="flex items-center gap-1 text-[10px] text-slate-500">
                                         <Clock className="w-3 h-3" /> {s.date}
                                     </div>
-                                    <span className="text-[10px] font-semibold text-brand-primary flex items-center gap-1">
+                                    <span className="text-[10px] font-semibold text-indigo-600 flex items-center gap-1">
                                         View full report <ChevronRight className="w-3 h-3" />
                                     </span>
                                 </div>
@@ -515,23 +515,23 @@ export default function FamilyDoctorDashboard() {
                                     onClick={() => setSelectedKpi(kpi)}
                                     className={'p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ' + bgClass}
                                 >
-                                    <p className="text-[11px] text-brand-muted uppercase font-semibold tracking-wider">{kpi.label}</p>
+                                    <p className="text-[11px] text-slate-500 uppercase font-semibold tracking-wider">{kpi.label}</p>
                                     <div className="flex items-end gap-2 mt-1">
                                         <span className={'text-3xl font-bold ' + colorClass}>{kpi.value}{kpi.unit === '%' ? '%' : ''}</span>
-                                        <span className="text-xs text-brand-muted mb-1">/ {kpi.target}{kpi.unit === '%' ? '%' : ' ' + kpi.unit}</span>
+                                        <span className="text-xs text-slate-500 mb-1">/ {kpi.target}{kpi.unit === '%' ? '%' : ' ' + kpi.unit}</span>
                                     </div>
                                     <div className="flex items-center gap-1 mt-1.5">
                                         {kpi.trend === 'up' && <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />}
                                         {kpi.trend === 'down' && <TrendingDown className="w-3.5 h-3.5 text-red-500" />}
-                                        {kpi.trend === 'stable' && <Minus className="w-3.5 h-3.5 text-brand-muted" />}
-                                        <span className="text-[10px] text-brand-muted capitalize">{kpi.trend}</span>
+                                        {kpi.trend === 'stable' && <Minus className="w-3.5 h-3.5 text-slate-500" />}
+                                        <span className="text-[10px] text-slate-500 capitalize">{kpi.trend}</span>
                                     </div>
                                     {!isGood && (
                                         <div className="mt-2 h-1.5 bg-gray-200 rounded-full">
                                             <div className={'h-1.5 rounded-full transition-all ' + (isWarn ? 'bg-amber-400' : 'bg-red-400')} style={{ width: Math.min(100, (kpi.value / kpi.target) * 100) + '%' }} />
                                         </div>
                                     )}
-                                    <p className="text-[10px] text-brand-muted mt-1.5 flex items-center gap-1">
+                                    <p className="text-[10px] text-slate-500 mt-1.5 flex items-center gap-1">
                                         <Info className="w-3 h-3" /> Click for details
                                     </p>
                                 </div>
@@ -569,30 +569,30 @@ export default function FamilyDoctorDashboard() {
                             { key: 'referrals', label: 'Referrals & Next Steps', placeholder: 'Specialist referrals, lab orders, next review date...' },
                         ].map(f => (
                             <div key={f.key}>
-                                <label className="block text-xs font-semibold text-brand-muted uppercase tracking-wider mb-1.5">{f.label}</label>
+                                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">{f.label}</label>
                                 <textarea
                                     rows={4}
                                     value={weeklyNotes[f.key]}
                                     onChange={e => setWeeklyNotes({ ...weeklyNotes, [f.key]: e.target.value })}
-                                    className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark placeholder-brand-muted/50"
+                                    className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800 placeholder-slate-500/50"
                                     placeholder={f.placeholder}
                                 />
                             </div>
                         ))}
                     </div>
                     <div className="mt-4">
-                        <label className="block text-xs font-semibold text-brand-muted uppercase tracking-wider mb-1.5">Next Review Date</label>
+                        <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Next Review Date</label>
                         <input
                             type="date"
                             value={nextReviewDate}
                             onChange={e => setNextReviewDate(e.target.value)}
-                            className="px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent text-brand-dark"
+                            className="px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-slate-800"
                         />
                     </div>
                     <div className="flex justify-end mt-4">
                         <button
                             onClick={handleReviewSubmit}
-                            className="flex items-center gap-2 px-5 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors"
+                            className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"
                         >
                             <Send className="w-4 h-4" /> Submit Weekly Review
                         </button>
@@ -603,32 +603,32 @@ export default function FamilyDoctorDashboard() {
             {/* ── SECTION: MY PROFILE ── */}
             {activeSection === 'profile' && (
                 <div className="space-y-6">
-                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                        <div className="bg-gradient-to-r from-brand-primary/10 via-brand-accent/5 to-transparent px-6 py-5 border-b border-gray-100">
+                    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                        <div className="bg-gradient-to-r from-indigo-600/10 via-indigo-500/5 to-transparent px-6 py-5 border-b border-slate-100">
                             <div className="flex items-start gap-4">
-                                <div className="w-16 h-16 rounded-2xl bg-brand-primary/10 border-2 border-brand-primary/20 flex items-center justify-center flex-shrink-0">
-                                    <UserCircle className="w-8 h-8 text-brand-primary" />
+                                <div className="w-16 h-16 rounded-2xl bg-indigo-600/10 border-2 border-indigo-600/20 flex items-center justify-center flex-shrink-0">
+                                    <UserCircle className="w-8 h-8 text-indigo-600" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="text-xl font-bold text-brand-dark">{profile.name}</h3>
-                                    <p className="text-sm text-brand-accent font-medium">{profile.title}</p>
-                                    <p className="text-xs text-brand-muted mt-1">{profile.institution}</p>
+                                    <h3 className="text-xl font-bold text-slate-800">{profile.name}</h3>
+                                    <p className="text-sm text-indigo-500 font-medium">{profile.title}</p>
+                                    <p className="text-xs text-slate-500 mt-1">{profile.institution}</p>
                                     <div className="flex items-center gap-3 mt-2 flex-wrap">
-                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-brand-primary/10 text-brand-primary border border-brand-primary/20">{profile.license}</span>
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Users2 className="w-3 h-3" /> {profile.residentsManaged} patients</span>
+                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-indigo-600/10 text-indigo-600 border border-indigo-600/20">{profile.license}</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Users2 className="w-3 h-3" /> {profile.residentsManaged} patients</span>
                                     </div>
                                 </div>
                                 <button
                                     onClick={() => setEditingProfile(true)}
-                                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-gray-200 text-brand-dark hover:border-brand-accent hover:shadow-sm transition-all"
+                                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-slate-200/80 text-slate-800 hover:border-indigo-500 hover:shadow-sm transition-all"
                                 >
-                                    <Pencil className="w-3.5 h-3.5 text-brand-accent" /> Edit Profile
+                                    <Pencil className="w-3.5 h-3.5 text-indigo-500" /> Edit Profile
                                 </button>
                             </div>
                         </div>
                         <div className="p-6">
-                            <p className="text-sm text-brand-dark leading-relaxed mb-5">{profile.bio}</p>
+                            <p className="text-sm text-slate-800 leading-relaxed mb-5">{profile.bio}</p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <ProfileField icon={GraduationCap} label="Education" value={profile.education} />
                                 <ProfileField icon={FileText} label="Certifications" value={profile.certifications} />
@@ -686,24 +686,24 @@ export default function FamilyDoctorDashboard() {
 
 function VitalCard({ icon: Icon, label, value, unit, ok, target }) {
     return (
-        <div className={'rounded-xl border p-3 text-center ' + (ok ? 'bg-white border-gray-200' : 'bg-red-50 border-red-200')}>
-            <Icon className={'w-4 h-4 mx-auto mb-1 ' + (ok ? 'text-brand-accent' : 'text-red-500')} />
-            <p className="text-[10px] text-brand-muted uppercase font-semibold tracking-wider">{label}</p>
-            <p className={'text-lg font-bold mt-0.5 ' + (ok ? 'text-brand-dark' : 'text-red-600')}>{value}</p>
-            {unit && <p className="text-[10px] text-brand-muted">{unit}</p>}
-            {target && <p className="text-[9px] text-brand-muted mt-0.5">Target: {target}</p>}
+        <div className={'rounded-xl border p-3 text-center ' + (ok ? 'bg-white border-slate-200/80' : 'bg-red-50 border-red-200')}>
+            <Icon className={'w-4 h-4 mx-auto mb-1 ' + (ok ? 'text-indigo-500' : 'text-red-500')} />
+            <p className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider">{label}</p>
+            <p className={'text-lg font-bold mt-0.5 ' + (ok ? 'text-slate-800' : 'text-red-600')}>{value}</p>
+            {unit && <p className="text-[10px] text-slate-500">{unit}</p>}
+            {target && <p className="text-[9px] text-slate-500 mt-0.5">Target: {target}</p>}
         </div>
     )
 }
 
 function SectionCard({ title, icon: Icon, subtitle, children }) {
     return (
-        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center gap-3">
-                <Icon className="w-5 h-5 text-brand-accent" />
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
+                <Icon className="w-5 h-5 text-indigo-500" />
                 <div>
-                    <h3 className="text-sm font-semibold text-brand-dark">{title}</h3>
-                    {subtitle && <p className="text-[11px] text-brand-muted">{subtitle}</p>}
+                    <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
+                    {subtitle && <p className="text-[11px] text-slate-500">{subtitle}</p>}
                 </div>
             </div>
             <div className="p-5">{children}</div>
@@ -728,11 +728,11 @@ function Modal({ onClose, children }) {
 
 function InfoRow({ icon: Icon, label, value }) {
     return (
-        <div className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-            <Icon className="w-3.5 h-3.5 text-brand-muted flex-shrink-0" />
+        <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+            <Icon className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" />
             <div className="min-w-0">
-                <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
-                <p className="text-xs font-medium text-brand-dark truncate">{value}</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider">{label}</p>
+                <p className="text-xs font-medium text-slate-800 truncate">{value}</p>
             </div>
         </div>
     )
@@ -749,11 +749,11 @@ function MedicationDetailModal({ med, onClose }) {
             <div className={'px-6 py-4 border-b flex items-center justify-between ' + ms.bg + ' ' + ms.border}>
                 <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-lg bg-white/80 flex items-center justify-center">
-                        <Pill className="w-5 h-5 text-brand-primary" />
+                        <Pill className="w-5 h-5 text-indigo-600" />
                     </div>
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{med.drug}</h3>
-                        <p className="text-[11px] text-brand-muted">{med.dose} -- {med.date}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{med.drug}</h3>
+                        <p className="text-[11px] text-slate-500">{med.dose} -- {med.date}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -763,31 +763,31 @@ function MedicationDetailModal({ med, onClose }) {
             <div className="p-6 space-y-4">
                 <div className="flex items-center gap-2">
                     <span className={'text-[10px] font-bold uppercase px-2 py-0.5 rounded ' + ms.bg + ' ' + ms.color}>{ms.label}</span>
-                    <span className="text-xs text-brand-muted">by {med.doctor}</span>
+                    <span className="text-xs text-slate-500">by {med.doctor}</span>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-1">Change</p>
-                    <p className="text-sm text-brand-dark">{med.change}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Change</p>
+                    <p className="text-sm text-slate-800">{med.change}</p>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-1">Reason</p>
-                    <p className="text-sm text-brand-dark">{med.reason}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Reason</p>
+                    <p className="text-sm text-slate-800">{med.reason}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                     <InfoRow icon={AlertTriangle} label="Interactions" value={med.interactions} />
                     <InfoRow icon={Activity} label="Side Effects" value={med.sideEffects} />
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Clinical Notes</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{med.notes}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Clinical Notes</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{med.notes}</p>
                     </div>
                 </div>
                 <div className="flex gap-2">
-                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors">
+                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors">
                         <Pill className="w-4 h-4" /> Adjust Dose
                     </button>
-                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-brand-dark text-sm font-semibold rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors">
+                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-slate-800 text-sm font-semibold rounded-xl border border-slate-200/80 hover:bg-slate-50 transition-colors">
                         <AlertTriangle className="w-4 h-4" /> Flag Interaction
                     </button>
                 </div>
@@ -804,8 +804,8 @@ function IncidentDetailModal({ incident, onClose }) {
                 <div className="flex items-center gap-3">
                     <AlertTriangle className={'w-5 h-5 ' + ss.text} />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{incident.type}</h3>
-                        <p className="text-[11px] text-brand-muted">{incident.date} at {incident.time}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{incident.type}</h3>
+                        <p className="text-[11px] text-slate-500">{incident.date} at {incident.time}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -821,7 +821,7 @@ function IncidentDetailModal({ incident, onClose }) {
                         ) : (
                             <AlertCircle className="w-3.5 h-3.5 text-red-500" />
                         )}
-                        <span className="text-[10px] text-brand-muted capitalize">{incident.status}</span>
+                        <span className="text-[10px] text-slate-500 capitalize">{incident.status}</span>
                     </div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -829,24 +829,24 @@ function IncidentDetailModal({ incident, onClose }) {
                     <InfoRow icon={UserCheck} label="Reporter" value={incident.reporter} />
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Initial Response</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{incident.response}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Initial Response</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{incident.response}</p>
                     </div>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Follow-Up</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{incident.followUp}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Follow-Up</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{incident.followUp}</p>
                     </div>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Nursing Instructions</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Nursing Instructions</p>
                     <div className="p-3 rounded-lg bg-blue-50 border border-blue-200">
                         <p className="text-sm text-blue-800 leading-relaxed">{incident.nursingInstructions}</p>
                     </div>
                 </div>
-                <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors">
+                <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors">
                     <Plus className="w-4 h-4" /> Add Follow-up Note
                 </button>
             </div>
@@ -873,12 +873,12 @@ function SpecialistDetailModal({ specialist, resident, onClose }) {
 
     return (
         <div>
-            <div className={'px-6 py-4 border-b flex items-center justify-between ' + (isUrgent ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200')}>
+            <div className={'px-6 py-4 border-b flex items-center justify-between ' + (isUrgent ? 'bg-red-50 border-red-200' : 'bg-slate-50 border-slate-200/80')}>
                 <div className="flex items-center gap-3">
-                    <Microscope className={'w-5 h-5 ' + (isUrgent ? 'text-red-600' : 'text-brand-accent')} />
+                    <Microscope className={'w-5 h-5 ' + (isUrgent ? 'text-red-600' : 'text-indigo-500')} />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{specialist.specialist}</h3>
-                        <p className="text-[11px] text-brand-muted">Report for {resident}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{specialist.specialist}</h3>
+                        <p className="text-[11px] text-slate-500">Report for {resident}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -895,24 +895,24 @@ function SpecialistDetailModal({ specialist, resident, onClose }) {
                         )}
                         <span className={'text-xs font-semibold uppercase ' + (isUrgent ? 'text-red-600' : 'text-emerald-600')}>{specialist.status}</span>
                     </div>
-                    <div className="flex items-center gap-1 text-[10px] text-brand-muted">
+                    <div className="flex items-center gap-1 text-[10px] text-slate-500">
                         <Clock className="w-3 h-3" /> {specialist.date}
                     </div>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Summary</p>
-                    <p className="text-sm font-medium text-brand-dark">{specialist.update}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Summary</p>
+                    <p className="text-sm font-medium text-slate-800">{specialist.update}</p>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Clinical Implications</p>
-                    <div className="p-3 rounded-lg bg-brand-primary/5 border border-brand-primary/10">
-                        <p className="text-sm text-brand-primary leading-relaxed">{specialist.implications}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Clinical Implications</p>
+                    <div className="p-3 rounded-lg bg-indigo-600/5 border border-indigo-600/10">
+                        <p className="text-sm text-indigo-600 leading-relaxed">{specialist.implications}</p>
                     </div>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Full Report</p>
-                    <div className="p-4 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{specialist.fullReport}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Full Report</p>
+                    <div className="p-4 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{specialist.fullReport}</p>
                     </div>
                 </div>
 
@@ -941,12 +941,12 @@ function SpecialistDetailModal({ specialist, resident, onClose }) {
                 {/* Clarification form */}
                 {showClarificationForm && !clarificationSent && (
                     <div className="space-y-2" style={{ animation: 'modalIn 0.2s ease-out' }}>
-                        <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider">Message to {specialist.specialist}</p>
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Message to {specialist.specialist}</p>
                         <textarea
                             rows={3}
                             value={clarificationText}
                             onChange={e => setClarificationText(e.target.value)}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 resize-none text-brand-dark placeholder-brand-muted/50"
+                            className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 resize-none text-slate-800 placeholder-slate-500/50"
                             placeholder={'Describe what you need clarified from ' + specialist.specialist + '...'}
                             autoFocus
                         />
@@ -960,7 +960,7 @@ function SpecialistDetailModal({ specialist, resident, onClose }) {
                             </button>
                             <button
                                 onClick={() => { setShowClarificationForm(false); setClarificationText('') }}
-                                className="px-4 py-2 text-sm font-medium text-brand-muted rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors"
+                                className="px-4 py-2 text-sm font-medium text-slate-500 rounded-xl border border-slate-200/80 hover:bg-slate-50 transition-colors"
                             >
                                 Cancel
                             </button>
@@ -974,14 +974,14 @@ function SpecialistDetailModal({ specialist, resident, onClose }) {
                         <button
                             onClick={handleAcknowledge}
                             disabled={acknowledged}
-                            className={'flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors ' + (acknowledged ? 'bg-emerald-100 text-emerald-700 cursor-default' : 'bg-brand-primary text-white hover:bg-brand-primary-dark')}
+                            className={'flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors ' + (acknowledged ? 'bg-emerald-100 text-emerald-700 cursor-default' : 'bg-indigo-600 text-white hover:bg-indigo-700')}
                         >
                             <CheckCircle2 className="w-4 h-4" /> {acknowledged ? 'Acknowledged' : 'Acknowledge'}
                         </button>
                         <button
                             onClick={() => setShowClarificationForm(true)}
                             disabled={clarificationSent}
-                            className={'flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors ' + (clarificationSent ? 'bg-blue-100 text-blue-700 cursor-default' : 'bg-white text-brand-dark border border-gray-200 hover:bg-gray-50')}
+                            className={'flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors ' + (clarificationSent ? 'bg-blue-100 text-blue-700 cursor-default' : 'bg-white text-slate-800 border border-slate-200/80 hover:bg-slate-50')}
                         >
                             <Send className="w-4 h-4" /> {clarificationSent ? 'Sent' : 'Request Clarification'}
                         </button>
@@ -1006,8 +1006,8 @@ function KpiDetailModal({ kpi, resident, onClose }) {
                 <div className="flex items-center gap-3">
                     <BarChart3 className={'w-5 h-5 ' + colorClass} />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{kpi.label}</h3>
-                        <p className="text-[11px] text-brand-muted">{resident}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{kpi.label}</h3>
+                        <p className="text-[11px] text-slate-500">{resident}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -1017,12 +1017,12 @@ function KpiDetailModal({ kpi, resident, onClose }) {
             <div className="p-6 space-y-4">
                 <div className="text-center py-4">
                     <p className={'text-5xl font-bold ' + colorClass}>{kpi.value}{kpi.unit === '%' ? '%' : ''}</p>
-                    <p className="text-sm text-brand-muted mt-1">Target: {kpi.target}{kpi.unit === '%' ? '%' : ' ' + kpi.unit}</p>
+                    <p className="text-sm text-slate-500 mt-1">Target: {kpi.target}{kpi.unit === '%' ? '%' : ' ' + kpi.unit}</p>
                     <div className="flex items-center justify-center gap-1.5 mt-2">
                         {kpi.trend === 'up' && <TrendingUp className="w-4 h-4 text-emerald-500" />}
                         {kpi.trend === 'down' && <TrendingDown className="w-4 h-4 text-red-500" />}
-                        {kpi.trend === 'stable' && <Minus className="w-4 h-4 text-brand-muted" />}
-                        <span className="text-xs text-brand-muted capitalize">Trend: {kpi.trend}</span>
+                        {kpi.trend === 'stable' && <Minus className="w-4 h-4 text-slate-500" />}
+                        <span className="text-xs text-slate-500 capitalize">Trend: {kpi.trend}</span>
                     </div>
                 </div>
                 {!isGood && (
@@ -1031,23 +1031,23 @@ function KpiDetailModal({ kpi, resident, onClose }) {
                     </div>
                 )}
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Detail</p>
-                    <div className="p-4 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{kpi.detail}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Detail</p>
+                    <div className="p-4 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{kpi.detail}</p>
                     </div>
                 </div>
 
                 {/* Historical Trend Toggle */}
                 <button
                     onClick={() => setShowChart(v => !v)}
-                    className={'w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors ' + (showChart ? 'bg-brand-primary text-white hover:bg-brand-primary-dark' : 'bg-white text-brand-dark border border-gray-200 hover:bg-gray-50')}
+                    className={'w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors ' + (showChart ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-white text-slate-800 border border-slate-200/80 hover:bg-slate-50')}
                 >
                     <Eye className="w-4 h-4" /> {showChart ? 'Hide Historical Trend' : 'View Historical Trend'}
                 </button>
 
                 {showChart && kpi.history && kpi.history.length > 0 && (
                     <div className="pt-2 space-y-3" style={{ animation: 'modalIn 0.2s ease-out' }}>
-                        <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider">Historical Trend</p>
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Historical Trend</p>
                         <div className="h-48">
                             <ResponsiveContainer width="100%" height="100%">
                                 <LineChart data={kpi.history} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
@@ -1062,7 +1062,7 @@ function KpiDetailModal({ kpi, resident, onClose }) {
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>
-                        <div className="flex items-center justify-center gap-4 text-[10px] text-brand-muted">
+                        <div className="flex items-center justify-center gap-4 text-[10px] text-slate-500">
                             <div className="flex items-center gap-1">
                                 <div className="w-3 h-0.5 rounded" style={{ backgroundColor: strokeColor }} />
                                 <span>Actual</span>
@@ -1083,11 +1083,11 @@ function KpiDetailModal({ kpi, resident, onClose }) {
 
 function ProfileField({ icon: Icon, label, value, valueColor }) {
     return (
-        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-gray-50 border border-gray-100">
-            <Icon className="w-4 h-4 text-brand-muted flex-shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-slate-50 border border-slate-100">
+            <Icon className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
             <div className="min-w-0">
-                <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
-                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-brand-dark')}>{value}</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider">{label}</p>
+                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-slate-800')}>{value}</p>
             </div>
         </div>
     )
@@ -1114,12 +1114,12 @@ function ProfileEditModal({ profile, onClose, onSave }) {
 
     return (
         <div>
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-brand-light">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-100">
                 <div className="flex items-center gap-3">
-                    <Pencil className="w-5 h-5 text-brand-accent" />
+                    <Pencil className="w-5 h-5 text-indigo-500" />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">Edit Profile</h3>
-                        <p className="text-[11px] text-brand-muted">Update your personal and professional information</p>
+                        <h3 className="text-sm font-bold text-slate-800">Edit Profile</h3>
+                        <p className="text-[11px] text-slate-500">Update your personal and professional information</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -1130,33 +1130,33 @@ function ProfileEditModal({ profile, onClose, onSave }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {fields.map(f => (
                         <div key={f.key}>
-                            <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">{f.label}</label>
+                            <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">{f.label}</label>
                             <input
                                 type={f.type}
                                 value={form[f.key] || ''}
                                 onChange={e => update(f.key, e.target.value)}
-                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent text-brand-dark"
+                                className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-slate-800"
                             />
                         </div>
                     ))}
                 </div>
                 <div>
-                    <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">Bio</label>
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Bio</label>
                     <textarea
                         rows={3}
                         value={form.bio || ''}
                         onChange={e => update('bio', e.target.value)}
-                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark"
+                        className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800"
                     />
                 </div>
             </div>
-            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-2">
-                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-gray-200 text-brand-dark hover:bg-gray-50 transition-colors">
+            <div className="px-6 py-4 border-t border-slate-100 flex justify-end gap-2">
+                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-slate-200/80 text-slate-800 hover:bg-slate-50 transition-colors">
                     Cancel
                 </button>
                 <button
                     onClick={() => onSave(form)}
-                    className="flex items-center gap-2 px-5 py-2 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors"
+                    className="flex items-center gap-2 px-5 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"
                 >
                     <Save className="w-4 h-4" /> Save Changes
                 </button>

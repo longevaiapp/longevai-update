@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Eye, EyeOff, Leaf, Home } from 'lucide-react'
+import { Eye, EyeOff, Heart, Home } from 'lucide-react'
 import { RoleIcon } from '../components/RoleIcons'
 
 export default function Login() {
@@ -22,21 +22,22 @@ export default function Login() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-brand-dark-deeper via-brand-dark to-brand-dark-deeper relative overflow-y-auto">
+        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950 relative overflow-y-auto">
             {/* Background decoration */}
             <div className="fixed inset-0 opacity-10 pointer-events-none">
-                <div className="absolute top-20 left-20 w-72 h-72 bg-brand-primary rounded-full blur-[120px]" />
-                <div className="absolute bottom-20 right-20 w-96 h-96 bg-brand-accent rounded-full blur-[150px]" />
+                <div className="absolute top-20 left-20 w-72 h-72 bg-indigo-500 rounded-full blur-[120px]" />
+                <div className="absolute bottom-20 right-20 w-96 h-96 bg-teal-500 rounded-full blur-[150px]" />
             </div>
+            <div className="fixed inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
 
             <div className="relative z-10 w-full max-w-4xl mx-auto px-6 py-10">
                 {/* Logo */}
                 <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-14 h-14 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 mb-3">
-                        <Leaf className="w-7 h-7 text-brand-accent-light" />
+                    <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-indigo-500 to-teal-400 rounded-2xl shadow-lg shadow-indigo-500/20 mb-3">
+                        <Heart className="w-7 h-7 text-white" />
                     </div>
                     <h1 className="text-3xl font-bold text-white tracking-tight">
-                        Longev<span className="text-brand-primary-light">AI</span>
+                        Longev<span className="text-teal-300">AI</span>
                     </h1>
                     <p className="text-white/50 text-sm mt-1">Amatista Life · Care Intelligence Platform</p>
                 </div>
@@ -61,7 +62,7 @@ export default function Login() {
                                     type="email"
                                     value={email}
                                     onChange={(e) => { setEmail(e.target.value); setError('') }}
-                                    className="w-full px-4 py-2.5 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-colors"
+                                    className="w-full px-4 py-2.5 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-colors"
                                     placeholder="you@amatista.life"
                                 />
                             </div>
@@ -73,7 +74,7 @@ export default function Login() {
                                         type={showPassword ? 'text' : 'password'}
                                         value={password}
                                         onChange={(e) => { setPassword(e.target.value); setError('') }}
-                                        className="w-full px-4 py-2.5 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-colors pr-12"
+                                        className="w-full px-4 py-2.5 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-colors pr-12"
                                         placeholder="••••••••"
                                     />
                                     <button
@@ -88,17 +89,17 @@ export default function Login() {
 
                             <div className="flex items-center justify-between text-sm">
                                 <label className="flex items-center gap-2 text-white/40 cursor-pointer">
-                                    <input type="checkbox" className="rounded border-white/20 bg-white/10 text-brand-accent focus:ring-brand-accent" />
+                                    <input type="checkbox" className="rounded border-white/20 bg-white/10 text-indigo-500 focus:ring-indigo-500" />
                                     Remember me
                                 </label>
-                                <button type="button" className="text-brand-accent-light hover:text-brand-light transition-colors">
+                                <button type="button" className="text-teal-300 hover:text-teal-200 transition-colors">
                                     Forgot password?
                                 </button>
                             </div>
 
                             <button
                                 type="submit"
-                                className="w-full py-3 bg-gradient-to-r from-brand-accent to-brand-dark hover:from-brand-accent-light hover:to-brand-accent-dark text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-brand-accent/20 hover:shadow-brand-accent/30"
+                                className="w-full py-3 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30"
                             >
                                 Sign In
                             </button>
@@ -139,7 +140,7 @@ export default function Login() {
                                     localStorage.setItem('longevai-auth', 'true')
                                     navigate('/hub')
                                 }}
-                                className="col-span-2 flex items-center justify-center gap-2 px-3 py-2 bg-brand-accent/20 hover:bg-brand-accent/30 border border-brand-accent/30 rounded-lg text-sm text-brand-accent-light hover:text-white transition-all"
+                                className="col-span-2 flex items-center justify-center gap-2 px-3 py-2 bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-400/30 rounded-lg text-sm text-indigo-300 hover:text-white transition-all"
                             >
                                 <Home className="w-4 h-4" /> Dashboard Hub
                             </button>

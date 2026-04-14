@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { Leaf, LogOut } from 'lucide-react'
+import { Heart, LogOut } from 'lucide-react'
 import { RoleIcon } from '../components/RoleIcons'
 
 const DASHBOARDS = [
@@ -25,17 +25,17 @@ export default function DashboardHub() {
     }
 
     return (
-        <div className="min-h-screen bg-brand-light">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-indigo-50/30">
             {/* Header */}
-            <header className="bg-brand-dark border-b border-white/10">
+            <header className="bg-slate-900 border-b border-slate-700/50 shadow-lg shadow-slate-900/20">
                 <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center w-10 h-10 bg-white/10 rounded-xl">
-                            <Leaf className="w-5 h-5 text-brand-accent-light" />
+                        <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-indigo-500 to-teal-400 rounded-xl shadow-lg shadow-indigo-500/20">
+                            <Heart className="w-5 h-5 text-white" />
                         </div>
                         <div>
                             <h1 className="text-xl font-bold text-white tracking-tight">
-                                Longev<span className="text-brand-primary-light">AI</span>
+                                Longev<span className="text-teal-300">AI</span>
                             </h1>
                             <p className="text-white/40 text-xs">Amatista Life · Care Intelligence Platform</p>
                         </div>
@@ -53,8 +53,8 @@ export default function DashboardHub() {
             {/* Content */}
             <div className="max-w-7xl mx-auto px-6 py-10">
                 <div className="mb-10">
-                    <h2 className="text-3xl font-bold text-brand-dark">Dashboard Hub</h2>
-                    <p className="text-brand-muted mt-1">Select a dashboard to view. Each role has a specialized view of the LongevAI system.</p>
+                    <h2 className="text-3xl font-bold text-slate-800">Dashboard Hub</h2>
+                    <p className="text-slate-500 mt-1">Select a dashboard to view. Each role has a specialized view of the LongevAI system.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -62,7 +62,7 @@ export default function DashboardHub() {
                         <button
                             key={db.id}
                             onClick={() => navigate(`/dashboard/${db.id}`)}
-                            className={`group relative bg-white rounded-2xl border ${db.border} p-6 text-left shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 overflow-hidden`}
+                            className={`group relative bg-white rounded-2xl border border-slate-200/80 p-6 text-left shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 overflow-hidden`}
                         >
                             {/* Gradient accent top bar */}
                             <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${db.color}`} />
@@ -72,10 +72,10 @@ export default function DashboardHub() {
                                     <RoleIcon roleId={db.id} size={22} />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="font-semibold text-brand-dark group-hover:text-brand-accent transition-colors">{db.label}</h3>
-                                    <p className="text-sm text-brand-muted mt-1 line-clamp-2">{db.desc}</p>
+                                    <h3 className="font-semibold text-slate-800 group-hover:text-indigo-600 transition-colors">{db.label}</h3>
+                                    <p className="text-sm text-slate-500 mt-1 line-clamp-2">{db.desc}</p>
                                 </div>
-                                <svg className="w-5 h-5 text-brand-muted/50 group-hover:text-brand-accent group-hover:translate-x-1 transition-all flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg className="w-5 h-5 text-slate-400/50 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                 </svg>
                             </div>

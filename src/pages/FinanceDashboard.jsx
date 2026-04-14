@@ -365,23 +365,23 @@ export default function FinanceDashboard() {
             {/* Date Bar + Profile Button */}
             <div className="flex items-center justify-between mb-4 px-1">
                 <div className="flex items-center gap-2">
-                    <CalendarDays className="w-4 h-4 text-brand-accent" />
-                    <span className="text-sm font-semibold text-brand-dark">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                    <CalendarDays className="w-4 h-4 text-indigo-500" />
+                    <span className="text-sm font-semibold text-slate-800">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
                 </div>
-                <button onClick={() => setActiveSection('profile')} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-gray-200 hover:border-brand-accent/30 hover:shadow-sm transition-all">
-                    <div className="w-5 h-5 rounded-full bg-brand-primary/10 flex items-center justify-center">
-                        <UserCircle className="w-3.5 h-3.5 text-brand-primary" />
+                <button onClick={() => setActiveSection('profile')} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200/80 hover:border-indigo-500/30 hover:shadow-sm transition-all">
+                    <div className="w-5 h-5 rounded-full bg-indigo-600/10 flex items-center justify-center">
+                        <UserCircle className="w-3.5 h-3.5 text-indigo-600" />
                     </div>
-                    <span className="text-[11px] font-medium text-brand-dark hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
+                    <span className="text-[11px] font-medium text-slate-800 hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
                 </button>
             </div>
 
             {/* Financial Pulse Bar */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6">
+            <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 mb-6">
                 <div className="flex items-center gap-2 mb-3">
-                    <Activity className="w-4 h-4 text-brand-accent" />
-                    <span className="text-xs font-semibold text-brand-dark uppercase tracking-wider">Financial Pulse -- {CURRENT_PERIOD.month}</span>
-                    <span className="ml-auto text-[10px] text-brand-muted">Closing: {checklistCompleted}/{checklistTotal} ({checklistPct}%)</span>
+                    <Activity className="w-4 h-4 text-indigo-500" />
+                    <span className="text-xs font-semibold text-slate-800 uppercase tracking-wider">Financial Pulse -- {CURRENT_PERIOD.month}</span>
+                    <span className="ml-auto text-[10px] text-slate-500">Closing: {checklistCompleted}/{checklistTotal} ({checklistPct}%)</span>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                     {KPI_DATA.map(kpi => {
@@ -389,8 +389,8 @@ export default function FinanceDashboard() {
                         const isPositive = kpi.id === 'costPerResident' ? Number(change) < 0 : Number(change) > 0
                         return (
                             <div key={kpi.id} className="text-center">
-                                <p className="text-[10px] text-brand-muted uppercase font-semibold tracking-wider truncate">{kpi.label}</p>
-                                <p className="text-lg font-bold text-brand-dark mt-0.5">{fmt(kpi.value, kpi.format)}</p>
+                                <p className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider truncate">{kpi.label}</p>
+                                <p className="text-lg font-bold text-slate-800 mt-0.5">{fmt(kpi.value, kpi.format)}</p>
                                 <div className="flex items-center justify-center gap-1 mt-0.5">
                                     {isPositive ? <ArrowUpRight className="w-3 h-3 text-emerald-500" /> : <ArrowDownRight className="w-3 h-3 text-red-500" />}
                                     <span className={`text-[10px] font-semibold ${isPositive ? 'text-emerald-600' : 'text-red-600'}`}>vs prev</span>
@@ -399,13 +399,13 @@ export default function FinanceDashboard() {
                         )
                     })}
                 </div>
-                <div className="mt-3 pt-3 border-t border-gray-100">
+                <div className="mt-3 pt-3 border-t border-slate-100">
                     <div className="flex items-center gap-3">
-                        <span className="text-[10px] text-brand-muted font-medium">Closing Progress</span>
-                        <div className="flex-1 bg-gray-100 rounded-full h-2">
-                            <div className={`h-2 rounded-full transition-all ${checklistPct === 100 ? 'bg-emerald-500' : checklistPct >= 50 ? 'bg-brand-primary' : 'bg-amber-500'}`} style={{ width: checklistPct + '%' }} />
+                        <span className="text-[10px] text-slate-500 font-medium">Closing Progress</span>
+                        <div className="flex-1 bg-slate-100 rounded-full h-2">
+                            <div className={`h-2 rounded-full transition-all ${checklistPct === 100 ? 'bg-emerald-500' : checklistPct >= 50 ? 'bg-indigo-600' : 'bg-amber-500'}`} style={{ width: checklistPct + '%' }} />
                         </div>
-                        <span className="text-[10px] font-bold text-brand-dark">{checklistPct}%</span>
+                        <span className="text-[10px] font-bold text-slate-800">{checklistPct}%</span>
                     </div>
                 </div>
             </div>
@@ -423,15 +423,15 @@ export default function FinanceDashboard() {
                                 const sparkMin = Math.min(...kpi.sparkline)
                                 const sparkRange = sparkMax - sparkMin || 1
                                 return (
-                                    <div key={kpi.id} onClick={() => setSelectedKpi(kpi)} className="p-4 rounded-xl border border-gray-100 bg-gray-50 hover:shadow-md cursor-pointer transition-all">
+                                    <div key={kpi.id} onClick={() => setSelectedKpi(kpi)} className="p-4 rounded-xl border border-slate-100 bg-slate-50 shadow-sm hover:shadow-md cursor-pointer transition-all">
                                         <div className="flex items-center justify-between mb-1">
-                                            <span className="text-[11px] text-brand-muted uppercase font-semibold tracking-wider">{kpi.label}</span>
+                                            <span className="text-[11px] text-slate-500 uppercase font-semibold tracking-wider">{kpi.label}</span>
                                             <span className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${atTarget ? 'bg-emerald-100 text-emerald-700' : aboveBenchmark ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'}`}>
                                                 {atTarget ? 'At Target' : aboveBenchmark ? 'Above Avg' : 'Below Avg'}
                                             </span>
                                         </div>
                                         <div className="flex items-baseline gap-2">
-                                            <span className="text-2xl font-bold text-brand-dark">{fmt(kpi.value, kpi.format)}</span>
+                                            <span className="text-2xl font-bold text-slate-800">{fmt(kpi.value, kpi.format)}</span>
                                             <div className="flex items-center gap-0.5">
                                                 {isPositive ? <ArrowUpRight className="w-3 h-3 text-emerald-500" /> : <ArrowDownRight className="w-3 h-3 text-red-500" />}
                                                 <span className={`text-[10px] font-semibold ${isPositive ? 'text-emerald-600' : 'text-red-600'}`}>vs prev</span>
@@ -442,7 +442,7 @@ export default function FinanceDashboard() {
                                                 <div key={i} className="flex-1 rounded-sm" style={{ height: Math.max(4, ((v - sparkMin) / sparkRange) * 100) + '%', backgroundColor: i === kpi.sparkline.length - 1 ? '#4C4673' : '#4C467340' }} />
                                             ))}
                                         </div>
-                                        <div className="flex justify-between mt-1 text-[10px] text-brand-muted">
+                                        <div className="flex justify-between mt-1 text-[10px] text-slate-500">
                                             <span>Target: {fmt(kpi.target, kpi.format)}</span>
                                             <span>Benchmark: {fmt(kpi.benchmark, kpi.format)}</span>
                                         </div>
@@ -455,11 +455,11 @@ export default function FinanceDashboard() {
                     <SectionCard title="Month-End Closing Checklist" icon={ClipboardCheck} subtitle={checklistCompleted + ' of ' + checklistTotal + ' tasks completed'}>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {CLOSING_CHECKLIST.map(item => (
-                                <div key={item.id} onClick={() => toggleCheck(item.id)} className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${checklist[item.id] ? 'bg-emerald-50/50 border-emerald-200' : 'bg-white border-gray-100 hover:bg-gray-50'}`}>
+                                <div key={item.id} onClick={() => toggleCheck(item.id)} className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${checklist[item.id] ? 'bg-emerald-50/50 border-emerald-200' : 'bg-white border-slate-100 hover:bg-slate-50'}`}>
                                     {checklist[item.id] ? <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" /> : <Circle className="w-4 h-4 text-gray-300 flex-shrink-0" />}
                                     <div className="flex-1 min-w-0">
-                                        <p className={`text-xs font-medium ${checklist[item.id] ? 'text-emerald-700 line-through' : 'text-brand-dark'}`}>{item.label}</p>
-                                        <p className="text-[10px] text-brand-muted truncate">{item.category}</p>
+                                        <p className={`text-xs font-medium ${checklist[item.id] ? 'text-emerald-700 line-through' : 'text-slate-800'}`}>{item.label}</p>
+                                        <p className="text-[10px] text-slate-500 truncate">{item.category}</p>
                                     </div>
                                     {checklist[item.id] && <span className="text-[9px] text-emerald-600 flex-shrink-0">{checklist[item.id]}</span>}
                                 </div>
@@ -490,7 +490,7 @@ export default function FinanceDashboard() {
                         </div>
                         <div className="flex flex-wrap gap-2 mt-3">
                             {PNL_CATEGORIES.map(cat => (
-                                <div key={cat.key} className="flex items-center gap-1.5 text-[10px] text-brand-muted">
+                                <div key={cat.key} className="flex items-center gap-1.5 text-[10px] text-slate-500">
                                     <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: cat.color }} />
                                     {cat.label}
                                 </div>
@@ -512,17 +512,17 @@ export default function FinanceDashboard() {
                             </div>
                             <div className="space-y-2">
                                 {REVENUE_BREAKDOWN.map((src, i) => (
-                                    <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100">
+                                    <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 border border-slate-100">
                                         <div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: src.color }} />
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-xs font-semibold text-brand-dark">{src.source}</p>
+                                            <p className="text-xs font-semibold text-slate-800">{src.source}</p>
                                             <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
                                                 <div className="h-1.5 rounded-full" style={{ width: src.percent + '%', backgroundColor: src.color }} />
                                             </div>
                                         </div>
                                         <div className="text-right flex-shrink-0">
-                                            <p className="text-sm font-bold text-brand-dark">${src.amount.toLocaleString()}</p>
-                                            <p className="text-[10px] text-brand-muted">{src.percent}%</p>
+                                            <p className="text-sm font-bold text-slate-800">${src.amount.toLocaleString()}</p>
+                                            <p className="text-[10px] text-slate-500">{src.percent}%</p>
                                         </div>
                                     </div>
                                 ))}
@@ -566,17 +566,17 @@ export default function FinanceDashboard() {
                                 {COST_BREAKDOWN.map((c, i) => {
                                     const CatIcon = c.icon
                                     return (
-                                        <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100">
+                                        <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 border border-slate-100">
                                             <CatIcon className="w-4 h-4 flex-shrink-0" style={{ color: c.color }} />
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-xs font-semibold text-brand-dark">{c.category}</p>
+                                                <p className="text-xs font-semibold text-slate-800">{c.category}</p>
                                                 <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
                                                     <div className="h-1.5 rounded-full" style={{ width: c.percent + '%', backgroundColor: c.color }} />
                                                 </div>
                                             </div>
                                             <div className="text-right flex-shrink-0">
-                                                <p className="text-sm font-bold text-brand-dark">${c.daily}</p>
-                                                <p className="text-[10px] text-brand-muted">{c.percent}%</p>
+                                                <p className="text-sm font-bold text-slate-800">${c.daily}</p>
+                                                <p className="text-[10px] text-slate-500">{c.percent}%</p>
                                             </div>
                                         </div>
                                     )
@@ -603,25 +603,25 @@ export default function FinanceDashboard() {
                     <SectionCard title="Per-Resident Cost Comparison" icon={Users2} subtitle="Daily cost by resident -- sorted by complexity">
                         <div className="space-y-2">
                             {[...RESIDENT_COST_COMPARISON].sort((a, b) => b.dailyCost - a.dailyCost).map((r, i) => (
-                                <div key={i} onClick={() => setSelectedCostResident(r)} className="flex items-center gap-3 p-3 rounded-lg border border-gray-100 bg-white hover:shadow-md cursor-pointer transition-all">
-                                    <div className="w-9 h-9 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary font-bold text-[10px] flex-shrink-0">{r.room}</div>
+                                <div key={i} onClick={() => setSelectedCostResident(r)} className="flex items-center gap-3 p-3 rounded-lg border border-slate-100 bg-white hover:shadow-md cursor-pointer transition-all">
+                                    <div className="w-9 h-9 rounded-lg bg-indigo-600/10 flex items-center justify-center text-indigo-600 font-bold text-[10px] flex-shrink-0">{r.room}</div>
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2">
-                                            <span className="text-sm font-semibold text-brand-dark">{r.name}</span>
+                                            <span className="text-sm font-semibold text-slate-800">{r.name}</span>
                                             <span className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${r.complexity === 'Very High' ? 'bg-red-100 text-red-700' : r.complexity === 'High' ? 'bg-amber-100 text-amber-700' : r.complexity === 'Medium' ? 'bg-blue-100 text-blue-700' : 'bg-emerald-100 text-emerald-700'}`}>{r.complexity}</span>
                                         </div>
-                                        <p className="text-[10px] text-brand-muted line-clamp-1 mt-0.5">{r.factors}</p>
+                                        <p className="text-[10px] text-slate-500 line-clamp-1 mt-0.5">{r.factors}</p>
                                     </div>
                                     <div className="flex items-center gap-2 flex-shrink-0">
-                                        <span className="text-lg font-bold text-brand-dark">${r.dailyCost}</span>
+                                        <span className="text-lg font-bold text-slate-800">${r.dailyCost}</span>
                                         {r.trend === 'down' ? <ArrowDownRight className="w-3.5 h-3.5 text-emerald-500" /> : r.trend === 'up' ? <ArrowUpRight className="w-3.5 h-3.5 text-red-500" /> : <Minus className="w-3.5 h-3.5 text-gray-400" />}
                                     </div>
                                     <ChevronRight className="w-4 h-4 text-gray-300 flex-shrink-0" />
                                 </div>
                             ))}
                         </div>
-                        <div className="mt-3 p-3 rounded-lg bg-brand-primary/5 border border-brand-primary/10 text-center">
-                            <p className="text-xs text-brand-primary font-medium">Facility Average: ${avgResidentCost}/day | Range: ${Math.min(...RESIDENT_COST_COMPARISON.map(r => r.dailyCost))} - ${Math.max(...RESIDENT_COST_COMPARISON.map(r => r.dailyCost))}</p>
+                        <div className="mt-3 p-3 rounded-lg bg-indigo-600/5 border border-indigo-600/10 text-center">
+                            <p className="text-xs text-indigo-600 font-medium">Facility Average: ${avgResidentCost}/day | Range: ${Math.min(...RESIDENT_COST_COMPARISON.map(r => r.dailyCost))} - ${Math.max(...RESIDENT_COST_COMPARISON.map(r => r.dailyCost))}</p>
                         </div>
                     </SectionCard>
                 </div>
@@ -632,16 +632,16 @@ export default function FinanceDashboard() {
                 <div className="space-y-6">
                     <SectionCard title="Budget vs. Actual by Department" icon={Calculator} subtitle={CURRENT_PERIOD.month + ' -- Total variance: ' + (Number(totalVariancePct) > 0 ? '+' : '') + totalVariancePct + '%'}>
                         <div className="grid grid-cols-3 gap-3 mb-5">
-                            <div className="p-3 rounded-xl bg-gray-50 border border-gray-100 text-center">
-                                <p className="text-[10px] text-brand-muted uppercase font-semibold tracking-wider">Total Budget</p>
-                                <p className="text-lg font-bold text-brand-dark">${totalBudget.toLocaleString()}</p>
+                            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-center">
+                                <p className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider">Total Budget</p>
+                                <p className="text-lg font-bold text-slate-800">${totalBudget.toLocaleString()}</p>
                             </div>
-                            <div className="p-3 rounded-xl bg-gray-50 border border-gray-100 text-center">
-                                <p className="text-[10px] text-brand-muted uppercase font-semibold tracking-wider">Total Actual</p>
-                                <p className="text-lg font-bold text-brand-dark">${totalActual.toLocaleString()}</p>
+                            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-center">
+                                <p className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider">Total Actual</p>
+                                <p className="text-lg font-bold text-slate-800">${totalActual.toLocaleString()}</p>
                             </div>
                             <div className={`p-3 rounded-xl border text-center ${Number(totalVariancePct) > 3 ? 'bg-amber-50 border-amber-200' : 'bg-emerald-50 border-emerald-200'}`}>
-                                <p className="text-[10px] text-brand-muted uppercase font-semibold tracking-wider">Net Variance</p>
+                                <p className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider">Net Variance</p>
                                 <p className={`text-lg font-bold ${Number(totalVariancePct) > 0 ? 'text-red-600' : 'text-emerald-600'}`}>{Number(totalVariancePct) > 0 ? '+' : ''}{totalVariancePct}%</p>
                             </div>
                         </div>
@@ -650,24 +650,24 @@ export default function FinanceDashboard() {
                                 const status = varianceStatus(dept.variance)
                                 const DeptIcon = dept.icon
                                 return (
-                                    <div key={i} onClick={() => setSelectedDept(dept)} className={`p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ${Math.abs(dept.variance) > 5 ? 'border-red-200 bg-red-50/30' : Math.abs(dept.variance) > 3 ? 'border-amber-200 bg-amber-50/30' : 'border-gray-100 bg-gray-50'}`}>
+                                    <div key={i} onClick={() => setSelectedDept(dept)} className={`p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ${Math.abs(dept.variance) > 5 ? 'border-red-200 bg-red-50/30' : Math.abs(dept.variance) > 3 ? 'border-amber-200 bg-amber-50/30' : 'border-slate-100 bg-slate-50'}`}>
                                         <div className="flex items-center gap-3">
-                                            <DeptIcon className="w-5 h-5 text-brand-muted flex-shrink-0" />
+                                            <DeptIcon className="w-5 h-5 text-slate-500 flex-shrink-0" />
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex items-center gap-2 flex-wrap">
-                                                    <span className="text-sm font-semibold text-brand-dark">{dept.dept}</span>
+                                                    <span className="text-sm font-semibold text-slate-800">{dept.dept}</span>
                                                     <span className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${status.bg}`}>{status.label}</span>
                                                 </div>
-                                                <p className="text-[10px] text-brand-muted line-clamp-1 mt-0.5">{dept.notes}</p>
+                                                <p className="text-[10px] text-slate-500 line-clamp-1 mt-0.5">{dept.notes}</p>
                                             </div>
                                             <div className="flex items-center gap-4 flex-shrink-0">
                                                 <div className="text-right hidden sm:block">
-                                                    <p className="text-[10px] text-brand-muted">Budget</p>
-                                                    <p className="text-xs font-semibold text-brand-dark">${dept.budget.toLocaleString()}</p>
+                                                    <p className="text-[10px] text-slate-500">Budget</p>
+                                                    <p className="text-xs font-semibold text-slate-800">${dept.budget.toLocaleString()}</p>
                                                 </div>
                                                 <div className="text-right hidden sm:block">
-                                                    <p className="text-[10px] text-brand-muted">Actual</p>
-                                                    <p className="text-xs font-semibold text-brand-dark">${dept.actual.toLocaleString()}</p>
+                                                    <p className="text-[10px] text-slate-500">Actual</p>
+                                                    <p className="text-xs font-semibold text-slate-800">${dept.actual.toLocaleString()}</p>
                                                 </div>
                                                 <div className="text-right w-12">
                                                     <p className={`text-sm font-bold ${dept.variance > 0 ? 'text-red-600' : 'text-emerald-600'}`}>{dept.variance > 0 ? '+' : ''}{dept.variance}%</p>
@@ -679,7 +679,7 @@ export default function FinanceDashboard() {
                                 )
                             })}
                         </div>
-                        <div className="flex gap-3 mt-4 flex-wrap text-[10px] text-brand-muted">
+                        <div className="flex gap-3 mt-4 flex-wrap text-[10px] text-slate-500">
                             <span className="px-2 py-0.5 bg-emerald-50 border border-emerald-200 rounded">0-3%: Normal</span>
                             <span className="px-2 py-0.5 bg-amber-50 border border-amber-200 rounded">3-5%: Watch</span>
                             <span className="px-2 py-0.5 bg-red-50 border border-red-200 rounded">5%+: Alert</span>
@@ -710,24 +710,24 @@ export default function FinanceDashboard() {
                     <SectionCard title="16-Week Cycle ROI Analysis" icon={RefreshCcw} subtitle="Investment returns through care quality outcomes">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             {CYCLE_ROI.map((c, i) => (
-                                <div key={i} onClick={() => setSelectedCycle(c)} className={`p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ${c.status === 'Current' ? 'border-brand-primary/30 bg-brand-primary/5' : 'border-gray-100 bg-gray-50'}`}>
+                                <div key={i} onClick={() => setSelectedCycle(c)} className={`p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ${c.status === 'Current' ? 'border-indigo-600/30 bg-indigo-600/5' : 'border-slate-100 bg-slate-50'}`}>
                                     <div className="flex items-center justify-between mb-3">
-                                        <h4 className="text-sm font-semibold text-brand-dark">{c.cycle}</h4>
+                                        <h4 className="text-sm font-semibold text-slate-800">{c.cycle}</h4>
                                         <span className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${c.status === 'Current' ? 'bg-blue-100 text-blue-700' : 'bg-emerald-100 text-emerald-700'}`}>{c.status}</span>
                                     </div>
-                                    <p className="text-[10px] text-brand-muted mb-3">{c.period}</p>
+                                    <p className="text-[10px] text-slate-500 mb-3">{c.period}</p>
                                     <div className="space-y-2 text-xs">
-                                        <div className="flex justify-between"><span className="text-brand-muted flex items-center gap-1"><DollarSign className="w-3 h-3" /> Investment</span><span className="font-semibold text-brand-dark">${c.investment.toLocaleString()}</span></div>
-                                        <div className="flex justify-between"><span className="text-brand-muted flex items-center gap-1"><Banknote className="w-3 h-3" /> Cost Savings</span><span className="font-semibold text-emerald-600">${c.costSavings.toLocaleString()}</span></div>
-                                        <div className="flex justify-between"><span className="text-brand-muted flex items-center gap-1"><TrendingUp className="w-3 h-3" /> Wellbeing Gain</span><span className="font-semibold text-emerald-600">+{c.wellbeingGain}%</span></div>
-                                        <div className="flex justify-between"><span className="text-brand-muted flex items-center gap-1"><ShieldCheck className="w-3 h-3" /> Incidents Avoided</span><span className="font-semibold text-brand-dark">{c.incidentsAvoided}</span></div>
-                                        <div className="flex justify-between"><span className="text-brand-muted flex items-center gap-1"><Users2 className="w-3 h-3" /> Family Satisfaction</span><span className="font-semibold text-brand-dark">{c.familySat}%</span></div>
-                                        <div className="border-t border-gray-200 pt-2 flex justify-between items-center">
-                                            <span className="font-semibold text-brand-muted">ROI</span>
-                                            <span className="text-xl font-bold text-brand-primary">{c.roi}%</span>
+                                        <div className="flex justify-between"><span className="text-slate-500 flex items-center gap-1"><DollarSign className="w-3 h-3" /> Investment</span><span className="font-semibold text-slate-800">${c.investment.toLocaleString()}</span></div>
+                                        <div className="flex justify-between"><span className="text-slate-500 flex items-center gap-1"><Banknote className="w-3 h-3" /> Cost Savings</span><span className="font-semibold text-emerald-600">${c.costSavings.toLocaleString()}</span></div>
+                                        <div className="flex justify-between"><span className="text-slate-500 flex items-center gap-1"><TrendingUp className="w-3 h-3" /> Wellbeing Gain</span><span className="font-semibold text-emerald-600">+{c.wellbeingGain}%</span></div>
+                                        <div className="flex justify-between"><span className="text-slate-500 flex items-center gap-1"><ShieldCheck className="w-3 h-3" /> Incidents Avoided</span><span className="font-semibold text-slate-800">{c.incidentsAvoided}</span></div>
+                                        <div className="flex justify-between"><span className="text-slate-500 flex items-center gap-1"><Users2 className="w-3 h-3" /> Family Satisfaction</span><span className="font-semibold text-slate-800">{c.familySat}%</span></div>
+                                        <div className="border-t border-slate-200/80 pt-2 flex justify-between items-center">
+                                            <span className="font-semibold text-slate-500">ROI</span>
+                                            <span className="text-xl font-bold text-indigo-600">{c.roi}%</span>
                                         </div>
                                     </div>
-                                    <div className="mt-3 flex items-center justify-center gap-1 text-[10px] text-brand-muted"><Eye className="w-3 h-3" /> Click for breakdown</div>
+                                    <div className="mt-3 flex items-center justify-center gap-1 text-[10px] text-slate-500"><Eye className="w-3 h-3" /> Click for breakdown</div>
                                 </div>
                             ))}
                         </div>
@@ -780,29 +780,29 @@ export default function FinanceDashboard() {
             {/* SECTION: My Profile */}
             {activeSection === 'profile' && (
                 <div className="space-y-6">
-                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                        <div className="bg-gradient-to-r from-brand-primary/10 via-brand-accent/5 to-transparent px-6 py-5 border-b border-gray-100">
+                    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                        <div className="bg-gradient-to-r from-indigo-600/10 via-indigo-500/5 to-transparent px-6 py-5 border-b border-slate-100">
                             <div className="flex items-start gap-4">
-                                <div className="w-16 h-16 rounded-2xl bg-brand-primary/10 border-2 border-brand-primary/20 flex items-center justify-center flex-shrink-0">
-                                    <UserCircle className="w-8 h-8 text-brand-primary" />
+                                <div className="w-16 h-16 rounded-2xl bg-indigo-600/10 border-2 border-indigo-600/20 flex items-center justify-center flex-shrink-0">
+                                    <UserCircle className="w-8 h-8 text-indigo-600" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="text-xl font-bold text-brand-dark">{profile.name}</h3>
-                                    <p className="text-sm text-brand-accent font-medium">{profile.title}</p>
-                                    <p className="text-xs text-brand-muted mt-1">{profile.institution}</p>
+                                    <h3 className="text-xl font-bold text-slate-800">{profile.name}</h3>
+                                    <p className="text-sm text-indigo-500 font-medium">{profile.title}</p>
+                                    <p className="text-xs text-slate-500 mt-1">{profile.institution}</p>
                                     <div className="flex items-center gap-3 mt-2 flex-wrap">
-                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-brand-primary/10 text-brand-primary border border-brand-primary/20">{profile.license}</span>
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Users className="w-3 h-3" /> {profile.residentsManaged} residents</span>
+                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-indigo-600/10 text-indigo-600 border border-indigo-600/20">{profile.license}</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Users className="w-3 h-3" /> {profile.residentsManaged} residents</span>
                                     </div>
                                 </div>
-                                <button onClick={() => setEditingProfile(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-gray-200 text-brand-dark hover:border-brand-accent hover:shadow-sm transition-all">
-                                    <Pencil className="w-3.5 h-3.5 text-brand-accent" /> Edit Profile
+                                <button onClick={() => setEditingProfile(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-slate-200/80 text-slate-800 hover:border-indigo-500 hover:shadow-sm transition-all">
+                                    <Pencil className="w-3.5 h-3.5 text-indigo-500" /> Edit Profile
                                 </button>
                             </div>
                         </div>
                         <div className="p-6">
-                            <p className="text-sm text-brand-dark leading-relaxed mb-5">{profile.bio}</p>
+                            <p className="text-sm text-slate-800 leading-relaxed mb-5">{profile.bio}</p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <ProfileField icon={GraduationCap} label="Education" value={profile.education} />
                                 <ProfileField icon={FileText} label="Certifications" value={profile.certifications} />
@@ -834,12 +834,12 @@ export default function FinanceDashboard() {
 
 function SectionCard({ title, icon: Icon, subtitle, children }) {
     return (
-        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center gap-3">
-                <Icon className="w-5 h-5 text-brand-accent" />
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
+                <Icon className="w-5 h-5 text-indigo-500" />
                 <div>
-                    <h3 className="text-sm font-semibold text-brand-dark">{title}</h3>
-                    {subtitle && <p className="text-[11px] text-brand-muted">{subtitle}</p>}
+                    <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
+                    {subtitle && <p className="text-[11px] text-slate-500">{subtitle}</p>}
                 </div>
             </div>
             <div className="p-5">{children}</div>
@@ -879,26 +879,26 @@ function NoteSection({ notes, onAddNote }) {
                             <div className="flex items-start gap-2">
                                 <FileText className="w-3.5 h-3.5 text-purple-500 mt-0.5 flex-shrink-0" />
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm text-brand-dark leading-relaxed">{note.text}</p>
-                                    <p className="text-[10px] text-brand-muted mt-1 flex items-center gap-1"><Clock className="w-3 h-3" /> {note.timestamp}</p>
+                                    <p className="text-sm text-slate-800 leading-relaxed">{note.text}</p>
+                                    <p className="text-[10px] text-slate-500 mt-1 flex items-center gap-1"><Clock className="w-3 h-3" /> {note.timestamp}</p>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
             )}
-            {notes.length === 0 && !showForm && <div className="p-3 rounded-lg bg-gray-50 border border-gray-100 text-center mb-3"><p className="text-xs text-brand-muted">No financial notes added yet</p></div>}
+            {notes.length === 0 && !showForm && <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 text-center mb-3"><p className="text-xs text-slate-500">No financial notes added yet</p></div>}
             {showForm && (
-                <div className="p-3 rounded-lg bg-gray-50 border border-gray-200 space-y-2 mb-3">
-                    <textarea autoFocus rows={3} value={text} onChange={e => setText(e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-brand-accent/30 resize-none text-brand-dark placeholder-brand-muted/50" placeholder="Enter financial observation, variance explanation, or audit note..." />
+                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200/80 space-y-2 mb-3">
+                    <textarea autoFocus rows={3} value={text} onChange={e => setText(e.target.value)} className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 resize-none text-slate-800 placeholder-slate-500/50" placeholder="Enter financial observation, variance explanation, or audit note..." />
                     <div className="flex items-center gap-2 justify-end">
-                        <button onClick={() => { setShowForm(false); setText('') }} className="px-3 py-1.5 text-xs font-medium text-brand-muted hover:text-brand-dark transition-colors rounded-lg">Cancel</button>
-                        <button onClick={handleSave} disabled={!text.trim()} className={`flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg transition-colors ${text.trim() ? 'bg-brand-primary text-white hover:bg-brand-primary-dark' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}><Send className="w-3 h-3" /> Save Note</button>
+                        <button onClick={() => { setShowForm(false); setText('') }} className="px-3 py-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors rounded-lg">Cancel</button>
+                        <button onClick={handleSave} disabled={!text.trim()} className={`flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg transition-colors ${text.trim() ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}><Send className="w-3 h-3" /> Save Note</button>
                     </div>
                 </div>
             )}
             {justSaved && <div className="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center gap-2 mb-3"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" /><p className="text-xs font-medium text-emerald-700">Financial note saved</p></div>}
-            <button onClick={() => setShowForm(true)} disabled={showForm} className={`w-full flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl border transition-colors ${showForm ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-default' : 'bg-white text-brand-dark border-gray-200 hover:bg-gray-50'}`}><Plus className="w-3.5 h-3.5" /> Add Financial Note</button>
+            <button onClick={() => setShowForm(true)} disabled={showForm} className={`w-full flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl border transition-colors ${showForm ? 'bg-slate-100 text-gray-400 border-slate-200/80 cursor-default' : 'bg-white text-slate-800 border-slate-200/80 hover:bg-slate-50'}`}><Plus className="w-3.5 h-3.5" /> Add Financial Note</button>
         </div>
     )
 }
@@ -914,13 +914,13 @@ function KpiDetailModal({ kpi, onClose }) {
     const chartData = kpi.sparkline.map((v, i) => ({ period: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'][i] || 'P' + (i + 1), value: v }))
     return (
         <div>
-            <div className="px-6 py-4 border-b bg-gray-50 border-gray-200 flex items-center justify-between">
-                <div className="flex items-center gap-3"><DollarSign className="w-5 h-5 text-brand-accent" /><div><h3 className="text-sm font-bold text-brand-dark">{kpi.label}</h3><p className="text-[11px] text-brand-muted">6-month trend analysis</p></div></div>
+            <div className="px-6 py-4 border-b bg-slate-50 border-slate-200/80 flex items-center justify-between">
+                <div className="flex items-center gap-3"><DollarSign className="w-5 h-5 text-indigo-500" /><div><h3 className="text-sm font-bold text-slate-800">{kpi.label}</h3><p className="text-[11px] text-slate-500">6-month trend analysis</p></div></div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
             <div className="p-6 space-y-4">
                 <div className="text-center py-2">
-                    <p className="text-4xl font-bold text-brand-dark">{fmt(kpi.value, kpi.format)}</p>
+                    <p className="text-4xl font-bold text-slate-800">{fmt(kpi.value, kpi.format)}</p>
                     <div className="flex items-center justify-center gap-2 mt-1">
                         {isPositive ? <ArrowUpRight className="w-4 h-4 text-emerald-500" /> : <ArrowDownRight className="w-4 h-4 text-red-500" />}
                         <span className={`text-sm font-semibold ${isPositive ? 'text-emerald-600' : 'text-red-600'}`}>{kpi.format === 'currency' ? '$' + Math.abs(Number(change)).toLocaleString() : kpi.format === 'currency-decimal' ? '$' + Math.abs(Number(change)).toFixed(2) : Math.abs(Number(change)).toFixed(1) + '%'} vs previous</span>
@@ -943,8 +943,8 @@ function KpiDetailModal({ kpi, onClose }) {
                         </LineChart>
                     </ResponsiveContainer>
                 </div>
-                <div><p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Breakdown</p><div className="p-3 rounded-lg bg-gray-50 border border-gray-100"><p className="text-sm text-brand-dark leading-relaxed">{kpi.detail}</p></div></div>
-                <div><p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Trend Analysis</p><div className="p-3 rounded-lg bg-blue-50 border border-blue-200"><p className="text-sm text-blue-800 leading-relaxed">{kpi.trend}</p></div></div>
+                <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Breakdown</p><div className="p-3 rounded-lg bg-slate-50 border border-slate-100"><p className="text-sm text-slate-800 leading-relaxed">{kpi.detail}</p></div></div>
+                <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Trend Analysis</p><div className="p-3 rounded-lg bg-blue-50 border border-blue-200"><p className="text-sm text-blue-800 leading-relaxed">{kpi.trend}</p></div></div>
             </div>
         </div>
     )
@@ -955,8 +955,8 @@ function DeptDetailModal({ dept, onClose }) {
     const DeptIcon = dept.icon
     return (
         <div>
-            <div className={`px-6 py-4 border-b flex items-center justify-between ${Math.abs(dept.variance) > 5 ? 'bg-red-50 border-red-200' : Math.abs(dept.variance) > 3 ? 'bg-amber-50 border-amber-200' : 'bg-gray-50 border-gray-200'}`}>
-                <div className="flex items-center gap-3"><DeptIcon className="w-5 h-5 text-brand-muted" /><div><h3 className="text-sm font-bold text-brand-dark">{dept.dept} -- Budget Detail</h3><p className="text-[11px] text-brand-muted">{CURRENT_PERIOD.month} | Variance: {dept.variance > 0 ? '+' : ''}{dept.variance}%</p></div></div>
+            <div className={`px-6 py-4 border-b flex items-center justify-between ${Math.abs(dept.variance) > 5 ? 'bg-red-50 border-red-200' : Math.abs(dept.variance) > 3 ? 'bg-amber-50 border-amber-200' : 'bg-slate-50 border-slate-200/80'}`}>
+                <div className="flex items-center gap-3"><DeptIcon className="w-5 h-5 text-slate-500" /><div><h3 className="text-sm font-bold text-slate-800">{dept.dept} -- Budget Detail</h3><p className="text-[11px] text-slate-500">{CURRENT_PERIOD.month} | Variance: {dept.variance > 0 ? '+' : ''}{dept.variance}%</p></div></div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
             <div className="p-6 space-y-4">
@@ -966,15 +966,15 @@ function DeptDetailModal({ dept, onClose }) {
                     <MetricBox label="Variance" value={(dept.variance > 0 ? '+' : '') + dept.variance + '%'} color={status.color} />
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Line Item Detail</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Line Item Detail</p>
                     <div className="space-y-1">
                         {dept.items.map((item, i) => {
                             const itemVar = ((item.actual - item.budget) / item.budget * 100).toFixed(1)
                             return (
-                                <div key={i} className="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-                                    <span className="text-xs text-brand-dark flex-1">{item.line}</span>
-                                    <span className="text-[10px] text-brand-muted">${item.budget.toLocaleString()}</span>
-                                    <span className="text-xs font-semibold text-brand-dark">${item.actual.toLocaleString()}</span>
+                                <div key={i} className="flex items-center gap-3 p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                                    <span className="text-xs text-slate-800 flex-1">{item.line}</span>
+                                    <span className="text-[10px] text-slate-500">${item.budget.toLocaleString()}</span>
+                                    <span className="text-xs font-semibold text-slate-800">${item.actual.toLocaleString()}</span>
                                     <span className={`text-[10px] font-bold w-10 text-right ${Number(itemVar) > 0 ? 'text-red-600' : 'text-emerald-600'}`}>{Number(itemVar) > 0 ? '+' : ''}{itemVar}%</span>
                                 </div>
                             )
@@ -982,9 +982,9 @@ function DeptDetailModal({ dept, onClose }) {
                     </div>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Variance Explanation</p>
-                    <div className={`p-3 rounded-lg border ${Math.abs(dept.variance) > 3 ? 'bg-amber-50 border-amber-200' : 'bg-gray-50 border-gray-100'}`}>
-                        <p className={`text-sm leading-relaxed ${Math.abs(dept.variance) > 3 ? 'text-amber-800' : 'text-brand-dark'}`}>{dept.notes}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Variance Explanation</p>
+                    <div className={`p-3 rounded-lg border ${Math.abs(dept.variance) > 3 ? 'bg-amber-50 border-amber-200' : 'bg-slate-50 border-slate-100'}`}>
+                        <p className={`text-sm leading-relaxed ${Math.abs(dept.variance) > 3 ? 'text-amber-800' : 'text-slate-800'}`}>{dept.notes}</p>
                     </div>
                 </div>
             </div>
@@ -995,22 +995,22 @@ function DeptDetailModal({ dept, onClose }) {
 function CycleDetailModal({ cycle, onClose }) {
     return (
         <div>
-            <div className={`px-6 py-4 border-b flex items-center justify-between ${cycle.status === 'Current' ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-200'}`}>
-                <div className="flex items-center gap-3"><RefreshCcw className="w-5 h-5 text-brand-accent" /><div><h3 className="text-sm font-bold text-brand-dark">{cycle.cycle} -- ROI Breakdown</h3><p className="text-[11px] text-brand-muted">{cycle.period}</p></div></div>
+            <div className={`px-6 py-4 border-b flex items-center justify-between ${cycle.status === 'Current' ? 'bg-blue-50 border-blue-200' : 'bg-slate-50 border-slate-200/80'}`}>
+                <div className="flex items-center gap-3"><RefreshCcw className="w-5 h-5 text-indigo-500" /><div><h3 className="text-sm font-bold text-slate-800">{cycle.cycle} -- ROI Breakdown</h3><p className="text-[11px] text-slate-500">{cycle.period}</p></div></div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
             <div className="p-6 space-y-4">
-                <div className="text-center py-2"><p className="text-4xl font-bold text-brand-primary">{cycle.roi}%</p><p className="text-xs text-brand-muted mt-1">Return on Investment</p></div>
+                <div className="text-center py-2"><p className="text-4xl font-bold text-indigo-600">{cycle.roi}%</p><p className="text-xs text-slate-500 mt-1">Return on Investment</p></div>
                 <div className="grid grid-cols-2 gap-3">
                     <MetricBox label="Investment" value={'$' + cycle.investment.toLocaleString()} color="gray" />
                     <MetricBox label="Cost Savings" value={'$' + cycle.costSavings.toLocaleString()} color="emerald" />
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Savings Breakdown</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Savings Breakdown</p>
                     <div className="space-y-2">
                         {cycle.breakdown.map((b, i) => (
                             <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-emerald-50/50 border border-emerald-200/50">
-                                <div className="flex-1 min-w-0"><p className="text-xs font-semibold text-brand-dark">{b.item}</p><p className="text-[10px] text-brand-muted">{b.description}</p></div>
+                                <div className="flex-1 min-w-0"><p className="text-xs font-semibold text-slate-800">{b.item}</p><p className="text-[10px] text-slate-500">{b.description}</p></div>
                                 <span className="text-sm font-bold text-emerald-600 flex-shrink-0">${b.saving.toLocaleString()}</span>
                             </div>
                         ))}
@@ -1021,7 +1021,7 @@ function CycleDetailModal({ cycle, onClose }) {
                     <MetricBox label="Incidents Avoided" value={String(cycle.incidentsAvoided)} color="brand" />
                     <MetricBox label="Family Sat." value={cycle.familySat + '%'} color="emerald" />
                 </div>
-                <div><p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Analysis</p><div className="p-3 rounded-lg bg-blue-50 border border-blue-200"><p className="text-sm text-blue-800 leading-relaxed">{cycle.details}</p></div></div>
+                <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Analysis</p><div className="p-3 rounded-lg bg-blue-50 border border-blue-200"><p className="text-sm text-blue-800 leading-relaxed">{cycle.details}</p></div></div>
             </div>
         </div>
     )
@@ -1031,14 +1031,14 @@ function ResidentCostModal({ resident, onClose }) {
     const diff = resident.dailyCost - Number(avgResidentCost)
     return (
         <div>
-            <div className="px-6 py-4 border-b bg-gray-50 border-gray-200 flex items-center justify-between">
-                <div className="flex items-center gap-3"><Users2 className="w-5 h-5 text-brand-accent" /><div><h3 className="text-sm font-bold text-brand-dark">{resident.name} -- Cost Detail</h3><p className="text-[11px] text-brand-muted">Room {resident.room} | Complexity: {resident.complexity}</p></div></div>
+            <div className="px-6 py-4 border-b bg-slate-50 border-slate-200/80 flex items-center justify-between">
+                <div className="flex items-center gap-3"><Users2 className="w-5 h-5 text-indigo-500" /><div><h3 className="text-sm font-bold text-slate-800">{resident.name} -- Cost Detail</h3><p className="text-[11px] text-slate-500">Room {resident.room} | Complexity: {resident.complexity}</p></div></div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
             <div className="p-6 space-y-4">
                 <div className="text-center py-2">
-                    <p className="text-4xl font-bold text-brand-dark">${resident.dailyCost}</p>
-                    <p className="text-xs text-brand-muted mt-1">per day</p>
+                    <p className="text-4xl font-bold text-slate-800">${resident.dailyCost}</p>
+                    <p className="text-xs text-slate-500 mt-1">per day</p>
                     <div className="flex items-center justify-center gap-1 mt-1">
                         {resident.trend === 'down' ? <ArrowDownRight className="w-4 h-4 text-emerald-500" /> : resident.trend === 'up' ? <ArrowUpRight className="w-4 h-4 text-red-500" /> : <Minus className="w-4 h-4 text-gray-400" />}
                         <span className={`text-xs font-semibold ${resident.trend === 'down' ? 'text-emerald-600' : resident.trend === 'up' ? 'text-red-600' : 'text-gray-500'}`}>{resident.trend === 'down' ? 'Decreasing' : resident.trend === 'up' ? 'Increasing' : 'Stable'}</span>
@@ -1048,7 +1048,7 @@ function ResidentCostModal({ resident, onClose }) {
                     <MetricBox label="Monthly Est." value={'$' + (resident.dailyCost * 30).toLocaleString()} color="gray" />
                     <MetricBox label="Complexity" value={resident.complexity} color={resident.complexity === 'Very High' ? 'red' : resident.complexity === 'High' ? 'amber' : 'emerald'} />
                 </div>
-                <div><p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Cost Drivers</p><div className="p-3 rounded-lg bg-gray-50 border border-gray-100"><p className="text-sm text-brand-dark leading-relaxed">{resident.factors}</p></div></div>
+                <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Cost Drivers</p><div className="p-3 rounded-lg bg-slate-50 border border-slate-100"><p className="text-sm text-slate-800 leading-relaxed">{resident.factors}</p></div></div>
                 <div className="p-3 rounded-lg bg-blue-50 border border-blue-200">
                     <div className="flex items-start gap-2">
                         <Info className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
@@ -1061,7 +1061,7 @@ function ResidentCostModal({ resident, onClose }) {
 }
 
 function MetricBox({ label, value, color }) {
-    const colors = { emerald: 'bg-emerald-50 border-emerald-200 text-emerald-700', amber: 'bg-amber-50 border-amber-200 text-amber-700', red: 'bg-red-50 border-red-200 text-red-700', gray: 'bg-gray-50 border-gray-200 text-gray-700', brand: 'bg-brand-primary/10 border-brand-primary/20 text-brand-primary' }
+    const colors = { emerald: 'bg-emerald-50 border-emerald-200 text-emerald-700', amber: 'bg-amber-50 border-amber-200 text-amber-700', red: 'bg-red-50 border-red-200 text-red-700', gray: 'bg-slate-50 border-slate-200/80 text-gray-700', brand: 'bg-indigo-600/10 border-indigo-600/20 text-indigo-600' }
     return (
         <div className={`p-3 rounded-xl border text-center ${colors[color] || colors.gray}`}>
             <p className="text-[10px] uppercase font-semibold tracking-wider opacity-70">{label}</p>
@@ -1072,11 +1072,11 @@ function MetricBox({ label, value, color }) {
 
 function ProfileField({ icon: Icon, label, value, valueColor }) {
     return (
-        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-gray-50 border border-gray-100">
-            <Icon className="w-4 h-4 text-brand-muted flex-shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-slate-50 border border-slate-100">
+            <Icon className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
             <div className="min-w-0">
-                <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
-                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-brand-dark')}>{value}</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider">{label}</p>
+                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-slate-800')}>{value}</p>
             </div>
         </div>
     )
@@ -1095,10 +1095,10 @@ function ProfileEditModal({ profile, onClose, onSave }) {
     ]
     return (
         <div>
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-brand-light">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-100">
                 <div className="flex items-center gap-3">
-                    <Pencil className="w-5 h-5 text-brand-accent" />
-                    <div><h3 className="text-sm font-bold text-brand-dark">Edit Profile</h3><p className="text-[11px] text-brand-muted">Update your personal and professional information</p></div>
+                    <Pencil className="w-5 h-5 text-indigo-500" />
+                    <div><h3 className="text-sm font-bold text-slate-800">Edit Profile</h3><p className="text-[11px] text-slate-500">Update your personal and professional information</p></div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
@@ -1106,19 +1106,19 @@ function ProfileEditModal({ profile, onClose, onSave }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {fields.map(f => (
                         <div key={f.key}>
-                            <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">{f.label}</label>
-                            <input type={f.type} value={form[f.key] || ''} onChange={e => update(f.key, e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent text-brand-dark" />
+                            <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">{f.label}</label>
+                            <input type={f.type} value={form[f.key] || ''} onChange={e => update(f.key, e.target.value)} className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-slate-800" />
                         </div>
                     ))}
                 </div>
                 <div>
-                    <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">Bio</label>
-                    <textarea rows={3} value={form.bio || ''} onChange={e => update('bio', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark" />
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Bio</label>
+                    <textarea rows={3} value={form.bio || ''} onChange={e => update('bio', e.target.value)} className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800" />
                 </div>
             </div>
-            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-2">
-                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-gray-200 text-brand-dark hover:bg-gray-50 transition-colors">Cancel</button>
-                <button onClick={() => onSave(form)} className="flex items-center gap-2 px-5 py-2 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors"><Save className="w-4 h-4" /> Save Changes</button>
+            <div className="px-6 py-4 border-t border-slate-100 flex justify-end gap-2">
+                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-slate-200/80 text-slate-800 hover:bg-slate-50 transition-colors">Cancel</button>
+                <button onClick={() => onSave(form)} className="flex items-center gap-2 px-5 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"><Save className="w-4 h-4" /> Save Changes</button>
             </div>
         </div>
     )
