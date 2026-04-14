@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Leaf, Construction } from 'lucide-react'
+import { ArrowLeft, Heart, Construction } from 'lucide-react'
 import { RoleIcon } from '../components/RoleIcons'
 
 const DASHBOARD_INFO = {
@@ -17,10 +17,10 @@ export default function DummyDashboard() {
 
     if (!info) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-brand-light">
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-slate-100 to-indigo-50/30">
                 <div className="text-center">
-                    <p className="text-2xl text-brand-muted">Dashboard not found</p>
-                    <button onClick={() => navigate('/hub')} className="mt-4 text-brand-accent hover:underline">
+                    <p className="text-2xl text-slate-500">Dashboard not found</p>
+                    <button onClick={() => navigate('/hub')} className="mt-4 text-indigo-600 hover:underline">
                         ← Back to Hub
                     </button>
                 </div>
@@ -29,17 +29,17 @@ export default function DummyDashboard() {
     }
 
     return (
-        <div className="min-h-screen bg-brand-light">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-indigo-50/30">
             {/* Header */}
-            <header className="bg-brand-dark border-b border-white/10">
+            <header className="bg-slate-900 border-b border-slate-700/50 shadow-lg shadow-slate-900/20">
                 <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center w-10 h-10 bg-white/10 rounded-xl">
-                            <Leaf className="w-5 h-5 text-brand-accent-light" />
+                        <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-indigo-500 to-teal-400 rounded-xl shadow-lg shadow-indigo-500/20">
+                            <Heart className="w-5 h-5 text-white" />
                         </div>
                         <div>
                             <h1 className="text-xl font-bold text-white tracking-tight">
-                                Longev<span className="text-brand-primary-light">AI</span>
+                                Longev<span className="text-teal-300">AI</span>
                             </h1>
                             <p className="text-white/40 text-xs">Amatista Life · Care Intelligence Platform</p>
                         </div>
@@ -56,7 +56,7 @@ export default function DummyDashboard() {
 
             {/* Content */}
             <div className="max-w-4xl mx-auto px-6 py-20">
-                <div className="bg-white rounded-3xl shadow-lg border border-brand-muted/30 overflow-hidden">
+                <div className="bg-white rounded-3xl shadow-lg border border-slate-200/80 overflow-hidden">
                     {/* Accent bar */}
                     <div className="h-2" style={{ backgroundColor: info.accent }} />
 
@@ -64,9 +64,9 @@ export default function DummyDashboard() {
                         <div className="mb-6 flex justify-center">
                             <RoleIcon roleId={dashboardId} size={64} />
                         </div>
-                        <h2 className="text-3xl font-bold text-brand-dark mb-2">Welcome to the</h2>
+                        <h2 className="text-3xl font-bold text-slate-800 mb-2">Welcome to the</h2>
                         <h3 className="text-2xl font-bold mb-3" style={{ color: info.accent }}>{info.label}</h3>
-                        <p className="text-brand-muted text-lg mb-8">{info.subtitle}</p>
+                        <p className="text-slate-500 text-lg mb-8">{info.subtitle}</p>
 
                         <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium" style={{ backgroundColor: info.bg, color: info.accent }}>
                             <Construction size={16} /> This dashboard is under development

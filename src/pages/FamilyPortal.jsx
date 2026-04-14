@@ -413,41 +413,41 @@ export default function FamilyPortal() {
             {/* Date Bar + Profile Button */}
             <div className="flex items-center justify-between mb-4 px-1">
                 <div className="flex items-center gap-2">
-                    <CalendarDays className="w-4 h-4 text-brand-accent" />
-                    <span className="text-sm font-semibold text-brand-dark">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                    <CalendarDays className="w-4 h-4 text-indigo-500" />
+                    <span className="text-sm font-semibold text-slate-800">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
                 </div>
-                <button onClick={() => setActiveSection('profile')} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-gray-200 hover:border-brand-accent/30 hover:shadow-sm transition-all">
-                    <div className="w-5 h-5 rounded-full bg-brand-primary/10 flex items-center justify-center">
-                        <UserCircle className="w-3.5 h-3.5 text-brand-primary" />
+                <button onClick={() => setActiveSection('profile')} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200/80 hover:border-indigo-500/30 hover:shadow-sm transition-all">
+                    <div className="w-5 h-5 rounded-full bg-indigo-600/10 flex items-center justify-center">
+                        <UserCircle className="w-3.5 h-3.5 text-indigo-600" />
                     </div>
-                    <span className="text-[11px] font-medium text-brand-dark hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
+                    <span className="text-[11px] font-medium text-slate-800 hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
                 </button>
             </div>
 
             {/* Resident Selector */}
             {RESIDENTS.length > 1 && (
-                <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6">
+                <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 mb-6">
                     <div className="flex flex-wrap items-center gap-4">
                         <div className="flex items-center gap-2">
-                            <User className="w-5 h-5 text-brand-accent" />
-                            <span className="text-sm font-semibold text-brand-dark">Your loved one:</span>
+                            <User className="w-5 h-5 text-indigo-500" />
+                            <span className="text-sm font-semibold text-slate-800">Your loved one:</span>
                         </div>
                         <div className="relative">
                             <select
                                 value={selectedResident.id}
                                 onChange={e => setSelectedResident(RESIDENTS.find(r => r.id === Number(e.target.value)))}
-                                className="appearance-none bg-brand-light border border-gray-200 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-accent/30"
+                                className="appearance-none bg-slate-100 border border-slate-200/80 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
                             >
                                 {RESIDENTS.map(r => (
                                     <option key={r.id} value={r.id}>{r.name} (Room {r.room})</option>
                                 ))}
                             </select>
-                            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-muted pointer-events-none" />
+                            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
                         </div>
-                        <div className="flex flex-wrap gap-3 text-xs text-brand-muted">
-                            <span>Age: <strong className="text-brand-dark">{selectedResident.age}</strong></span>
-                            <span>Week: <strong className="text-brand-dark">{selectedResident.week}/16</strong></span>
-                            <span>Team: <strong className="text-brand-dark">{selectedResident.careTeam}</strong></span>
+                        <div className="flex flex-wrap gap-3 text-xs text-slate-500">
+                            <span>Age: <strong className="text-slate-800">{selectedResident.age}</strong></span>
+                            <span>Week: <strong className="text-slate-800">{selectedResident.week}/16</strong></span>
+                            <span>Team: <strong className="text-slate-800">{selectedResident.careTeam}</strong></span>
                         </div>
                         <div className="ml-auto">
                             <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border ${avgWellbeing >= 75 ? 'bg-emerald-50 border-emerald-200' : avgWellbeing >= 60 ? 'bg-amber-50 border-amber-200' : 'bg-red-50 border-red-200'}`}>
@@ -463,10 +463,10 @@ export default function FamilyPortal() {
             {activeSection === 'overview' && (
                 <div className="space-y-6">
                     {/* Welcome Card */}
-                    <div className="bg-gradient-to-br from-brand-dark to-brand-dark-deeper rounded-2xl p-6 text-white relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-48 h-48 bg-brand-primary/10 rounded-full blur-[80px]" />
+                    <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 text-white relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-600/10 rounded-full blur-[80px]" />
                         <div className="relative z-10">
-                            <p className="text-brand-accent-light text-sm font-medium mb-1">Week {selectedResident.week} of 16</p>
+                            <p className="text-teal-300 text-sm font-medium mb-1">Week {selectedResident.week} of 16</p>
                             <h2 className="text-2xl font-bold mb-2">{selectedResident.name} -- Week {selectedResident.week} Update</h2>
                             <p className="text-white/60 text-sm max-w-lg leading-relaxed">{data.welcomeMessage}</p>
                         </div>
@@ -497,11 +497,11 @@ export default function FamilyPortal() {
                                         const icons = { sleep: Moon, meals: Utensils, mood: Smile, activity: Activity, vitals: Heart, medication: ClipboardList }
                                         const Ic = icons[key] || Info
                                         return (
-                                            <div key={key} className="flex items-center gap-2.5 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-                                                <Ic className="w-4 h-4 text-brand-accent flex-shrink-0" />
+                                            <div key={key} className="flex items-center gap-2.5 p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                                                <Ic className="w-4 h-4 text-indigo-500 flex-shrink-0" />
                                                 <div className="min-w-0">
-                                                    <p className="text-[10px] text-brand-muted uppercase tracking-wider capitalize">{key}</p>
-                                                    <p className="text-xs font-medium text-brand-dark truncate">{val}</p>
+                                                    <p className="text-[10px] text-slate-500 uppercase tracking-wider capitalize">{key}</p>
+                                                    <p className="text-xs font-medium text-slate-800 truncate">{val}</p>
                                                 </div>
                                             </div>
                                         )
@@ -512,17 +512,17 @@ export default function FamilyPortal() {
                             <SectionCard title="Care Team Status" icon={Stethoscope} subtitle="Specialist schedule">
                                 <div className="space-y-1.5">
                                     {data.careTeamStatus.map((ct, i) => (
-                                        <div key={i} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
-                                            <div className="w-8 h-8 rounded-full bg-brand-primary/10 flex items-center justify-center flex-shrink-0">
-                                                <Stethoscope className="w-3.5 h-3.5 text-brand-primary" />
+                                        <div key={i} className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                                            <div className="w-8 h-8 rounded-full bg-indigo-600/10 flex items-center justify-center flex-shrink-0">
+                                                <Stethoscope className="w-3.5 h-3.5 text-indigo-600" />
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-xs font-semibold text-brand-dark">{ct.name}</p>
-                                                <p className="text-[10px] text-brand-muted">{ct.role}</p>
+                                                <p className="text-xs font-semibold text-slate-800">{ct.name}</p>
+                                                <p className="text-[10px] text-slate-500">{ct.role}</p>
                                             </div>
                                             <div className="text-right flex-shrink-0">
-                                                <p className="text-[10px] text-brand-muted">Next: {ct.nextVisit}</p>
-                                                <p className="text-[10px] text-brand-accent font-medium">{ct.status}</p>
+                                                <p className="text-[10px] text-slate-500">Next: {ct.nextVisit}</p>
+                                                <p className="text-[10px] text-indigo-500 font-medium">{ct.status}</p>
                                             </div>
                                         </div>
                                     ))}
@@ -549,10 +549,10 @@ export default function FamilyPortal() {
                                             </div>
                                             <span className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${st.bg}`}>{st.label}</span>
                                         </div>
-                                        <h4 className="text-xs font-semibold text-brand-dark mb-1">{dim.name}</h4>
-                                        <p className="text-[11px] text-brand-muted leading-relaxed line-clamp-3">{dim.desc}</p>
+                                        <h4 className="text-xs font-semibold text-slate-800 mb-1">{dim.name}</h4>
+                                        <p className="text-[11px] text-slate-500 leading-relaxed line-clamp-3">{dim.desc}</p>
                                         <div className="mt-2 flex items-center justify-between">
-                                            <span className="text-lg font-bold text-brand-dark">{dim.score}%</span>
+                                            <span className="text-lg font-bold text-slate-800">{dim.score}%</span>
                                             <ChevronRight className="w-4 h-4 text-gray-300" />
                                         </div>
                                     </div>
@@ -562,19 +562,19 @@ export default function FamilyPortal() {
                     </SectionCard>
 
                     {/* 16-Week Journey Progress */}
-                    <div className="bg-white rounded-2xl border border-gray-200 p-5">
+                    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5">
                         <div className="flex items-center gap-3 mb-4">
-                            <Clock className="w-5 h-5 text-brand-accent" />
-                            <h3 className="text-sm font-semibold text-brand-dark">16-Week Journey Progress</h3>
+                            <Clock className="w-5 h-5 text-indigo-500" />
+                            <h3 className="text-sm font-semibold text-slate-800">16-Week Journey Progress</h3>
                         </div>
                         <div className="flex items-center gap-2 mb-3">
                             <div className="flex-1 bg-gray-200 rounded-full h-3">
                                 <div
-                                    className="bg-gradient-to-r from-brand-primary to-brand-accent h-3 rounded-full transition-all"
+                                    className="bg-gradient-to-r from-indigo-600 to-indigo-500 h-3 rounded-full transition-all"
                                     style={{ width: ((selectedResident.week / 16) * 100) + '%' }}
                                 />
                             </div>
-                            <span className="text-sm font-bold text-brand-primary">Week {selectedResident.week}/16</span>
+                            <span className="text-sm font-bold text-indigo-600">Week {selectedResident.week}/16</span>
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                             {[
@@ -583,9 +583,9 @@ export default function FamilyPortal() {
                                 { label: 'Next report', value: 'Apr 22 -- Monthly report' },
                                 { label: 'Cycle completion', value: 'May 6 -- Week 16' },
                             ].map((m, i) => (
-                                <div key={i} className="p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-                                    <p className="text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-0.5">{m.label}</p>
-                                    <p className="text-xs font-medium text-brand-dark">{m.value}</p>
+                                <div key={i} className="p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-0.5">{m.label}</p>
+                                    <p className="text-xs font-medium text-slate-800">{m.value}</p>
                                 </div>
                             ))}
                         </div>
@@ -608,9 +608,9 @@ export default function FamilyPortal() {
                                         <div className="flex-1">
                                             <div className="flex items-center gap-2 mb-1">
                                                 <span className="text-[10px] font-bold uppercase text-amber-600 bg-amber-100 px-1.5 py-0.5 rounded">{h.category}</span>
-                                                <span className="text-[10px] text-brand-muted">{h.date}</span>
+                                                <span className="text-[10px] text-slate-500">{h.date}</span>
                                             </div>
-                                            <p className="text-sm text-brand-dark leading-relaxed">{h.text}</p>
+                                            <p className="text-sm text-slate-800 leading-relaxed">{h.text}</p>
                                         </div>
                                     </div>
                                 )
@@ -624,8 +624,8 @@ export default function FamilyPortal() {
                                 <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-purple-50/50 border border-purple-100">
                                     <Sparkles className="w-4 h-4 text-purple-500 flex-shrink-0 mt-0.5" />
                                     <div className="flex-1">
-                                        <p className="text-sm text-brand-dark leading-relaxed">{j.text}</p>
-                                        <p className="text-[10px] text-brand-muted mt-1">{j.date}</p>
+                                        <p className="text-sm text-slate-800 leading-relaxed">{j.text}</p>
+                                        <p className="text-[10px] text-slate-500 mt-1">{j.date}</p>
                                     </div>
                                 </div>
                             ))}
@@ -637,8 +637,8 @@ export default function FamilyPortal() {
                             {Object.entries(data.comparisonToLastWeek).map(([key, val]) => {
                                 const labels = { physical: 'Physical', emotional: 'Emotional', nutrition: 'Nutrition', engagement: 'Engagement', safety: 'Safety' }
                                 return (
-                                    <div key={key} className="p-3 rounded-xl border border-gray-100 bg-gray-50 text-center">
-                                        <p className="text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">{labels[key]}</p>
+                                    <div key={key} className="p-3 rounded-xl border border-slate-100 bg-slate-50 shadow-sm text-center">
+                                        <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">{labels[key]}</p>
                                         <div className="flex items-center justify-center gap-1">
                                             {val > 0 ? <ArrowUpRight className="w-4 h-4 text-emerald-500" /> : val < 0 ? <ArrowDownRight className="w-4 h-4 text-amber-500" /> : <Minus className="w-4 h-4 text-gray-400" />}
                                             <span className={`text-lg font-bold ${val > 0 ? 'text-emerald-600' : val < 0 ? 'text-amber-600' : 'text-gray-500'}`}>
@@ -654,11 +654,11 @@ export default function FamilyPortal() {
                     <SectionCard title="Weekly Activity Schedule" icon={CalendarDays} subtitle={selectedResident.name + ' regular schedule'}>
                         <div className="grid grid-cols-7 gap-2">
                             {data.activityCalendar.map((day, i) => (
-                                <div key={i} className="p-2.5 rounded-xl border border-gray-100 bg-gray-50 text-center">
-                                    <p className="text-xs font-bold text-brand-dark mb-2">{day.day}</p>
+                                <div key={i} className="p-2.5 rounded-xl border border-slate-100 bg-slate-50 shadow-sm text-center">
+                                    <p className="text-xs font-bold text-slate-800 mb-2">{day.day}</p>
                                     <div className="space-y-1">
                                         {day.activities.map((act, j) => (
-                                            <p key={j} className="text-[10px] text-brand-muted bg-white rounded px-1.5 py-1 border border-gray-100">{act}</p>
+                                            <p key={j} className="text-[10px] text-slate-500 bg-white rounded px-1.5 py-1 border border-slate-100">{act}</p>
                                         ))}
                                     </div>
                                 </div>
@@ -673,12 +673,12 @@ export default function FamilyPortal() {
                 <div className="space-y-6">
                     <SectionCard title="Monthly Narrative Report" icon={BookOpen} subtitle={'Prepared ' + data.monthlyReport.date}>
                         <div className="p-5 rounded-xl bg-purple-50/50 border border-purple-100 mb-4">
-                            <p className="text-sm text-brand-dark leading-relaxed italic">
+                            <p className="text-sm text-slate-800 leading-relaxed italic">
                                 "{data.monthlyReport.narrative}"
                             </p>
-                            <p className="text-xs text-brand-muted mt-4">-- {data.monthlyReport.author}</p>
+                            <p className="text-xs text-slate-500 mt-4">-- {data.monthlyReport.author}</p>
                         </div>
-                        <button className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-semibold text-brand-primary border border-brand-primary/20 rounded-xl hover:bg-brand-primary/5 transition-colors">
+                        <button className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-semibold text-indigo-600 border border-indigo-600/20 rounded-xl hover:bg-indigo-600/5 transition-colors">
                             <Download className="w-4 h-4" /> Download Full Report (PDF)
                         </button>
                     </SectionCard>
@@ -686,9 +686,9 @@ export default function FamilyPortal() {
                     <SectionCard title="Key Metrics This Month" icon={Activity} subtitle="Simplified view of progress">
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                             {data.monthlyReport.keyMetrics.map((m, i) => (
-                                <div key={i} className="p-4 rounded-xl border border-gray-100 bg-gray-50 text-center">
-                                    <p className="text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">{m.label}</p>
-                                    <p className="text-xl font-bold text-brand-dark">{m.value}</p>
+                                <div key={i} className="p-4 rounded-xl border border-slate-100 bg-slate-50 shadow-sm text-center">
+                                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">{m.label}</p>
+                                    <p className="text-xl font-bold text-slate-800">{m.value}</p>
                                     <div className="flex items-center justify-center gap-1 mt-1">
                                         {m.trend === 'up' ? <ArrowUpRight className="w-3 h-3 text-emerald-500" /> : m.trend === 'down' ? <ArrowDownRight className="w-3 h-3 text-amber-500" /> : <Minus className="w-3 h-3 text-gray-400" />}
                                         <span className={`text-[11px] font-medium ${m.trend === 'up' ? 'text-emerald-600' : m.trend === 'down' ? 'text-amber-600' : 'text-gray-500'}`}>{m.change}</span>
@@ -724,7 +724,7 @@ export default function FamilyPortal() {
                                     <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <span className="text-xs font-bold text-blue-600">{i + 1}</span>
                                     </div>
-                                    <p className="text-sm text-brand-dark leading-relaxed">{rec}</p>
+                                    <p className="text-sm text-slate-800 leading-relaxed">{rec}</p>
                                 </div>
                             ))}
                         </div>
@@ -735,15 +735,15 @@ export default function FamilyPortal() {
             {/* ======== SECTION: MOMENTS GALLERY ======== */}
             {activeSection === 'gallery' && (
                 <div className="space-y-6">
-                    <div className="bg-white rounded-2xl border border-gray-200 p-4">
+                    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5">
                         <div className="flex items-center gap-3 flex-wrap">
-                            <Filter className="w-4 h-4 text-brand-accent" />
-                            <span className="text-xs font-semibold text-brand-dark">Filter by:</span>
+                            <Filter className="w-4 h-4 text-indigo-500" />
+                            <span className="text-xs font-semibold text-slate-800">Filter by:</span>
                             {galleryCategories.map(cat => (
                                 <button
                                     key={cat}
                                     onClick={() => setGalleryFilter(cat)}
-                                    className={`text-[11px] font-medium px-2.5 py-1 rounded-lg border transition-colors ${galleryFilter === cat ? 'bg-brand-primary text-white border-brand-primary' : 'bg-white text-brand-muted border-gray-200 hover:border-brand-accent'}`}
+                                    className={`text-[11px] font-medium px-2.5 py-1 rounded-lg border transition-colors ${galleryFilter === cat ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-500 border-slate-200/80 hover:border-indigo-500'}`}
                                 >
                                     {cat}
                                 </button>
@@ -755,15 +755,15 @@ export default function FamilyPortal() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             {filteredGallery.map(act => {
                                 const fav = isFavorited(act.id)
-                                const catStyle = CATEGORY_COLORS[act.category] || 'bg-gray-50 text-gray-700 border-gray-200'
+                                const catStyle = CATEGORY_COLORS[act.category] || 'bg-slate-50 text-gray-700 border-slate-200/80'
                                 return (
                                     <div
                                         key={act.id}
-                                        className="rounded-xl overflow-hidden border border-gray-200 hover:shadow-md transition-all cursor-pointer group"
+                                        className="rounded-xl overflow-hidden border border-slate-200/80 hover:shadow-md transition-all cursor-pointer group"
                                         onClick={() => setSelectedActivity(act)}
                                     >
-                                        <div className="h-32 bg-gradient-to-br from-brand-light to-brand-accent/10 flex items-center justify-center relative">
-                                            <Camera className="w-10 h-10 text-brand-muted/20" />
+                                        <div className="h-32 bg-gradient-to-br from-slate-100 to-indigo-500/10 flex items-center justify-center relative">
+                                            <Camera className="w-10 h-10 text-slate-500/20" />
                                             <button
                                                 onClick={(e) => { e.stopPropagation(); handleToggleFavorite(act.id) }}
                                                 className={`absolute top-2 right-2 p-1.5 rounded-full transition-all ${fav ? 'bg-red-100 text-red-500' : 'bg-white/80 text-gray-400 hover:text-red-400'}`}
@@ -773,11 +773,11 @@ export default function FamilyPortal() {
                                         </div>
                                         <div className="p-3">
                                             <div className="flex items-center justify-between mb-1">
-                                                <p className="text-sm font-semibold text-brand-dark">{act.title}</p>
+                                                <p className="text-sm font-semibold text-slate-800">{act.title}</p>
                                                 <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded border ${catStyle}`}>{act.category}</span>
                                             </div>
-                                            <p className="text-[10px] text-brand-muted mb-1">{act.date}</p>
-                                            <p className="text-[11px] text-brand-muted line-clamp-2">{act.desc}</p>
+                                            <p className="text-[10px] text-slate-500 mb-1">{act.date}</p>
+                                            <p className="text-[11px] text-slate-500 line-clamp-2">{act.desc}</p>
                                         </div>
                                     </div>
                                 )
@@ -786,7 +786,7 @@ export default function FamilyPortal() {
                         {filteredGallery.length === 0 && (
                             <div className="text-center py-8">
                                 <Camera className="w-8 h-8 text-gray-300 mx-auto mb-2" />
-                                <p className="text-sm text-brand-muted">No activities found in this category.</p>
+                                <p className="text-sm text-slate-500">No activities found in this category.</p>
                             </div>
                         )}
                     </SectionCard>
@@ -794,11 +794,11 @@ export default function FamilyPortal() {
                     <SectionCard title="Weekly Activity Schedule" icon={CalendarDays} subtitle="Regular activities for the week">
                         <div className="grid grid-cols-7 gap-2">
                             {data.activityCalendar.map((day, i) => (
-                                <div key={i} className="p-2.5 rounded-xl border border-gray-100 bg-gray-50 text-center">
-                                    <p className="text-xs font-bold text-brand-dark mb-2">{day.day}</p>
+                                <div key={i} className="p-2.5 rounded-xl border border-slate-100 bg-slate-50 shadow-sm text-center">
+                                    <p className="text-xs font-bold text-slate-800 mb-2">{day.day}</p>
                                     <div className="space-y-1">
                                         {day.activities.map((act, j) => (
-                                            <p key={j} className="text-[10px] text-brand-muted bg-white rounded px-1.5 py-1 border border-gray-100">{act}</p>
+                                            <p key={j} className="text-[10px] text-slate-500 bg-white rounded px-1.5 py-1 border border-slate-100">{act}</p>
                                         ))}
                                     </div>
                                 </div>
@@ -818,12 +818,12 @@ export default function FamilyPortal() {
                                 return (
                                     <div
                                         key={slot.id}
-                                        className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${booked ? 'border-emerald-200 bg-emerald-50' : slot.available ? 'border-gray-200 bg-white hover:border-brand-accent hover:shadow-sm cursor-pointer' : 'border-gray-100 bg-gray-50 opacity-50'}`}
+                                        className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${booked ? 'border-emerald-200 bg-emerald-50' : slot.available ? 'border-slate-200/80 bg-white hover:border-indigo-500 hover:shadow-sm cursor-pointer' : 'border-slate-100 bg-slate-50 opacity-50'}`}
                                     >
-                                        <Calendar className={`w-5 h-5 flex-shrink-0 ${booked ? 'text-emerald-600' : slot.available ? 'text-brand-accent' : 'text-gray-400'}`} />
+                                        <Calendar className={`w-5 h-5 flex-shrink-0 ${booked ? 'text-emerald-600' : slot.available ? 'text-indigo-500' : 'text-gray-400'}`} />
                                         <div className="flex-1">
-                                            <span className="text-sm font-medium text-brand-dark">{slot.date}</span>
-                                            <span className="text-xs text-brand-muted ml-2">{slot.time}</span>
+                                            <span className="text-sm font-medium text-slate-800">{slot.date}</span>
+                                            <span className="text-xs text-slate-500 ml-2">{slot.time}</span>
                                         </div>
                                         {booked ? (
                                             <div className="flex items-center gap-1.5 text-emerald-700">
@@ -833,12 +833,12 @@ export default function FamilyPortal() {
                                         ) : slot.available ? (
                                             <button
                                                 onClick={() => handleBookSlot(slot.id)}
-                                                className="text-[11px] font-semibold text-brand-primary bg-brand-primary/10 px-3 py-1.5 rounded-lg hover:bg-brand-primary/20 transition-colors"
+                                                className="text-[11px] font-semibold text-indigo-600 bg-indigo-600/10 px-3 py-1.5 rounded-lg hover:bg-indigo-600/20 transition-colors"
                                             >
                                                 Request Visit
                                             </button>
                                         ) : (
-                                            <span className="text-[10px] text-brand-muted">Unavailable</span>
+                                            <span className="text-[10px] text-slate-500">Unavailable</span>
                                         )}
                                     </div>
                                 )
@@ -853,14 +853,14 @@ export default function FamilyPortal() {
                                     <div
                                         key={i}
                                         onClick={() => setSelectedVisitDetail(visit)}
-                                        className="p-3 rounded-xl border border-gray-100 bg-gray-50 hover:shadow-sm cursor-pointer transition-all"
+                                        className="p-3 rounded-xl border border-slate-100 bg-slate-50 shadow-sm hover:shadow-sm cursor-pointer transition-all"
                                     >
                                         <div className="flex items-center justify-between mb-1">
-                                            <span className="text-sm font-semibold text-brand-dark">{visit.date}</span>
-                                            <span className="text-[10px] text-brand-muted">{visit.time}</span>
+                                            <span className="text-sm font-semibold text-slate-800">{visit.date}</span>
+                                            <span className="text-[10px] text-slate-500">{visit.time}</span>
                                         </div>
-                                        <p className="text-xs text-brand-muted">{visit.visitors}</p>
-                                        <p className="text-[11px] text-brand-dark mt-1 line-clamp-2">{visit.notes}</p>
+                                        <p className="text-xs text-slate-500">{visit.visitors}</p>
+                                        <p className="text-[11px] text-slate-800 mt-1 line-clamp-2">{visit.notes}</p>
                                     </div>
                                 ))}
                             </div>
@@ -873,7 +873,7 @@ export default function FamilyPortal() {
                                         <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                                             <span className="text-[10px] font-bold text-blue-600">{i + 1}</span>
                                         </div>
-                                        <p className="text-sm text-brand-dark leading-relaxed">{g}</p>
+                                        <p className="text-sm text-slate-800 leading-relaxed">{g}</p>
                                     </div>
                                 ))}
                             </div>
@@ -892,18 +892,18 @@ export default function FamilyPortal() {
                                     key={msg.id || i}
                                     className={`flex gap-3 ${msg.from === 'family' ? 'flex-row-reverse' : ''}`}
                                 >
-                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${msg.from === 'family' ? 'bg-brand-primary/10' : 'bg-emerald-50'}`}>
-                                        {msg.from === 'family' ? <User className="w-4 h-4 text-brand-primary" /> : <Stethoscope className="w-4 h-4 text-emerald-600" />}
+                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${msg.from === 'family' ? 'bg-indigo-600/10' : 'bg-emerald-50'}`}>
+                                        {msg.from === 'family' ? <User className="w-4 h-4 text-indigo-600" /> : <Stethoscope className="w-4 h-4 text-emerald-600" />}
                                     </div>
-                                    <div className={`max-w-[75%] p-3 rounded-xl ${msg.from === 'family' ? 'bg-brand-primary/5 border border-brand-primary/10' : 'bg-gray-50 border border-gray-100'}`}>
+                                    <div className={`max-w-[75%] p-3 rounded-xl ${msg.from === 'family' ? 'bg-indigo-600/5 border border-indigo-600/10' : 'bg-slate-50 border border-slate-100'}`}>
                                         {msg.category && (
                                             <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded mb-1 inline-block ${msg.category === 'Concern' ? 'bg-amber-100 text-amber-700' : msg.category === 'Gratitude' ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700'}`}>
                                                 {msg.category}
                                             </span>
                                         )}
-                                        <p className="text-sm text-brand-dark leading-relaxed">{msg.text}</p>
+                                        <p className="text-sm text-slate-800 leading-relaxed">{msg.text}</p>
                                         <div className="flex items-center justify-between mt-1.5">
-                                            <p className="text-[10px] text-brand-muted">{msg.date}</p>
+                                            <p className="text-[10px] text-slate-500">{msg.date}</p>
                                             {msg.respondedBy && (
                                                 <p className="text-[10px] text-emerald-600 font-medium">{msg.respondedBy}</p>
                                             )}
@@ -916,16 +916,16 @@ export default function FamilyPortal() {
                                     key={'sent-' + i}
                                     className="flex gap-3 flex-row-reverse"
                                 >
-                                    <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-brand-primary/10">
-                                        <User className="w-4 h-4 text-brand-primary" />
+                                    <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-indigo-600/10">
+                                        <User className="w-4 h-4 text-indigo-600" />
                                     </div>
-                                    <div className="max-w-[75%] p-3 rounded-xl bg-brand-primary/5 border border-brand-primary/10">
+                                    <div className="max-w-[75%] p-3 rounded-xl bg-indigo-600/5 border border-indigo-600/10">
                                         <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded mb-1 inline-block bg-blue-100 text-blue-700">
                                             {msg.category}
                                         </span>
-                                        <p className="text-sm text-brand-dark leading-relaxed">{msg.text}</p>
+                                        <p className="text-sm text-slate-800 leading-relaxed">{msg.text}</p>
                                         <div className="flex items-center gap-2 mt-1.5">
-                                            <p className="text-[10px] text-brand-muted">{msg.date}</p>
+                                            <p className="text-[10px] text-slate-500">{msg.date}</p>
                                             <span className="text-[10px] text-amber-600 font-medium">Awaiting response</span>
                                         </div>
                                     </div>
@@ -938,35 +938,35 @@ export default function FamilyPortal() {
                         <SectionCard title="Send a Message" icon={Send} subtitle="Response within 48 hours">
                             <div className="space-y-3">
                                 <div>
-                                    <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">Category</label>
+                                    <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Category</label>
                                     <div className="relative">
                                         <select
                                             value={messageCategory}
                                             onChange={e => setMessageCategory(e.target.value)}
-                                            className="w-full appearance-none px-3 py-2 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-brand-accent/30 text-brand-dark pr-8"
+                                            className="w-full appearance-none px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 text-slate-800 pr-8"
                                         >
                                             <option>Question</option>
                                             <option>Concern</option>
                                             <option>Gratitude</option>
                                             <option>Request</option>
                                         </select>
-                                        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-muted pointer-events-none" />
+                                        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">Your Message</label>
+                                    <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Your Message</label>
                                     <textarea
                                         rows={4}
                                         value={message}
                                         onChange={e => setMessage(e.target.value)}
-                                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-brand-accent/30 resize-none text-brand-dark placeholder-brand-muted/50"
+                                        className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 resize-none text-slate-800 placeholder-slate-500/50"
                                         placeholder="Write your message here..."
                                     />
                                 </div>
                                 <button
                                     onClick={handleSendMessage}
                                     disabled={!message.trim()}
-                                    className={`flex items-center justify-center gap-2 w-full py-2.5 text-sm font-semibold rounded-xl transition-colors ${message.trim() ? 'bg-brand-primary text-white hover:bg-brand-primary-dark' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
+                                    className={`flex items-center justify-center gap-2 w-full py-2.5 text-sm font-semibold rounded-xl transition-colors ${message.trim() ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
                                 >
                                     <Send className="w-4 h-4" /> Send Message
                                 </button>
@@ -979,14 +979,14 @@ export default function FamilyPortal() {
                                     <button
                                         key={i}
                                         onClick={() => { setMessage(qa.template); setMessageCategory('Question') }}
-                                        className="w-full flex items-center gap-3 p-3 rounded-xl border border-gray-100 bg-gray-50 hover:border-brand-accent hover:shadow-sm transition-all text-left"
+                                        className="w-full flex items-center gap-3 p-3 rounded-xl border border-slate-100 bg-slate-50 shadow-sm hover:border-indigo-500 hover:shadow-sm transition-all text-left"
                                     >
-                                        <div className="w-8 h-8 rounded-full bg-brand-primary/10 flex items-center justify-center flex-shrink-0">
-                                            <Send className="w-3.5 h-3.5 text-brand-primary" />
+                                        <div className="w-8 h-8 rounded-full bg-indigo-600/10 flex items-center justify-center flex-shrink-0">
+                                            <Send className="w-3.5 h-3.5 text-indigo-600" />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-xs font-semibold text-brand-dark">{qa.label}</p>
-                                            <p className="text-[10px] text-brand-muted line-clamp-1">{qa.template}</p>
+                                            <p className="text-xs font-semibold text-slate-800">{qa.label}</p>
+                                            <p className="text-[10px] text-slate-500 line-clamp-1">{qa.template}</p>
                                         </div>
                                         <ChevronRight className="w-4 h-4 text-gray-300 flex-shrink-0" />
                                     </button>
@@ -1025,35 +1025,35 @@ export default function FamilyPortal() {
             {/* SECTION: My Profile */}
             {activeSection === 'profile' && (
                 <div className="space-y-6">
-                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                        <div className="bg-gradient-to-r from-brand-primary/10 via-brand-accent/5 to-transparent px-6 py-5 border-b border-gray-100">
+                    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                        <div className="bg-gradient-to-r from-indigo-600/10 via-indigo-500/5 to-transparent px-6 py-5 border-b border-slate-100">
                             <div className="flex items-start gap-4">
-                                <div className="w-16 h-16 rounded-2xl bg-brand-primary/10 border-2 border-brand-primary/20 flex items-center justify-center flex-shrink-0">
-                                    <UserCircle className="w-8 h-8 text-brand-primary" />
+                                <div className="w-16 h-16 rounded-2xl bg-indigo-600/10 border-2 border-indigo-600/20 flex items-center justify-center flex-shrink-0">
+                                    <UserCircle className="w-8 h-8 text-indigo-600" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="text-xl font-bold text-brand-dark">{profile.name}</h3>
-                                    <p className="text-sm text-brand-accent font-medium">{profile.title}</p>
-                                    <p className="text-xs text-brand-muted mt-1">{profile.institution}</p>
+                                    <h3 className="text-xl font-bold text-slate-800">{profile.name}</h3>
+                                    <p className="text-sm text-indigo-500 font-medium">{profile.title}</p>
+                                    <p className="text-xs text-slate-500 mt-1">{profile.institution}</p>
                                     <div className="flex items-center gap-3 mt-2 flex-wrap">
-                                        {profile.relationship && <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-brand-primary/10 text-brand-primary border border-brand-primary/20">{profile.relationship}</span>}
+                                        {profile.relationship && <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-indigo-600/10 text-indigo-600 border border-indigo-600/20">{profile.relationship}</span>}
                                         {profile.emergencyContact && <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-red-50 text-red-600 border border-red-200">Emergency Contact</span>}
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Users className="w-3 h-3" /> {profile.residentsManaged} loved one{profile.residentsManaged > 1 ? 's' : ''}</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Users className="w-3 h-3" /> {profile.residentsManaged} loved one{profile.residentsManaged > 1 ? 's' : ''}</span>
                                     </div>
                                 </div>
-                                <button onClick={() => setEditingProfile(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-gray-200 text-brand-dark hover:border-brand-accent hover:shadow-sm transition-all">
-                                    <Pencil className="w-3.5 h-3.5 text-brand-accent" /> Edit Profile
+                                <button onClick={() => setEditingProfile(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-slate-200/80 text-slate-800 hover:border-indigo-500 hover:shadow-sm transition-all">
+                                    <Pencil className="w-3.5 h-3.5 text-indigo-500" /> Edit Profile
                                 </button>
                             </div>
                         </div>
                         <div className="p-6">
-                            <p className="text-sm text-brand-dark leading-relaxed mb-5">{profile.bio}</p>
+                            <p className="text-sm text-slate-800 leading-relaxed mb-5">{profile.bio}</p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <ProfileField icon={Mail} label="Email" value={profile.email} />
                                 <ProfileField icon={Phone} label="Phone" value={profile.phone} />
                                 <ProfileField icon={Heart} label="Relationship" value={profile.relationship || 'Not specified'} />
                                 <ProfileField icon={Bell} label="Preferred Contact" value={profile.preferredContact || 'Not specified'} />
-                                <ProfileField icon={Shield} label="Emergency Contact" value={profile.emergencyContact ? 'Yes' : 'No'} valueColor={profile.emergencyContact ? 'text-emerald-600' : 'text-brand-dark'} />
+                                <ProfileField icon={Shield} label="Emergency Contact" value={profile.emergencyContact ? 'Yes' : 'No'} valueColor={profile.emergencyContact ? 'text-emerald-600' : 'text-slate-800'} />
                                 <ProfileField icon={Activity} label="Portal Status" value="Active" valueColor="text-emerald-600" />
                             </div>
                         </div>
@@ -1077,12 +1077,12 @@ export default function FamilyPortal() {
 
 function SectionCard({ title, icon: Icon, subtitle, children }) {
     return (
-        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center gap-3">
-                <Icon className="w-5 h-5 text-brand-accent" />
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
+                <Icon className="w-5 h-5 text-indigo-500" />
                 <div>
-                    <h3 className="text-sm font-semibold text-brand-dark">{title}</h3>
-                    {subtitle && <p className="text-[11px] text-brand-muted">{subtitle}</p>}
+                    <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
+                    {subtitle && <p className="text-[11px] text-slate-500">{subtitle}</p>}
                 </div>
             </div>
             <div className="p-5">{children}</div>
@@ -1121,8 +1121,8 @@ function DimensionDetailModal({ dimension, resident, onClose }) {
                         <DimIcon className={`w-5 h-5 ${dimension.color}`} />
                     </div>
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{dimension.name}</h3>
-                        <p className="text-[11px] text-brand-muted">{resident} -- Wellbeing Dimension</p>
+                        <h3 className="text-sm font-bold text-slate-800">{dimension.name}</h3>
+                        <p className="text-[11px] text-slate-500">{resident} -- Wellbeing Dimension</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
@@ -1130,7 +1130,7 @@ function DimensionDetailModal({ dimension, resident, onClose }) {
             <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
                     <span className={`text-[11px] font-bold uppercase px-2 py-0.5 rounded ${st.bg}`}>{st.label}</span>
-                    <span className="text-2xl font-bold text-brand-dark">{dimension.score}%</span>
+                    <span className="text-2xl font-bold text-slate-800">{dimension.score}%</span>
                 </div>
 
                 <div className="w-full bg-gray-200 rounded-full h-3">
@@ -1141,16 +1141,16 @@ function DimensionDetailModal({ dimension, resident, onClose }) {
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Summary</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{dimension.desc}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Summary</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{dimension.desc}</p>
                     </div>
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Detailed Notes</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Detailed Notes</p>
                     <div className={`p-3 rounded-lg border ${dimension.bg} ${dimension.border}`}>
-                        <p className="text-sm text-brand-dark leading-relaxed">{dimension.details}</p>
+                        <p className="text-sm text-slate-800 leading-relaxed">{dimension.details}</p>
                     </div>
                 </div>
             </div>
@@ -1159,30 +1159,30 @@ function DimensionDetailModal({ dimension, resident, onClose }) {
 }
 
 function ActivityDetailModal({ activity, resident, isFavorited: fav, onToggleFavorite, onClose }) {
-    const catStyle = CATEGORY_COLORS[activity.category] || 'bg-gray-50 text-gray-700 border-gray-200'
+    const catStyle = CATEGORY_COLORS[activity.category] || 'bg-slate-50 text-gray-700 border-slate-200/80'
 
     return (
         <div>
-            <div className="px-6 py-4 border-b bg-gray-50 border-gray-200 flex items-center justify-between">
+            <div className="px-6 py-4 border-b bg-slate-50 border-slate-200/80 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <Camera className="w-5 h-5 text-brand-accent" />
+                    <Camera className="w-5 h-5 text-indigo-500" />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{activity.title}</h3>
-                        <p className="text-[11px] text-brand-muted">{resident} -- {activity.date}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{activity.title}</h3>
+                        <p className="text-[11px] text-slate-500">{resident} -- {activity.date}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
             <div className="p-6 space-y-4">
-                <div className="h-48 bg-gradient-to-br from-brand-light to-brand-accent/10 rounded-xl flex items-center justify-center">
-                    <Camera className="w-12 h-12 text-brand-muted/20" />
+                <div className="h-48 bg-gradient-to-br from-slate-100 to-indigo-500/10 rounded-xl flex items-center justify-center">
+                    <Camera className="w-12 h-12 text-slate-500/20" />
                 </div>
 
                 <div className="flex items-center justify-between">
                     <span className={`text-[11px] font-bold uppercase px-2 py-0.5 rounded border ${catStyle}`}>{activity.category}</span>
                     <button
                         onClick={onToggleFavorite}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${fav ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-gray-50 text-gray-500 border border-gray-200 hover:text-red-500'}`}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${fav ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-slate-50 text-gray-500 border border-slate-200/80 hover:text-red-500'}`}
                     >
                         <Heart className={`w-3.5 h-3.5 ${fav ? 'fill-current' : ''}`} />
                         {fav ? 'Favorited' : 'Add to Favorites'}
@@ -1190,9 +1190,9 @@ function ActivityDetailModal({ activity, resident, isFavorited: fav, onToggleFav
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">About this moment</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{activity.desc}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">About this moment</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{activity.desc}</p>
                     </div>
                 </div>
 
@@ -1210,46 +1210,46 @@ function ActivityDetailModal({ activity, resident, isFavorited: fav, onToggleFav
 function VisitDetailModal({ visit, resident, onClose }) {
     return (
         <div>
-            <div className="px-6 py-4 border-b bg-gray-50 border-gray-200 flex items-center justify-between">
+            <div className="px-6 py-4 border-b bg-slate-50 border-slate-200/80 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <Calendar className="w-5 h-5 text-brand-accent" />
+                    <Calendar className="w-5 h-5 text-indigo-500" />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">Visit -- {visit.date}</h3>
-                        <p className="text-[11px] text-brand-muted">{resident} -- {visit.time}</p>
+                        <h3 className="text-sm font-bold text-slate-800">Visit -- {visit.date}</h3>
+                        <p className="text-[11px] text-slate-500">{resident} -- {visit.time}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
             <div className="p-6 space-y-4">
                 <div className="grid grid-cols-2 gap-3">
-                    <div className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-                        <Calendar className="w-3.5 h-3.5 text-brand-muted flex-shrink-0" />
+                    <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                        <Calendar className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" />
                         <div className="min-w-0">
-                            <p className="text-[10px] text-brand-muted uppercase tracking-wider">Date</p>
-                            <p className="text-xs font-medium text-brand-dark">{visit.date}</p>
+                            <p className="text-[10px] text-slate-500 uppercase tracking-wider">Date</p>
+                            <p className="text-xs font-medium text-slate-800">{visit.date}</p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-                        <Clock className="w-3.5 h-3.5 text-brand-muted flex-shrink-0" />
+                    <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                        <Clock className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" />
                         <div className="min-w-0">
-                            <p className="text-[10px] text-brand-muted uppercase tracking-wider">Time</p>
-                            <p className="text-xs font-medium text-brand-dark">{visit.time}</p>
+                            <p className="text-[10px] text-slate-500 uppercase tracking-wider">Time</p>
+                            <p className="text-xs font-medium text-slate-800">{visit.time}</p>
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Visitors</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Visitors</p>
                     <div className="p-3 rounded-lg bg-blue-50/50 border border-blue-100 flex items-center gap-2">
                         <Users className="w-4 h-4 text-blue-600" />
-                        <p className="text-sm text-brand-dark">{visit.visitors}</p>
+                        <p className="text-sm text-slate-800">{visit.visitors}</p>
                     </div>
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Visit Notes</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{visit.notes}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Visit Notes</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{visit.notes}</p>
                     </div>
                 </div>
             </div>
@@ -1259,11 +1259,11 @@ function VisitDetailModal({ visit, resident, onClose }) {
 
 function ProfileField({ icon: Icon, label, value, valueColor }) {
     return (
-        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-gray-50 border border-gray-100">
-            <Icon className="w-4 h-4 text-brand-muted flex-shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-slate-50 border border-slate-100">
+            <Icon className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
             <div className="min-w-0">
-                <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
-                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-brand-dark')}>{value}</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider">{label}</p>
+                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-slate-800')}>{value}</p>
             </div>
         </div>
     )
@@ -1279,10 +1279,10 @@ function ProfileEditModal({ profile, onClose, onSave }) {
     ]
     return (
         <div>
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-brand-light">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-100">
                 <div className="flex items-center gap-3">
-                    <Pencil className="w-5 h-5 text-brand-accent" />
-                    <div><h3 className="text-sm font-bold text-brand-dark">Edit Profile</h3><p className="text-[11px] text-brand-muted">Update your contact and personal information</p></div>
+                    <Pencil className="w-5 h-5 text-indigo-500" />
+                    <div><h3 className="text-sm font-bold text-slate-800">Edit Profile</h3><p className="text-[11px] text-slate-500">Update your contact and personal information</p></div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
@@ -1290,25 +1290,25 @@ function ProfileEditModal({ profile, onClose, onSave }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {fields.map(f => (
                         <div key={f.key}>
-                            <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">{f.label}</label>
-                            <input type={f.type} value={form[f.key] || ''} onChange={e => update(f.key, e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent text-brand-dark" />
+                            <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">{f.label}</label>
+                            <input type={f.type} value={form[f.key] || ''} onChange={e => update(f.key, e.target.value)} className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-slate-800" />
                         </div>
                     ))}
                 </div>
                 <div>
-                    <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">About</label>
-                    <textarea rows={3} value={form.bio || ''} onChange={e => update('bio', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark" />
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">About</label>
+                    <textarea rows={3} value={form.bio || ''} onChange={e => update('bio', e.target.value)} className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800" />
                 </div>
                 <div className="flex items-center gap-3">
-                    <label className="text-[10px] font-semibold text-brand-muted uppercase tracking-wider">Emergency Contact</label>
-                    <button onClick={() => update('emergencyContact', !form.emergencyContact)} className={`px-3 py-1 text-xs font-medium rounded-lg border transition-colors ${form.emergencyContact ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-gray-50 border-gray-200 text-gray-500'}`}>
+                    <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Emergency Contact</label>
+                    <button onClick={() => update('emergencyContact', !form.emergencyContact)} className={`px-3 py-1 text-xs font-medium rounded-lg border transition-colors ${form.emergencyContact ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-slate-50 border-slate-200/80 text-gray-500'}`}>
                         {form.emergencyContact ? 'Yes' : 'No'}
                     </button>
                 </div>
             </div>
-            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-2">
-                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-gray-200 text-brand-dark hover:bg-gray-50 transition-colors">Cancel</button>
-                <button onClick={() => onSave(form)} className="flex items-center gap-2 px-5 py-2 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors"><Save className="w-4 h-4" /> Save Changes</button>
+            <div className="px-6 py-4 border-t border-slate-100 flex justify-end gap-2">
+                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-slate-200/80 text-slate-800 hover:bg-slate-50 transition-colors">Cancel</button>
+                <button onClick={() => onSave(form)} className="flex items-center gap-2 px-5 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"><Save className="w-4 h-4" /> Save Changes</button>
             </div>
         </div>
     )

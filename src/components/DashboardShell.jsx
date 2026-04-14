@@ -12,9 +12,11 @@ import {
     Clock, Clipboard, UserCheck, Stethoscope,
     DollarSign, PieChart, Receipt, Calculator,
     Heart, Smile, Camera, Send, Shield,
-    AlertCircle, Info, CheckCircle2
+    AlertCircle, Info, CheckCircle2,
+    Sparkles, Settings
 } from 'lucide-react'
 import { RoleIcon } from './RoleIcons'
+import CopilotPanel from './CopilotPanel'
 
 const ROLE_NAV = {
     gerontologist: {
@@ -261,6 +263,7 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
     const navigate = useNavigate()
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [copilotOpen, setCopilotOpen] = useState(false)
     const [notifOpen, setNotifOpen] = useState(false)
     const [dismissedNotifs, setDismissedNotifs] = useState([])
 
@@ -279,31 +282,32 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
     }
 
     return (
-        <div className="flex h-screen overflow-hidden bg-brand-light">
+        <div className="flex h-screen overflow-hidden bg-slate-100">
             {/* Mobile overlay */}
             {mobileMenuOpen && (
-                <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={() => setMobileMenuOpen(false)} />
+                <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden" onClick={() => setMobileMenuOpen(false)} />
             )}
 
             {/* Sidebar */}
             <nav className={`
-                ${sidebarCollapsed ? 'w-[68px]' : 'w-[240px]'}
+                ${sidebarCollapsed ? 'w-[72px]' : 'w-[260px]'}
                 ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
                 lg:translate-x-0
                 fixed lg:relative z-50 h-screen flex flex-col flex-shrink-0
-                bg-brand-dark transition-all duration-300 ease-in-out
+                bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900
+                transition-all duration-300 ease-in-out
             `}>
-                {/* Sidebar header */}
-                <div className={`flex items-center gap-3 px-4 py-4 border-b border-white/10 ${sidebarCollapsed ? 'justify-center' : ''}`}>
-                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
-                        <Leaf className="w-4 h-4 text-brand-accent-light" />
+                {/* Logo */}
+                <div className={`flex items-center gap-3 px-4 py-5 border-b border-white/10 ${sidebarCollapsed ? 'justify-center' : ''}`}>
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
+                        <Heart className="w-5 h-5 text-white" />
                     </div>
                     {!sidebarCollapsed && (
                         <div className="overflow-hidden">
-                            <h1 className="text-base font-bold text-white tracking-tight">
-                                Longev<span className="text-brand-primary-light">AI</span>
+                            <h1 className="text-lg font-bold text-white tracking-tight">
+                                Longev<span className="text-teal-300">AI</span>
                             </h1>
-                            <p className="text-[9px] text-white/30 uppercase tracking-widest">Amatista Life</p>
+                            <p className="text-[10px] text-white/40 uppercase tracking-widest">Intelligent Care</p>
                         </div>
                     )}
                     {/* Mobile close */}
@@ -314,18 +318,23 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
 
                 {/* Role badge */}
                 {!sidebarCollapsed && (
-                    <div className="mx-3 mt-3 px-3 py-2 rounded-lg bg-white/[0.06] border border-white/10 flex items-center gap-2">
+                    <div className="mx-3 mt-3 flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-white/[0.07] border border-white/10">
                         <RoleIcon roleId={roleId} size={16} />
                         <span className="text-[11px] font-semibold text-white/70 truncate">{roleNav?.label || roleId}</span>
                     </div>
                 )}
+                {sidebarCollapsed && (
+                    <div className="mx-auto mt-3 w-9 h-9 rounded-lg bg-white/[0.07] border border-white/10 flex items-center justify-center">
+                        <RoleIcon roleId={roleId} size={16} />
+                    </div>
+                )}
 
                 {/* Nav items */}
-                <div className="flex-1 overflow-y-auto py-2">
+                <div className="flex-1 overflow-y-auto py-2 space-y-1">
                     {roleNav?.groups.map(group => (
-                        <div key={group.label} className="mt-3 first:mt-1">
+                        <div key={group.label} className="mt-4 first:mt-2">
                             {!sidebarCollapsed && (
-                                <p className="px-4 mb-1.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-white/25">
+                                <p className="px-4 mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/30">
                                     {group.label}
                                 </p>
                             )}
@@ -336,30 +345,31 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
                                     <button
                                         key={item.id}
                                         onClick={() => onSectionChange?.(item.id)}
-                                        className={`w-full flex items-center gap-2.5 px-4 py-2 transition-all group relative
+                                        className={`w-full flex items-center gap-3 px-4 py-2.5 mx-0 transition-all duration-150 relative group
                                             ${sidebarCollapsed ? 'justify-center' : ''}
                                             ${isActive
                                                 ? 'bg-white/[0.12] text-white'
-                                                : 'text-white/50 hover:bg-white/[0.06] hover:text-white/90'
+                                                : 'text-white/60 hover:bg-white/[0.06] hover:text-white/90'
                                             }`}
                                         title={sidebarCollapsed ? item.label : undefined}
                                     >
                                         {isActive && (
-                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-brand-accent-light rounded-r-full" />
+                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-teal-400 rounded-r-full" />
                                         )}
-                                        <Icon className={`w-4 h-4 flex-shrink-0 ${isActive ? 'text-brand-accent-light' : ''}`} />
+                                        <Icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? 'text-teal-300' : ''}`} />
                                         {!sidebarCollapsed && (
                                             <>
-                                                <span className="text-[12px] font-medium truncate">{item.label}</span>
+                                                <span className="text-[13px] font-medium truncate">{item.label}</span>
                                                 {item.badge && (
-                                                    <span className="ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-red-500/80 text-white">
+                                                    <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/80 text-white">
                                                         {item.badge}
                                                     </span>
                                                 )}
                                             </>
                                         )}
                                         {sidebarCollapsed && (
-                                            <div className="absolute left-full ml-2 px-2 py-1 bg-brand-dark-deeper text-white text-[11px] rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-[100] shadow-xl border border-white/10">
+                                            <div className="absolute left-full ml-2 px-2.5 py-1.5 bg-slate-800 text-white text-xs rounded-lg
+                                                opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-[100] shadow-xl">
                                                 {item.label}
                                             </div>
                                         )}
@@ -368,76 +378,111 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
                             })}
                         </div>
                     ))}
+
+                    {/* AI Copilot Button */}
+                    <div className="mt-4 px-3">
+                        <button
+                            onClick={() => setCopilotOpen(true)}
+                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl
+                                bg-gradient-to-r from-indigo-600/30 to-teal-600/30
+                                border border-indigo-400/20 hover:border-indigo-400/40
+                                text-white/80 hover:text-white transition-all duration-200 group
+                                ${sidebarCollapsed ? 'justify-center' : ''}`}
+                        >
+                            <Sparkles className="w-[18px] h-[18px] text-indigo-300 group-hover:text-teal-300 transition-colors" />
+                            {!sidebarCollapsed && <span className="text-[13px] font-medium">AI Copilot</span>}
+                        </button>
+                    </div>
                 </div>
 
                 {/* Sidebar footer */}
                 <div className="border-t border-white/10 p-3 space-y-2">
                     <button
                         onClick={() => navigate('/hub')}
-                        className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-white/50 hover:text-white transition-all ${sidebarCollapsed ? 'justify-center' : ''}`}
+                        className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-white/50 hover:text-white transition-all ${sidebarCollapsed ? 'justify-center' : ''}`}
                         title={sidebarCollapsed ? 'Dashboard Hub' : undefined}
                     >
-                        <Home className="w-4 h-4 flex-shrink-0" />
-                        {!sidebarCollapsed && <span className="text-[12px] font-medium">Dashboard Hub</span>}
+                        <Home className="w-[18px] h-[18px] flex-shrink-0" />
+                        {!sidebarCollapsed && <span className="text-[13px] font-medium">Dashboard Hub</span>}
                     </button>
-                    <button
-                        onClick={handleLogout}
-                        className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-300/70 hover:text-red-300 transition-all ${sidebarCollapsed ? 'justify-center' : ''}`}
-                        title={sidebarCollapsed ? 'Sign Out' : undefined}
-                    >
-                        <LogOut className="w-4 h-4 flex-shrink-0" />
-                        {!sidebarCollapsed && <span className="text-[12px] font-medium">Sign Out</span>}
-                    </button>
+                    {!sidebarCollapsed ? (
+                        <div className="flex items-center gap-3 px-2 py-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.08] cursor-pointer transition-colors">
+                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-400 to-indigo-500 flex items-center justify-center text-[11px] font-bold text-white flex-shrink-0">
+                                {(roleNav?.label || 'U').charAt(0)}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <p className="text-[12px] text-white/90 font-medium truncate">{roleNav?.label || roleId}</p>
+                                <p className="text-[10px] text-white/40">Amatista Life</p>
+                            </div>
+                            <button
+                                onClick={handleLogout}
+                                className="text-white/30 hover:text-red-300 transition-colors"
+                                title="Sign Out"
+                            >
+                                <LogOut className="w-4 h-4" />
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="flex justify-center">
+                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-400 to-indigo-500 flex items-center justify-center text-[11px] font-bold text-white cursor-pointer"
+                                title={roleNav?.label || roleId}>
+                                {(roleNav?.label || 'U').charAt(0)}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 {/* Collapse toggle */}
                 <button
                     onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                    className="hidden lg:flex absolute -right-3 top-16 w-6 h-6 rounded-full bg-white border border-gray-200 shadow-md items-center justify-center hover:shadow-lg transition-all z-[60]"
+                    className="hidden lg:flex absolute -right-3 top-20 w-6 h-6 rounded-full bg-white border border-slate-200 shadow-md items-center justify-center
+                        hover:bg-slate-50 hover:shadow-lg transition-all duration-200 z-[60]"
                 >
-                    {sidebarCollapsed ? <ChevronRight className="w-3 h-3 text-gray-500" /> : <ChevronLeft className="w-3 h-3 text-gray-500" />}
+                    {sidebarCollapsed
+                        ? <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
+                        : <ChevronLeft className="w-3.5 h-3.5 text-slate-500" />
+                    }
                 </button>
             </nav>
 
             {/* Main content */}
             <div className="flex-1 flex flex-col min-w-0">
-                {/* Top navbar */}
-                <header className="h-14 bg-white border-b border-gray-200 flex items-center px-5 gap-4 flex-shrink-0 sticky top-0 z-30">
+                {/* Header */}
+                <header className="h-16 bg-slate-900 border-b border-slate-700/50 flex items-center px-6 gap-4 flex-shrink-0 shadow-lg shadow-slate-900/20">
                     {/* Mobile menu toggle */}
-                    <button onClick={() => setMobileMenuOpen(true)} className="lg:hidden text-brand-muted hover:text-brand-dark">
+                    <button onClick={() => setMobileMenuOpen(true)} className="lg:hidden text-white/60 hover:text-white">
                         <Menu className="w-5 h-5" />
                     </button>
 
                     {/* Title */}
-                    <div className="flex items-center gap-3 flex-1 min-w-0">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-brand-light flex items-center justify-center">
-                            <RoleIcon roleId={roleId} size={18} />
-                        </div>
-                        <div className="min-w-0">
-                            <h2 className="text-sm font-bold text-brand-dark truncate">{title}</h2>
-                            <p className="text-[10px] text-brand-muted truncate">{roleTag}</p>
-                        </div>
+                    <div className="flex-1 min-w-0">
+                        <h2 className="text-[17px] font-bold text-white truncate">{title}</h2>
+                        <p className="text-[11px] text-white/40 truncate">{roleTag}</p>
                     </div>
 
                     {/* Search */}
-                    <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-brand-light border border-gray-200 focus-within:border-brand-accent focus-within:ring-1 focus-within:ring-brand-accent/30 transition-all w-48">
-                        <Search className="w-3.5 h-3.5 text-brand-muted" />
+                    <div className="hidden md:flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/[0.07] border border-white/10
+                        focus-within:border-indigo-500/50 focus-within:bg-white/10 transition-all w-56">
+                        <Search className="w-4 h-4 text-white/30" />
                         <input
                             type="text"
-                            placeholder="Search..."
-                            className="bg-transparent text-xs text-brand-dark outline-none flex-1 placeholder:text-brand-muted/50"
+                            placeholder="Search resident, module..."
+                            className="bg-transparent text-[12px] text-white outline-none flex-1 placeholder:text-white/30"
                         />
+                        <kbd className="text-[9px] text-white/20 bg-white/[0.08] px-1.5 py-0.5 rounded border border-white/10">&#8984;K</kbd>
                     </div>
 
                     {/* Notifications */}
                     <div className="relative">
                         <button
                             onClick={() => setNotifOpen(!notifOpen)}
-                            className="relative p-2 rounded-lg bg-brand-light border border-gray-200 text-brand-muted hover:text-brand-dark hover:border-brand-accent/30 transition-all"
+                            className="relative p-2 rounded-lg bg-white/[0.07] border border-white/10 text-white/50 hover:text-white hover:bg-white/10 transition-all"
                         >
                             <Bell className="w-4 h-4" />
                             {notifCount > 0 && (
-                                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-[9px] font-bold text-white flex items-center justify-center">{notifCount}</span>
+                                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-[9px] font-bold text-white flex items-center justify-center">
+                                    {notifCount}
+                                </span>
                             )}
                         </button>
 
@@ -445,22 +490,22 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
                         {notifOpen && (
                             <>
                                 <div className="fixed inset-0 z-40" onClick={() => setNotifOpen(false)} />
-                                <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden" style={{ animation: 'modalIn 0.15s ease-out' }}>
-                                    <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
+                                <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-2xl border border-slate-200 z-50 overflow-hidden" style={{ animation: 'modalIn 0.15s ease-out' }}>
+                                    <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
                                         <div className="flex items-center gap-2">
-                                            <Bell className="w-4 h-4 text-brand-accent" />
-                                            <h3 className="text-sm font-semibold text-brand-dark">Notifications</h3>
+                                            <Bell className="w-4 h-4 text-indigo-500" />
+                                            <h3 className="text-sm font-semibold text-slate-800">Notifications</h3>
                                         </div>
                                         {activeNotifications.length > 0 && (
-                                            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-red-50 text-red-600">{activeNotifications.length} active</span>
+                                            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-rose-50 text-rose-600">{activeNotifications.length} active</span>
                                         )}
                                     </div>
                                     <div className="max-h-80 overflow-y-auto">
                                         {activeNotifications.length === 0 ? (
                                             <div className="px-4 py-8 text-center">
                                                 <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
-                                                <p className="text-sm text-brand-muted">All caught up!</p>
-                                                <p className="text-xs text-brand-muted/60 mt-1">No pending notifications</p>
+                                                <p className="text-sm text-slate-500">All caught up!</p>
+                                                <p className="text-xs text-slate-400 mt-1">No pending notifications</p>
                                             </div>
                                         ) : (
                                             activeNotifications.map(n => {
@@ -471,7 +516,7 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
                                                 return (
                                                     <div
                                                         key={n.id}
-                                                        className="px-4 py-3 border-b border-gray-50 hover:bg-gray-50/80 transition-colors cursor-pointer"
+                                                        className="px-4 py-3 border-b border-slate-50 hover:bg-slate-50/80 transition-colors cursor-pointer"
                                                         onClick={() => {
                                                             onSectionChange?.('alerts')
                                                             setNotifOpen(false)
@@ -482,10 +527,10 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
                                                                 <NIcon className={'w-3.5 h-3.5 ' + nColor.split(' ')[0]} />
                                                             </div>
                                                             <div className="flex-1 min-w-0">
-                                                                <p className="text-xs font-medium text-brand-dark leading-snug">{n.message}</p>
+                                                                <p className="text-xs font-medium text-slate-800 leading-snug">{n.message}</p>
                                                                 <div className="flex items-center gap-2 mt-1">
-                                                                    <span className="text-[10px] text-brand-muted">{n.area}</span>
-                                                                    <span className="text-[10px] text-brand-muted">{n.time}</span>
+                                                                    <span className="text-[10px] text-slate-400">{n.area}</span>
+                                                                    <span className="text-[10px] text-slate-400">{n.time}</span>
                                                                 </div>
                                                             </div>
                                                             <button
@@ -493,7 +538,7 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
                                                                     e.stopPropagation()
                                                                     setDismissedNotifs(prev => [...prev, n.id])
                                                                 }}
-                                                                className="p-1 rounded-md text-gray-300 hover:text-gray-500 hover:bg-gray-100 transition-colors flex-shrink-0"
+                                                                className="p-1 rounded-md text-slate-300 hover:text-slate-500 hover:bg-slate-100 transition-colors flex-shrink-0"
                                                                 title="Dismiss"
                                                             >
                                                                 <X className="w-3 h-3" />
@@ -505,13 +550,13 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
                                         )}
                                     </div>
                                     {activeNotifications.length > 0 && (
-                                        <div className="px-4 py-2.5 border-t border-gray-100">
+                                        <div className="px-4 py-2.5 border-t border-slate-100">
                                             <button
                                                 onClick={() => {
                                                     onSectionChange?.('alerts')
                                                     setNotifOpen(false)
                                                 }}
-                                                className="w-full text-center text-xs font-semibold text-brand-primary hover:text-brand-primary-dark transition-colors"
+                                                className="w-full text-center text-xs font-semibold text-indigo-600 hover:text-indigo-500 transition-colors"
                                             >
                                                 View all alerts
                                             </button>
@@ -522,26 +567,28 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
                         )}
                     </div>
 
-                    {/* Logout */}
+                    {/* AI Copilot */}
                     <button
-                        onClick={handleLogout}
-                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-brand-muted hover:text-red-600 hover:bg-red-50 border border-gray-200 hover:border-red-200 transition-all text-xs font-medium"
+                        onClick={() => setCopilotOpen(true)}
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500
+                            text-white text-[12px] font-semibold hover:from-indigo-500 hover:to-indigo-400
+                            transition-all shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30"
                     >
-                        <LogOut className="w-3.5 h-3.5" />
-                        <span className="hidden sm:inline">Sign Out</span>
+                        <Sparkles className="w-4 h-4" />
+                        <span className="hidden sm:inline">AI Copilot</span>
                     </button>
                 </header>
 
                 {/* Scrollable body */}
-                <main className="flex-1 overflow-y-auto">
+                <main className="flex-1 overflow-y-auto p-6 bg-gradient-to-br from-slate-50 via-slate-100 to-indigo-50/30">
                     {/* Dashboard info bar */}
                     {(tagline || badges.length > 0) && (
-                        <div className="bg-white border-b border-gray-100 px-6 py-4">
-                            {tagline && <p className="text-brand-muted text-sm max-w-3xl">{tagline}</p>}
+                        <div className="mb-6 bg-white/80 backdrop-blur rounded-2xl border border-slate-200/80 shadow-sm px-6 py-4">
+                            {tagline && <p className="text-slate-500 text-sm max-w-3xl">{tagline}</p>}
                             {badges.length > 0 && (
                                 <div className="flex flex-wrap gap-2 mt-2">
                                     {badges.map((b, i) => (
-                                        <span key={i} className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-brand-light text-brand-muted border border-gray-200">
+                                        <span key={i} className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-slate-100 text-slate-500 border border-slate-200">
                                             {b}
                                         </span>
                                     ))}
@@ -551,11 +598,14 @@ export default function DashboardShell({ roleId, roleTag, title, tagline, childr
                     )}
 
                     {/* Content */}
-                    <div className="p-6">
+                    <div className="animate-in" key={currentSection}>
                         {children}
                     </div>
                 </main>
             </div>
+
+            {/* AI Copilot Panel */}
+            <CopilotPanel open={copilotOpen} onClose={() => setCopilotOpen(false)} />
         </div>
     )
 }

@@ -245,8 +245,8 @@ const GDS_BANDS = [
 ]
 
 const SESSION_STATUS_STYLE = {
-    scheduled: { dot: 'bg-brand-primary', bg: 'bg-brand-primary/5', border: 'border-brand-primary/20', text: 'text-brand-primary' },
-    completed: { dot: 'bg-emerald-500', bg: 'bg-gray-50', border: 'border-gray-100', text: 'text-emerald-600' },
+    scheduled: { dot: 'bg-indigo-600', bg: 'bg-indigo-600/5', border: 'border-indigo-600/20', text: 'text-indigo-600' },
+    completed: { dot: 'bg-emerald-500', bg: 'bg-slate-50', border: 'border-slate-100', text: 'text-emerald-600' },
     missed: { dot: 'bg-red-500', bg: 'bg-red-50/50', border: 'border-red-200', text: 'text-red-600' },
 }
 
@@ -298,38 +298,38 @@ export default function PsychologistDashboard() {
             notifications={PSY_ALERTS}
         >
             {/* Date bar */}
-            <div className="flex items-center justify-between bg-white rounded-2xl border border-gray-200 px-5 py-3 mb-6">
+            <div className="flex items-center justify-between bg-white rounded-2xl border border-slate-200/80 px-5 py-3 mb-6">
                 <div className="flex items-center gap-3">
-                    <CalendarDays className="w-4 h-4 text-brand-accent" />
-                    <span className="text-sm font-semibold text-brand-dark">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                    <CalendarDays className="w-4 h-4 text-indigo-500" />
+                    <span className="text-sm font-semibold text-slate-800">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
                 </div>
-                <button onClick={() => { setActiveSection('profile') }} className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors text-xs font-medium text-brand-dark">
-                    <UserCircle className="w-4 h-4 text-brand-accent" /> My Profile
+                <button onClick={() => { setActiveSection('profile') }} className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200/80 hover:bg-slate-50 transition-colors text-xs font-medium text-slate-800">
+                    <UserCircle className="w-4 h-4 text-indigo-500" /> My Profile
                 </button>
             </div>
             {/* Resident Selector */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6">
+            <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 mb-6">
                 <div className="flex flex-wrap items-center gap-4">
                     <div className="flex items-center gap-2">
-                        <Brain className="w-5 h-5 text-brand-accent" />
-                        <span className="text-sm font-semibold text-brand-dark">Patient:</span>
+                        <Brain className="w-5 h-5 text-indigo-500" />
+                        <span className="text-sm font-semibold text-slate-800">Patient:</span>
                     </div>
                     <div className="relative">
                         <select
                             value={selectedResident.id}
                             onChange={e => setSelectedResident(RESIDENTS_LIST.find(r => r.id === Number(e.target.value)))}
-                            className="appearance-none bg-brand-light border border-gray-200 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-accent/30"
+                            className="appearance-none bg-slate-100 border border-slate-200/80 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
                         >
                             {RESIDENTS_LIST.map(r => (
                                 <option key={r.id} value={r.id}>{r.name} (Rm {r.room})</option>
                             ))}
                         </select>
-                        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-muted pointer-events-none" />
+                        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
                     </div>
-                    <div className="flex flex-wrap gap-3 text-xs text-brand-muted">
-                        <span>Age: <strong className="text-brand-dark">{selectedResident.age}</strong></span>
-                        <span>Week: <strong className="text-brand-dark">{selectedResident.week}/16</strong></span>
-                        <span>Referred by: <strong className="text-brand-dark">{selectedResident.referredBy}</strong></span>
+                    <div className="flex flex-wrap gap-3 text-xs text-slate-500">
+                        <span>Age: <strong className="text-slate-800">{selectedResident.age}</strong></span>
+                        <span>Week: <strong className="text-slate-800">{selectedResident.week}/16</strong></span>
+                        <span>Referred by: <strong className="text-slate-800">{selectedResident.referredBy}</strong></span>
                     </div>
                     <div className="ml-auto flex items-center gap-2">
                         <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg ${riskCfg.bgColor} ${riskCfg.borderColor} border`}>
@@ -352,10 +352,10 @@ export default function PsychologistDashboard() {
                                 </div>
                                 <div>
                                     <span className={`text-lg font-bold ${riskCfg.textColor}`}>{riskCfg.label}</span>
-                                    <div className="flex items-center gap-3 text-xs text-brand-muted mt-0.5">
-                                        <span>GDS: <strong className="text-brand-dark">{data.risk.gds}</strong></span>
-                                        <span>WHOQOL: <strong className="text-brand-dark">{data.risk.whoqol}</strong></span>
-                                        <span>Assessed: <strong className="text-brand-dark">{data.risk.lastAssessment}</strong></span>
+                                    <div className="flex items-center gap-3 text-xs text-slate-500 mt-0.5">
+                                        <span>GDS: <strong className="text-slate-800">{data.risk.gds}</strong></span>
+                                        <span>WHOQOL: <strong className="text-slate-800">{data.risk.whoqol}</strong></span>
+                                        <span>Assessed: <strong className="text-slate-800">{data.risk.lastAssessment}</strong></span>
                                     </div>
                                 </div>
                             </div>
@@ -366,7 +366,7 @@ export default function PsychologistDashboard() {
                                 </div>
                             )}
                         </div>
-                        <p className="text-sm text-brand-dark leading-relaxed mb-4">{data.risk.observation}</p>
+                        <p className="text-sm text-slate-800 leading-relaxed mb-4">{data.risk.observation}</p>
 
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
                             <RiskMetric icon={TrendingDown} label="GDS Score" value={data.risk.gds + '/15'} status={data.risk.gds <= 4 ? 'good' : data.risk.gds <= 8 ? 'warn' : 'bad'} />
@@ -376,12 +376,12 @@ export default function PsychologistDashboard() {
                         </div>
 
                         <div>
-                            <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Clinical Recommendations</p>
+                            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Clinical Recommendations</p>
                             <div className="space-y-1">
                                 {data.risk.recommendations.map((rec, i) => (
                                     <div key={i} className="flex items-start gap-2 p-2 rounded-lg bg-white/60">
-                                        <ChevronRight className={`w-3.5 h-3.5 mt-0.5 flex-shrink-0 ${rec.startsWith('URGENT') ? 'text-red-500' : 'text-brand-accent'}`} />
-                                        <p className={`text-xs ${rec.startsWith('URGENT') ? 'text-red-700 font-semibold' : 'text-brand-dark'}`}>{rec}</p>
+                                        <ChevronRight className={`w-3.5 h-3.5 mt-0.5 flex-shrink-0 ${rec.startsWith('URGENT') ? 'text-red-500' : 'text-indigo-500'}`} />
+                                        <p className={`text-xs ${rec.startsWith('URGENT') ? 'text-red-700 font-semibold' : 'text-slate-800'}`}>{rec}</p>
                                     </div>
                                 ))}
                             </div>
@@ -415,7 +415,7 @@ export default function PsychologistDashboard() {
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>
-                        <div className="flex gap-3 mt-3 flex-wrap text-[10px] text-brand-muted">
+                        <div className="flex gap-3 mt-3 flex-wrap text-[10px] text-slate-500">
                             {GDS_BANDS.map(b => (
                                 <span key={b.label} className="px-2 py-0.5 rounded border" style={{ backgroundColor: b.color + '10', borderColor: b.color + '30', color: b.color }}>{b.label}</span>
                             ))}
@@ -431,18 +431,18 @@ export default function PsychologistDashboard() {
                                     <div
                                         key={i}
                                         onClick={() => setSelectedGdsPoint(g)}
-                                        className="flex items-center gap-3 p-3 rounded-lg border border-gray-100 bg-white hover:shadow-md cursor-pointer transition-all group"
+                                        className="flex items-center gap-3 p-3 rounded-lg border border-slate-100 bg-white hover:shadow-md cursor-pointer transition-all group"
                                     >
                                         <div className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm" style={{ backgroundColor: band?.color || '#6A5CA8' }}>
                                             {g.score}
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2">
-                                                <span className="text-sm font-semibold text-brand-dark">{g.visit}</span>
-                                                <span className="text-[10px] text-brand-muted">{g.date}</span>
+                                                <span className="text-sm font-semibold text-slate-800">{g.visit}</span>
+                                                <span className="text-[10px] text-slate-500">{g.date}</span>
                                             </div>
                                             {g.event && (
-                                                <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-brand-primary/10 text-brand-primary">{g.event}</span>
+                                                <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-indigo-600/10 text-indigo-600">{g.event}</span>
                                             )}
                                         </div>
                                         <ChevronRight className="w-4 h-4 text-gray-300 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -481,20 +481,20 @@ export default function PsychologistDashboard() {
                             const gap = d.ideal - d.current
                             const pct = Math.round((d.current / d.ideal) * 100)
                             return (
-                                <div key={i} className="p-4 rounded-xl border border-gray-200 bg-white">
-                                    <p className="text-[11px] text-brand-muted uppercase font-semibold tracking-wider">{d.domain}</p>
+                                <div key={i} className="p-4 rounded-xl border border-slate-200/80 bg-white">
+                                    <p className="text-[11px] text-slate-500 uppercase font-semibold tracking-wider">{d.domain}</p>
                                     <div className="flex items-end gap-2 mt-1">
-                                        <span className="text-3xl font-bold text-brand-dark">{d.current}</span>
-                                        <span className="text-xs text-brand-muted mb-1">/ {d.ideal} ideal</span>
+                                        <span className="text-3xl font-bold text-slate-800">{d.current}</span>
+                                        <span className="text-xs text-slate-500 mb-1">/ {d.ideal} ideal</span>
                                     </div>
                                     <div className="h-1.5 bg-gray-200 rounded-full mt-2">
-                                        <div className="h-1.5 rounded-full bg-brand-primary transition-all" style={{ width: pct + '%' }} />
+                                        <div className="h-1.5 rounded-full bg-indigo-600 transition-all" style={{ width: pct + '%' }} />
                                     </div>
                                     <div className="flex items-center justify-between mt-2 text-[10px]">
-                                        <span className={change > 0 ? 'text-emerald-600' : change < 0 ? 'text-red-600' : 'text-brand-muted'}>
+                                        <span className={change > 0 ? 'text-emerald-600' : change < 0 ? 'text-red-600' : 'text-slate-500'}>
                                             {change > 0 ? '+' : ''}{change} from baseline ({d.baseline})
                                         </span>
-                                        <span className="text-brand-muted">{gap} pts to ideal</span>
+                                        <span className="text-slate-500">{gap} pts to ideal</span>
                                     </div>
                                 </div>
                             )
@@ -511,12 +511,12 @@ export default function PsychologistDashboard() {
                             <div
                                 key={entry.id}
                                 onClick={() => setSelectedSession(entry)}
-                                className={`p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ${entry.flagged ? 'border-amber-200 bg-amber-50/30' : 'border-gray-100 bg-gray-50'}`}
+                                className={`p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ${entry.flagged ? 'border-amber-200 bg-amber-50/30' : 'border-slate-100 bg-slate-50'}`}
                             >
                                 <div className="flex items-center justify-between mb-2">
                                     <div className="flex items-center gap-2">
-                                        <span className="text-sm font-semibold text-brand-dark">Session {entry.session}</span>
-                                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-brand-primary/10 text-brand-primary font-medium">{entry.type}</span>
+                                        <span className="text-sm font-semibold text-slate-800">Session {entry.session}</span>
+                                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-indigo-600/10 text-indigo-600 font-medium">{entry.type}</span>
                                         {entry.flagged && (
                                             <span className="flex items-center gap-1 text-[10px] font-semibold text-amber-600 bg-amber-100 px-2 py-0.5 rounded">
                                                 <AlertTriangle className="w-3 h-3" /> Flagged
@@ -524,16 +524,16 @@ export default function PsychologistDashboard() {
                                         )}
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <span className="text-[10px] text-brand-muted">{entry.duration}</span>
-                                        <div className="flex items-center gap-1 text-[11px] text-brand-muted">
+                                        <span className="text-[10px] text-slate-500">{entry.duration}</span>
+                                        <div className="flex items-center gap-1 text-[11px] text-slate-500">
                                             <Clock className="w-3 h-3" /> {entry.date}
                                         </div>
                                     </div>
                                 </div>
-                                <p className="text-xs text-brand-muted line-clamp-2">{entry.observations}</p>
+                                <p className="text-xs text-slate-500 line-clamp-2">{entry.observations}</p>
                                 <div className="flex items-center justify-between mt-2">
-                                    <span className="text-[10px] text-brand-muted">Mood: <strong className="text-brand-dark">{entry.mood}</strong></span>
-                                    <span className="text-[10px] font-semibold text-brand-primary flex items-center gap-1 opacity-0 group-hover:opacity-100">
+                                    <span className="text-[10px] text-slate-500">Mood: <strong className="text-slate-800">{entry.mood}</strong></span>
+                                    <span className="text-[10px] font-semibold text-indigo-600 flex items-center gap-1 opacity-0 group-hover:opacity-100">
                                         View details <ChevronRight className="w-3 h-3" />
                                     </span>
                                 </div>
@@ -549,8 +549,8 @@ export default function PsychologistDashboard() {
                     {!data.thanatology ? (
                         <div className="text-center py-8">
                             <ShieldCheck className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
-                            <p className="text-sm font-medium text-brand-dark">No active thanatological protocol</p>
-                            <p className="text-xs text-brand-muted mt-1">This patient does not currently require end-of-life or grief support</p>
+                            <p className="text-sm font-medium text-slate-800">No active thanatological protocol</p>
+                            <p className="text-xs text-slate-500 mt-1">This patient does not currently require end-of-life or grief support</p>
                         </div>
                     ) : (
                         <div className="space-y-4">
@@ -558,7 +558,7 @@ export default function PsychologistDashboard() {
                                 <div className="flex items-center justify-between mb-3">
                                     <div className="flex items-center gap-2">
                                         <Flame className={`w-5 h-5 ${data.thanatology.protocol === 'Active' ? 'text-purple-600' : 'text-amber-600'}`} />
-                                        <span className="text-sm font-bold text-brand-dark">{data.thanatology.type}</span>
+                                        <span className="text-sm font-bold text-slate-800">{data.thanatology.type}</span>
                                     </div>
                                     <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded ${data.thanatology.protocol === 'Active' ? 'bg-purple-100 text-purple-700' : 'bg-amber-100 text-amber-700'}`}>
                                         {data.thanatology.protocol}
@@ -572,17 +572,17 @@ export default function PsychologistDashboard() {
                                 </div>
 
                                 <div className="mb-4">
-                                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Clinical Notes</p>
-                                    <div className="p-3 rounded-lg bg-white/80 border border-gray-100">
-                                        <p className="text-sm text-brand-dark leading-relaxed">{data.thanatology.notes}</p>
+                                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Clinical Notes</p>
+                                    <div className="p-3 rounded-lg bg-white/80 border border-slate-100">
+                                        <p className="text-sm text-slate-800 leading-relaxed">{data.thanatology.notes}</p>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Key Themes</p>
+                                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Key Themes</p>
                                     <div className="flex flex-wrap gap-1.5">
                                         {data.thanatology.keyThemes.map((theme, i) => (
-                                            <span key={i} className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-white border border-gray-200 text-brand-dark">{theme}</span>
+                                            <span key={i} className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-white border border-slate-200/80 text-slate-800">{theme}</span>
                                         ))}
                                     </div>
                                 </div>
@@ -603,14 +603,14 @@ export default function PsychologistDashboard() {
                                     <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${st.dot}`} />
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2">
-                                            <p className="text-sm font-medium text-brand-dark">{s.type}</p>
+                                            <p className="text-sm font-medium text-slate-800">{s.type}</p>
                                             <span className={`text-[10px] font-semibold uppercase px-2 py-0.5 rounded ${st.bg} ${st.text}`}>{s.status}</span>
                                         </div>
-                                        <p className="text-[11px] text-brand-muted">{s.date} at {s.time}</p>
-                                        {s.notes && <p className="text-[10px] text-brand-muted mt-0.5">{s.notes}</p>}
+                                        <p className="text-[11px] text-slate-500">{s.date} at {s.time}</p>
+                                        {s.notes && <p className="text-[10px] text-slate-500 mt-0.5">{s.notes}</p>}
                                     </div>
                                     {s.status === 'scheduled' && (
-                                        <span className="text-[10px] font-medium text-brand-primary flex items-center gap-1">
+                                        <span className="text-[10px] font-medium text-indigo-600 flex items-center gap-1">
                                             <Clock className="w-3 h-3" /> Upcoming
                                         </span>
                                     )}
@@ -624,28 +624,28 @@ export default function PsychologistDashboard() {
             {/* ── SECTION: PROFILE ── */}
             {activeSection === 'profile' && (
                 <div className="space-y-6">
-                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                        <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+                    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                                <UserCircle className="w-5 h-5 text-brand-accent" />
+                                <UserCircle className="w-5 h-5 text-indigo-500" />
                                 <div>
-                                    <h3 className="text-sm font-semibold text-brand-dark">My Profile</h3>
-                                    <p className="text-[11px] text-brand-muted">Personal and professional information</p>
+                                    <h3 className="text-sm font-semibold text-slate-800">My Profile</h3>
+                                    <p className="text-[11px] text-slate-500">Personal and professional information</p>
                                 </div>
                             </div>
-                            <button onClick={() => setEditingProfile(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors text-xs font-medium text-brand-dark">
-                                <Pencil className="w-3.5 h-3.5 text-brand-accent" /> Edit
+                            <button onClick={() => setEditingProfile(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200/80 hover:bg-slate-50 transition-colors text-xs font-medium text-slate-800">
+                                <Pencil className="w-3.5 h-3.5 text-indigo-500" /> Edit
                             </button>
                         </div>
                         <div className="p-5">
                             <div className="flex items-center gap-4 mb-6">
-                                <div className="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center">
-                                    <UserCircle className="w-9 h-9 text-brand-primary" />
+                                <div className="w-16 h-16 rounded-2xl bg-indigo-600/10 flex items-center justify-center">
+                                    <UserCircle className="w-9 h-9 text-indigo-600" />
                                 </div>
                                 <div>
-                                    <h4 className="text-lg font-bold text-brand-dark">{profile.name}</h4>
-                                    <p className="text-xs text-brand-muted">{profile.title}</p>
-                                    <p className="text-[10px] text-brand-accent font-semibold mt-0.5">License: {profile.license}</p>
+                                    <h4 className="text-lg font-bold text-slate-800">{profile.name}</h4>
+                                    <p className="text-xs text-slate-500">{profile.title}</p>
+                                    <p className="text-[10px] text-indigo-500 font-semibold mt-0.5">License: {profile.license}</p>
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -659,9 +659,9 @@ export default function PsychologistDashboard() {
                                 <ProfileField icon={Clock} label="Shift Hours" value={profile.shiftStart + ' -- ' + profile.shiftEnd} />
                             </div>
                             {profile.bio && (
-                                <div className="mt-4 p-3 rounded-lg bg-gray-50 border border-gray-100">
-                                    <p className="text-[10px] text-brand-muted uppercase tracking-wider mb-1">Bio</p>
-                                    <p className="text-sm text-brand-dark leading-relaxed">{profile.bio}</p>
+                                <div className="mt-4 p-3 rounded-lg bg-slate-50 border border-slate-100">
+                                    <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Bio</p>
+                                    <p className="text-sm text-slate-800 leading-relaxed">{profile.bio}</p>
                                 </div>
                             )}
                         </div>
@@ -716,12 +716,12 @@ function RiskMetric({ icon: Icon, label, value, status }) {
 
 function SectionCard({ title, icon: Icon, subtitle, children }) {
     return (
-        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center gap-3">
-                <Icon className="w-5 h-5 text-brand-accent" />
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
+                <Icon className="w-5 h-5 text-indigo-500" />
                 <div>
-                    <h3 className="text-sm font-semibold text-brand-dark">{title}</h3>
-                    {subtitle && <p className="text-[11px] text-brand-muted">{subtitle}</p>}
+                    <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
+                    {subtitle && <p className="text-[11px] text-slate-500">{subtitle}</p>}
                 </div>
             </div>
             <div className="p-5">{children}</div>
@@ -746,11 +746,11 @@ function Modal({ onClose, children }) {
 
 function InfoRow({ icon: Icon, label, value }) {
     return (
-        <div className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-            <Icon className="w-3.5 h-3.5 text-brand-muted flex-shrink-0" />
+        <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+            <Icon className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" />
             <div className="min-w-0">
-                <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
-                <p className="text-xs font-medium text-brand-dark truncate">{value}</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider">{label}</p>
+                <p className="text-xs font-medium text-slate-800 truncate">{value}</p>
             </div>
         </div>
     )
@@ -780,12 +780,12 @@ function SessionDetailModal({ session, resident, residentId, notes, acknowledged
 
     return (
         <div>
-            <div className={`px-6 py-4 border-b flex items-center justify-between ${session.flagged ? 'bg-amber-50 border-amber-200' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`px-6 py-4 border-b flex items-center justify-between ${session.flagged ? 'bg-amber-50 border-amber-200' : 'bg-slate-50 border-slate-200/80'}`}>
                 <div className="flex items-center gap-3">
-                    <BookOpen className={`w-5 h-5 ${session.flagged ? 'text-amber-600' : 'text-brand-accent'}`} />
+                    <BookOpen className={`w-5 h-5 ${session.flagged ? 'text-amber-600' : 'text-indigo-500'}`} />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">Session {session.session} -- {session.type}</h3>
-                        <p className="text-[11px] text-brand-muted">{resident} -- {session.date} ({session.duration})</p>
+                        <h3 className="text-sm font-bold text-slate-800">Session {session.session} -- {session.type}</h3>
+                        <p className="text-[11px] text-slate-500">{resident} -- {session.date} ({session.duration})</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -794,8 +794,8 @@ function SessionDetailModal({ session, resident, residentId, notes, acknowledged
             </div>
             <div className="p-6 space-y-4">
                 <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-brand-primary/10 text-brand-primary">{session.type}</span>
-                    <span className="text-[10px] text-brand-muted">Mood: <strong className="text-brand-dark">{session.mood}</strong></span>
+                    <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-indigo-600/10 text-indigo-600">{session.type}</span>
+                    <span className="text-[10px] text-slate-500">Mood: <strong className="text-slate-800">{session.mood}</strong></span>
                     {session.flagged && (
                         <span className="flex items-center gap-1 text-[10px] font-semibold text-amber-600 bg-amber-100 px-2 py-0.5 rounded">
                             <AlertTriangle className="w-3 h-3" /> Flagged for Review
@@ -803,25 +803,25 @@ function SessionDetailModal({ session, resident, residentId, notes, acknowledged
                     )}
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Observations</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{session.observations}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Observations</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{session.observations}</p>
                     </div>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Interventions Applied</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{session.interventions}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Interventions Applied</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{session.interventions}</p>
                     </div>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Resident Response</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{session.response}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Resident Response</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{session.response}</p>
                     </div>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Next Steps</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Next Steps</p>
                     <div className={`p-3 rounded-lg border ${session.flagged ? 'bg-amber-50 border-amber-200' : 'bg-blue-50 border-blue-200'}`}>
                         <p className={`text-sm leading-relaxed ${session.flagged ? 'text-amber-800' : 'text-blue-800'}`}>{session.nextSteps}</p>
                     </div>
@@ -830,8 +830,8 @@ function SessionDetailModal({ session, resident, residentId, notes, acknowledged
                 {/* ── CLINICAL NOTES SECTION ── */}
                 <div>
                     <div className="flex items-center justify-between mb-2">
-                        <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider">
-                            Clinical Notes {notes.length > 0 && <span className="text-brand-primary">({notes.length})</span>}
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                            Clinical Notes {notes.length > 0 && <span className="text-indigo-600">({notes.length})</span>}
                         </p>
                     </div>
 
@@ -842,8 +842,8 @@ function SessionDetailModal({ session, resident, residentId, notes, acknowledged
                                     <div className="flex items-start gap-2">
                                         <FileText className="w-3.5 h-3.5 text-purple-500 mt-0.5 flex-shrink-0" />
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-sm text-brand-dark leading-relaxed">{note.text}</p>
-                                            <p className="text-[10px] text-brand-muted mt-1 flex items-center gap-1">
+                                            <p className="text-sm text-slate-800 leading-relaxed">{note.text}</p>
+                                            <p className="text-[10px] text-slate-500 mt-1 flex items-center gap-1">
                                                 <Clock className="w-3 h-3" /> {note.timestamp}
                                             </p>
                                         </div>
@@ -854,33 +854,33 @@ function SessionDetailModal({ session, resident, residentId, notes, acknowledged
                     )}
 
                     {notes.length === 0 && !showNoteForm && (
-                        <div className="p-3 rounded-lg bg-gray-50 border border-gray-100 text-center mb-3">
-                            <p className="text-xs text-brand-muted">No clinical notes added yet</p>
+                        <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 text-center mb-3">
+                            <p className="text-xs text-slate-500">No clinical notes added yet</p>
                         </div>
                     )}
 
                     {/* Note form */}
                     {showNoteForm && (
-                        <div className="p-3 rounded-lg bg-gray-50 border border-gray-200 space-y-2 mb-3" style={{ animation: 'modalIn 0.2s ease-out' }}>
+                        <div className="p-3 rounded-lg bg-slate-50 border border-slate-200/80 space-y-2 mb-3" style={{ animation: 'modalIn 0.2s ease-out' }}>
                             <textarea
                                 autoFocus
                                 rows={3}
                                 value={noteText}
                                 onChange={e => setNoteText(e.target.value)}
-                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark placeholder-brand-muted/50"
+                                className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800 placeholder-slate-500/50"
                                 placeholder="Enter clinical observation, follow-up action, or treatment note..."
                             />
                             <div className="flex items-center gap-2 justify-end">
                                 <button
                                     onClick={() => { setShowNoteForm(false); setNoteText('') }}
-                                    className="px-3 py-1.5 text-xs font-medium text-brand-muted hover:text-brand-dark transition-colors rounded-lg"
+                                    className="px-3 py-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors rounded-lg"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     onClick={handleSaveNote}
                                     disabled={!noteText.trim()}
-                                    className={`flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg transition-colors ${noteText.trim() ? 'bg-brand-primary text-white hover:bg-brand-primary-dark' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
+                                    className={`flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg transition-colors ${noteText.trim() ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
                                 >
                                     <Send className="w-3 h-3" /> Save Note
                                 </button>
@@ -915,14 +915,14 @@ function SessionDetailModal({ session, resident, residentId, notes, acknowledged
                     <button
                         onClick={handleAcknowledge}
                         disabled={!!acknowledgedAt}
-                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors ${acknowledgedAt ? 'bg-emerald-100 text-emerald-700 cursor-default' : 'bg-brand-primary text-white hover:bg-brand-primary-dark'}`}
+                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors ${acknowledgedAt ? 'bg-emerald-100 text-emerald-700 cursor-default' : 'bg-indigo-600 text-white hover:bg-indigo-700'}`}
                     >
                         <CheckCircle2 className="w-4 h-4" /> {acknowledgedAt ? 'Acknowledged' : 'Acknowledge'}
                     </button>
                     <button
                         onClick={() => setShowNoteForm(true)}
                         disabled={showNoteForm}
-                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl border transition-colors ${showNoteForm ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-default' : 'bg-white text-brand-dark border-gray-200 hover:bg-gray-50'}`}
+                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl border transition-colors ${showNoteForm ? 'bg-slate-100 text-gray-400 border-slate-200/80 cursor-default' : 'bg-white text-slate-800 border-slate-200/80 hover:bg-slate-50'}`}
                     >
                         <Plus className="w-4 h-4" /> Add Clinical Note
                     </button>
@@ -942,8 +942,8 @@ function GdsDetailModal({ point, resident, onClose }) {
                         {point.score}
                     </div>
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{point.visit}</h3>
-                        <p className="text-[11px] text-brand-muted">{resident} -- {point.date}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{point.visit}</h3>
+                        <p className="text-[11px] text-slate-500">{resident} -- {point.date}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -952,25 +952,25 @@ function GdsDetailModal({ point, resident, onClose }) {
             </div>
             <div className="p-6 space-y-4">
                 <div className="text-center py-3">
-                    <p className="text-4xl font-bold text-brand-dark">{point.score}<span className="text-lg text-brand-muted">/15</span></p>
+                    <p className="text-4xl font-bold text-slate-800">{point.score}<span className="text-lg text-slate-500">/15</span></p>
                     <p className="text-xs font-semibold mt-1" style={{ color: band?.color }}>{band?.label || 'Unknown'}</p>
                 </div>
                 {point.event && (
-                    <div className="flex items-center gap-2 p-2.5 rounded-lg bg-brand-primary/5 border border-brand-primary/10">
-                        <Activity className="w-4 h-4 text-brand-primary flex-shrink-0" />
+                    <div className="flex items-center gap-2 p-2.5 rounded-lg bg-indigo-600/5 border border-indigo-600/10">
+                        <Activity className="w-4 h-4 text-indigo-600 flex-shrink-0" />
                         <div>
-                            <p className="text-[10px] text-brand-muted uppercase tracking-wider">Clinical Event</p>
-                            <p className="text-xs font-medium text-brand-primary">{point.event}</p>
+                            <p className="text-[10px] text-slate-500 uppercase tracking-wider">Clinical Event</p>
+                            <p className="text-xs font-medium text-indigo-600">{point.event}</p>
                         </div>
                     </div>
                 )}
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Assessment Notes</p>
-                    <div className="p-4 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{point.notes}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Assessment Notes</p>
+                    <div className="p-4 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{point.notes}</p>
                     </div>
                 </div>
-                <div className="flex gap-3 text-[10px] text-brand-muted justify-center flex-wrap">
+                <div className="flex gap-3 text-[10px] text-slate-500 justify-center flex-wrap">
                     {GDS_BANDS.map(b => (
                         <span key={b.label} className={`px-2 py-0.5 rounded border ${point.score >= b.min && point.score <= b.max ? 'font-bold' : ''}`} style={{ backgroundColor: b.color + '10', borderColor: b.color + '30', color: b.color }}>
                             {b.label}

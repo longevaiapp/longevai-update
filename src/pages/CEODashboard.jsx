@@ -66,6 +66,10 @@ export default function CEODashboard() {
                     segment={segment}
                     onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
                     onOpenCopilot={() => setCopilotOpen(true)}
+                    onLogout={() => {
+                        localStorage.removeItem('longevai-auth')
+                        navigate('/login')
+                    }}
                 />
 
                 <main className="flex-1 overflow-y-auto p-6 bg-gradient-to-br from-slate-50 via-slate-100 to-indigo-50/30">

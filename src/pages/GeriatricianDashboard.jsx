@@ -220,10 +220,10 @@ const RISK_LEVEL = {
 }
 
 const HISTORY_TYPE_STYLE = {
-    intake: { dot: 'border-brand-primary bg-brand-primary/20' },
+    intake: { dot: 'border-indigo-600 bg-indigo-600/20' },
     medication: { dot: 'border-blue-400 bg-blue-100' },
     evaluation: { dot: 'border-emerald-400 bg-emerald-100' },
-    report: { dot: 'border-brand-accent bg-brand-accent/20' },
+    report: { dot: 'border-indigo-500 bg-indigo-500/20' },
     incident: { dot: 'border-red-400 bg-red-100' },
 }
 
@@ -257,49 +257,49 @@ export default function GeriatricianDashboard() {
             {/* Date Bar */}
             <div className="flex items-center justify-between mb-4 px-1">
                 <div className="flex items-center gap-2">
-                    <CalendarDays className="w-4 h-4 text-brand-accent" />
-                    <span className="text-sm font-semibold text-brand-dark">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                    <CalendarDays className="w-4 h-4 text-indigo-500" />
+                    <span className="text-sm font-semibold text-slate-800">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
                 </div>
                 <button
                     onClick={() => setActiveSection('profile')}
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-gray-200 hover:border-brand-accent/30 hover:shadow-sm transition-all"
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200/80 hover:border-indigo-500/30 hover:shadow-sm transition-all"
                 >
-                    <div className="w-5 h-5 rounded-full bg-brand-primary/10 flex items-center justify-center">
-                        <UserCircle className="w-3.5 h-3.5 text-brand-primary" />
+                    <div className="w-5 h-5 rounded-full bg-indigo-600/10 flex items-center justify-center">
+                        <UserCircle className="w-3.5 h-3.5 text-indigo-600" />
                     </div>
-                    <span className="text-[11px] font-medium text-brand-dark hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
+                    <span className="text-[11px] font-medium text-slate-800 hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
                 </button>
             </div>
 
             {/* Resident Selector -- always visible */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6">
+            <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 mb-6">
                 <div className="flex flex-wrap items-center gap-4">
                     <div className="flex items-center gap-2">
-                        <UserCheck className="w-5 h-5 text-brand-accent" />
-                        <span className="text-sm font-semibold text-brand-dark">Resident:</span>
+                        <UserCheck className="w-5 h-5 text-indigo-500" />
+                        <span className="text-sm font-semibold text-slate-800">Resident:</span>
                     </div>
                     <div className="relative">
                         <select
                             value={selectedResident.id}
                             onChange={e => setSelectedResident(RESIDENTS_LIST.find(r => r.id === Number(e.target.value)))}
-                            className="appearance-none bg-brand-light border border-gray-200 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-accent/30"
+                            className="appearance-none bg-slate-100 border border-slate-200/80 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
                         >
                             {RESIDENTS_LIST.map(r => (
                                 <option key={r.id} value={r.id}>{r.name} (Rm {r.room})</option>
                             ))}
                         </select>
-                        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-muted pointer-events-none" />
+                        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
                     </div>
-                    <div className="flex flex-wrap gap-3 text-xs text-brand-muted">
-                        <span>Age: <strong className="text-brand-dark">{selectedResident.age}</strong></span>
-                        <span>Week: <strong className="text-brand-dark">{selectedResident.currentWeek}/16</strong></span>
-                        <span>Last Eval: <strong className="text-brand-dark">{selectedResident.lastEval}</strong></span>
+                    <div className="flex flex-wrap gap-3 text-xs text-slate-500">
+                        <span>Age: <strong className="text-slate-800">{selectedResident.age}</strong></span>
+                        <span>Week: <strong className="text-slate-800">{selectedResident.currentWeek}/16</strong></span>
+                        <span>Last Eval: <strong className="text-slate-800">{selectedResident.lastEval}</strong></span>
                     </div>
                     <div className="ml-auto flex items-center gap-1.5">
                         <div className="bg-gray-200 rounded-full h-2 w-32">
-                            <div className="bg-brand-primary h-2 rounded-full transition-all" style={{ width: (selectedResident.currentWeek / 16 * 100) + '%' }} />
+                            <div className="bg-indigo-600 h-2 rounded-full transition-all" style={{ width: (selectedResident.currentWeek / 16 * 100) + '%' }} />
                         </div>
-                        <span className="text-[11px] font-semibold text-brand-primary">{Math.round(selectedResident.currentWeek / 16 * 100)}%</span>
+                        <span className="text-[11px] font-semibold text-indigo-600">{Math.round(selectedResident.currentWeek / 16 * 100)}%</span>
                     </div>
                 </div>
             </div>
@@ -308,9 +308,9 @@ export default function GeriatricianDashboard() {
             {activeSection === 'overview' && (
                 <div className="space-y-6">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <KpiCard icon={Activity} label="Cycle Progress" value={'W' + selectedResident.currentWeek + '/16'} color="text-brand-primary" onClick={() => setActiveSection('evolution')} />
+                        <KpiCard icon={Activity} label="Cycle Progress" value={'W' + selectedResident.currentWeek + '/16'} color="text-indigo-600" onClick={() => setActiveSection('evolution')} />
                         <KpiCard icon={ShieldAlert} label="High Risks" value={highRisks} color={highRisks > 0 ? 'text-red-500' : 'text-emerald-500'} onClick={() => setActiveSection('risk')} />
-                        <KpiCard icon={Users2} label="Specialist Inputs" value={data.specialists.length + ' filed'} sub={overdueSpecialists > 0 ? overdueSpecialists + ' overdue' : 'All current'} subColor={overdueSpecialists > 0 ? 'text-amber-500' : 'text-emerald-500'} color="text-brand-accent" onClick={() => setActiveSection('specialists')} />
+                        <KpiCard icon={Users2} label="Specialist Inputs" value={data.specialists.length + ' filed'} sub={overdueSpecialists > 0 ? overdueSpecialists + ' overdue' : 'All current'} subColor={overdueSpecialists > 0 ? 'text-amber-500' : 'text-emerald-500'} color="text-indigo-500" onClick={() => setActiveSection('specialists')} />
                         <KpiCard icon={Pill} label="Active Medications" value={data.medications.length} color="text-blue-500" onClick={() => setActiveSection('medications')} />
                     </div>
 
@@ -335,32 +335,32 @@ export default function GeriatricianDashboard() {
                         <SectionCard title="Clinical Summary" icon={Stethoscope}>
                             <div className="space-y-4">
                                 <div>
-                                    <p className="text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Conditions</p>
+                                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Conditions</p>
                                     <div className="flex flex-wrap gap-1.5">
                                         {selectedResident.conditions.map((c, i) => (
-                                            <span key={i} className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-brand-light border border-gray-200 text-brand-dark">{c}</span>
+                                            <span key={i} className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200/80 text-slate-800">{c}</span>
                                         ))}
                                     </div>
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Active Risks</p>
+                                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Active Risks</p>
                                     <div className="space-y-1.5">
                                         {data.risks.map(r => {
                                             const rl = RISK_LEVEL[r.level]
                                             return (
                                                 <div key={r.id} onClick={() => { setActiveSection('risk') }} className={'flex items-center gap-2 p-2 rounded-lg border cursor-pointer hover:shadow-sm transition-all ' + rl.bg + ' ' + rl.border}>
                                                     <span className={'text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ' + rl.badge}>{r.level}</span>
-                                                    <span className="text-xs text-brand-dark">{r.risk}</span>
+                                                    <span className="text-xs text-slate-800">{r.risk}</span>
                                                 </div>
                                             )
                                         })}
                                     </div>
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Care Team</p>
-                                    <div className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-                                        <Stethoscope className="w-3.5 h-3.5 text-brand-muted" />
-                                        <span className="text-xs font-medium text-brand-dark">{selectedResident.doctor}</span>
+                                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Care Team</p>
+                                    <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                                        <Stethoscope className="w-3.5 h-3.5 text-slate-500" />
+                                        <span className="text-xs font-medium text-slate-800">{selectedResident.doctor}</span>
                                     </div>
                                 </div>
                             </div>
@@ -379,16 +379,16 @@ export default function GeriatricianDashboard() {
                                 <div
                                     key={item.id}
                                     onClick={() => setSelectedHistoryItem(item)}
-                                    className="flex gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-50 hover:shadow-sm transition-all relative group"
+                                    className="flex gap-3 p-3 rounded-lg cursor-pointer hover:bg-slate-50 hover:shadow-sm transition-all relative group"
                                 >
                                     {i < data.history.length - 1 && (
                                         <div className="absolute left-[22px] top-10 bottom-0 w-px bg-gray-200" />
                                     )}
                                     <div className={'w-4 h-4 rounded-full flex-shrink-0 mt-0.5 border-2 ' + style.dot} />
                                     <div className="flex-1 min-w-0">
-                                        <p className="text-[11px] text-brand-muted">{item.date}</p>
-                                        <p className="text-xs font-medium text-brand-dark">{item.event}</p>
-                                        <span className="text-[10px] font-semibold uppercase text-brand-muted/60 mt-0.5">{item.type}</span>
+                                        <p className="text-[11px] text-slate-500">{item.date}</p>
+                                        <p className="text-xs font-medium text-slate-800">{item.event}</p>
+                                        <span className="text-[10px] font-semibold uppercase text-slate-500/60 mt-0.5">{item.type}</span>
                                     </div>
                                     <ChevronRight className="w-4 h-4 text-gray-300 flex-shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>
@@ -406,22 +406,22 @@ export default function GeriatricianDashboard() {
                             <div
                                 key={m.id}
                                 onClick={() => setSelectedMedication(m)}
-                                className="flex items-center gap-3 p-3 rounded-lg border border-gray-100 bg-white hover:shadow-md cursor-pointer transition-all"
+                                className="flex items-center gap-3 p-3 rounded-lg border border-slate-100 bg-white hover:shadow-md cursor-pointer transition-all"
                             >
                                 <div className="w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
                                     <Pill className="w-4 h-4 text-blue-500" />
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-2">
-                                        <span className="text-sm font-semibold text-brand-dark">{m.name}</span>
-                                        <span className="text-[10px] text-brand-muted">{m.dose}</span>
+                                        <span className="text-sm font-semibold text-slate-800">{m.name}</span>
+                                        <span className="text-[10px] text-slate-500">{m.dose}</span>
                                     </div>
-                                    <p className="text-xs text-brand-muted">{m.frequency} -- {m.purpose}</p>
+                                    <p className="text-xs text-slate-500">{m.frequency} -- {m.purpose}</p>
                                 </div>
                                 {m.interactions !== 'None detected' && (
                                     <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-amber-100 text-amber-700">Interaction</span>
                                 )}
-                                <span className="text-[10px] text-brand-muted">{m.since}</span>
+                                <span className="text-[10px] text-slate-500">{m.since}</span>
                                 <ChevronRight className="w-4 h-4 text-gray-300 flex-shrink-0" />
                             </div>
                         ))}
@@ -443,11 +443,11 @@ export default function GeriatricianDashboard() {
                                 >
                                     <div className="flex items-center gap-2 mb-1.5">
                                         <ShieldAlert className={'w-4 h-4 ' + rl.color} />
-                                        <span className="text-sm font-semibold text-brand-dark">{r.risk}</span>
+                                        <span className="text-sm font-semibold text-slate-800">{r.risk}</span>
                                         <span className={'text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ml-auto ' + rl.badge}>{r.level}</span>
                                     </div>
-                                    <p className="text-xs text-brand-muted">{r.detail}</p>
-                                    <div className="flex items-center gap-1 mt-2 text-[10px] text-brand-muted">
+                                    <p className="text-xs text-slate-500">{r.detail}</p>
+                                    <div className="flex items-center gap-1 mt-2 text-[10px] text-slate-500">
                                         <CheckCircle2 className="w-3 h-3" /> {r.interventions.length} active interventions
                                     </div>
                                 </div>
@@ -480,13 +480,13 @@ export default function GeriatricianDashboard() {
                                 const delta = q.current - q.baseline
                                 const gap = q.target - q.current
                                 return (
-                                    <div key={q.dimension} className="p-3 rounded-xl bg-brand-light border border-gray-200 text-center">
-                                        <p className="text-[10px] font-semibold text-brand-muted uppercase tracking-wider">{q.dimension}</p>
-                                        <p className="text-xl font-bold text-brand-dark mt-1">{q.current}</p>
+                                    <div key={q.dimension} className="p-3 rounded-xl bg-slate-100 border border-slate-200/80 text-center">
+                                        <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">{q.dimension}</p>
+                                        <p className="text-xl font-bold text-slate-800 mt-1">{q.current}</p>
                                         <p className="text-[10px] text-emerald-600 font-medium flex items-center justify-center gap-0.5 mt-0.5">
                                             <TrendingUp className="w-3 h-3" /> +{delta} from baseline
                                         </p>
-                                        <p className="text-[10px] text-brand-muted mt-0.5">{gap} pts to target</p>
+                                        <p className="text-[10px] text-slate-500 mt-0.5">{gap} pts to target</p>
                                     </div>
                                 )
                             })}
@@ -521,12 +521,12 @@ export default function GeriatricianDashboard() {
                             <div
                                 key={s.id}
                                 onClick={() => setSelectedSpecialist(s)}
-                                className={'p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ' + (s.status === 'overdue' ? 'border-amber-200 bg-amber-50/50' : 'border-gray-100 bg-gray-50')}
+                                className={'p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ' + (s.status === 'overdue' ? 'border-amber-200 bg-amber-50/50' : 'border-slate-100 bg-slate-50')}
                             >
                                 <div className="flex items-center justify-between mb-2">
                                     <div className="flex items-center gap-2">
-                                        <Stethoscope className="w-4 h-4 text-brand-accent" />
-                                        <span className="text-sm font-semibold text-brand-dark">{s.specialist}</span>
+                                        <Stethoscope className="w-4 h-4 text-indigo-500" />
+                                        <span className="text-sm font-semibold text-slate-800">{s.specialist}</span>
                                     </div>
                                     <div className="flex items-center gap-1.5">
                                         {s.status === 'overdue' ? (
@@ -537,12 +537,12 @@ export default function GeriatricianDashboard() {
                                         <span className={'text-[10px] font-semibold uppercase ' + (s.status === 'overdue' ? 'text-amber-600' : 'text-emerald-600')}>{s.status}</span>
                                     </div>
                                 </div>
-                                <p className="text-xs text-brand-muted mb-2">{s.summary}</p>
+                                <p className="text-xs text-slate-500 mb-2">{s.summary}</p>
                                 <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-1 text-[10px] text-brand-muted">
+                                    <div className="flex items-center gap-1 text-[10px] text-slate-500">
                                         <Clock className="w-3 h-3" /> Last updated: {s.lastUpdate}
                                     </div>
-                                    <span className="text-[10px] font-semibold text-brand-primary flex items-center gap-1">
+                                    <span className="text-[10px] font-semibold text-indigo-600 flex items-center gap-1">
                                         View full report <ChevronRight className="w-3 h-3" />
                                     </span>
                                 </div>
@@ -556,24 +556,24 @@ export default function GeriatricianDashboard() {
             {activeSection === 'reports' && (
                 <SectionCard title="Integral Cycle Report Generator" icon={Download} subtitle="Generate definitive clinical portrait">
                     <div className="space-y-4">
-                        <div className="p-4 rounded-xl bg-brand-light border border-gray-200">
-                            <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Report for</p>
-                            <p className="text-lg font-bold text-brand-dark">{selectedResident.name}</p>
-                            <p className="text-xs text-brand-muted">Week {selectedResident.currentWeek}/16 -- Admitted {selectedResident.admission}</p>
+                        <div className="p-4 rounded-xl bg-slate-100 border border-slate-200/80">
+                            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Report for</p>
+                            <p className="text-lg font-bold text-slate-800">{selectedResident.name}</p>
+                            <p className="text-xs text-slate-500">Week {selectedResident.currentWeek}/16 -- Admitted {selectedResident.admission}</p>
                         </div>
 
                         <div>
-                            <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Specialist Input Status</p>
+                            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Specialist Input Status</p>
                             <div className="space-y-1.5">
                                 {data.specialists.map(s => (
-                                    <div key={s.id} className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                                    <div key={s.id} className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-100">
                                         {s.status === 'current' ? (
                                             <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
                                         ) : (
                                             <AlertTriangle className="w-4 h-4 text-amber-500 flex-shrink-0" />
                                         )}
-                                        <span className="text-xs font-medium text-brand-dark flex-1">{s.specialist}</span>
-                                        <span className="text-[10px] text-brand-muted">{s.lastUpdate}</span>
+                                        <span className="text-xs font-medium text-slate-800 flex-1">{s.specialist}</span>
+                                        <span className="text-[10px] text-slate-500">{s.lastUpdate}</span>
                                         <span className={'text-[10px] font-semibold uppercase ' + (s.status === 'current' ? 'text-emerald-600' : 'text-amber-600')}>{s.status}</span>
                                     </div>
                                 ))}
@@ -581,34 +581,34 @@ export default function GeriatricianDashboard() {
                         </div>
 
                         <div>
-                            <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Included Sections</p>
+                            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Included Sections</p>
                             <div className="grid grid-cols-2 gap-2">
                                 {['Clinical History', 'Medication Review', '4-Quadrant Analysis', 'Risk Assessment', 'Specialist Reports', 'Recommendations'].map(section => (
-                                    <div key={section} className="flex items-center gap-2 p-2 rounded-lg bg-gray-50 border border-gray-100">
+                                    <div key={section} className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100">
                                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                                        <span className="text-xs text-brand-dark">{section}</span>
+                                        <span className="text-xs text-slate-800">{section}</span>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
                         <div>
-                            <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Geriatrician Recommendations</p>
+                            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Geriatrician Recommendations</p>
                             <textarea
                                 rows={4}
                                 value={recommendations}
                                 onChange={e => setRecommendations(e.target.value)}
-                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark placeholder-brand-muted/50"
+                                className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800 placeholder-slate-500/50"
                                 placeholder="Enter clinical recommendations, observations, and next steps to include in the report..."
                             />
-                            <p className="text-[10px] text-brand-muted mt-1">This narrative will be included in the final report as the geriatrician's signed assessment.</p>
+                            <p className="text-[10px] text-slate-500 mt-1">This narrative will be included in the final report as the geriatrician's signed assessment.</p>
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-3 pt-2">
                             {selectedResident.currentWeek >= 8 && (
                                 <button
                                     onClick={() => setReportModal('w8')}
-                                    className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors"
+                                    className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"
                                 >
                                     <Download className="w-4 h-4" /> Generate Week 8 Report
                                 </button>
@@ -616,13 +616,13 @@ export default function GeriatricianDashboard() {
                             {selectedResident.currentWeek >= 16 && (
                                 <button
                                     onClick={() => setReportModal('w16')}
-                                    className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-brand-accent text-white text-sm font-semibold rounded-xl hover:bg-brand-accent/90 transition-colors"
+                                    className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-indigo-500 text-white text-sm font-semibold rounded-xl hover:bg-indigo-500/90 transition-colors"
                                 >
                                     <Download className="w-4 h-4" /> Generate Week 16 Report
                                 </button>
                             )}
                             {selectedResident.currentWeek < 8 && (
-                                <div className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-gray-100 text-brand-muted text-sm font-medium rounded-xl border border-gray-200">
+                                <div className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-slate-100 text-slate-500 text-sm font-medium rounded-xl border border-slate-200/80">
                                     <Clock className="w-4 h-4" /> Week 8 report available at W8 ({8 - selectedResident.currentWeek} weeks remaining)
                                 </div>
                             )}
@@ -634,32 +634,32 @@ export default function GeriatricianDashboard() {
             {/* SECTION: MY PROFILE */}
             {activeSection === 'profile' && (
                 <div className="space-y-6">
-                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                        <div className="bg-gradient-to-r from-brand-primary/10 via-brand-accent/5 to-transparent px-6 py-5 border-b border-gray-100">
+                    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                        <div className="bg-gradient-to-r from-indigo-600/10 via-indigo-500/5 to-transparent px-6 py-5 border-b border-slate-100">
                             <div className="flex items-start gap-4">
-                                <div className="w-16 h-16 rounded-2xl bg-brand-primary/10 border-2 border-brand-primary/20 flex items-center justify-center flex-shrink-0">
-                                    <UserCircle className="w-8 h-8 text-brand-primary" />
+                                <div className="w-16 h-16 rounded-2xl bg-indigo-600/10 border-2 border-indigo-600/20 flex items-center justify-center flex-shrink-0">
+                                    <UserCircle className="w-8 h-8 text-indigo-600" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="text-xl font-bold text-brand-dark">{profile.name}</h3>
-                                    <p className="text-sm text-brand-accent font-medium">{profile.title}</p>
-                                    <p className="text-xs text-brand-muted mt-1">{profile.institution}</p>
+                                    <h3 className="text-xl font-bold text-slate-800">{profile.name}</h3>
+                                    <p className="text-sm text-indigo-500 font-medium">{profile.title}</p>
+                                    <p className="text-xs text-slate-500 mt-1">{profile.institution}</p>
                                     <div className="flex items-center gap-3 mt-2 flex-wrap">
-                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-brand-primary/10 text-brand-primary border border-brand-primary/20">{profile.license}</span>
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Users2 className="w-3 h-3" /> {profile.residentsManaged} residents</span>
+                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-indigo-600/10 text-indigo-600 border border-indigo-600/20">{profile.license}</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Users2 className="w-3 h-3" /> {profile.residentsManaged} residents</span>
                                     </div>
                                 </div>
                                 <button
                                     onClick={() => setEditingProfile(true)}
-                                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-gray-200 text-brand-dark hover:border-brand-accent hover:shadow-sm transition-all"
+                                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-slate-200/80 text-slate-800 hover:border-indigo-500 hover:shadow-sm transition-all"
                                 >
-                                    <Pencil className="w-3.5 h-3.5 text-brand-accent" /> Edit Profile
+                                    <Pencil className="w-3.5 h-3.5 text-indigo-500" /> Edit Profile
                                 </button>
                             </div>
                         </div>
                         <div className="p-6">
-                            <p className="text-sm text-brand-dark leading-relaxed mb-5">{profile.bio}</p>
+                            <p className="text-sm text-slate-800 leading-relaxed mb-5">{profile.bio}</p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <ProfileField icon={GraduationCap} label="Education" value={profile.education} />
                                 <ProfileField icon={FileText} label="Certifications" value={profile.certifications} />
@@ -720,14 +720,14 @@ export default function GeriatricianDashboard() {
 
 function KpiCard({ icon: Icon, label, value, color, sub, subColor, onClick }) {
     return (
-        <div onClick={onClick} className="bg-white rounded-xl border border-gray-200 p-4 flex items-center gap-3 cursor-pointer hover:shadow-md hover:border-brand-accent/30 transition-all">
-            <div className="w-10 h-10 rounded-lg bg-brand-light flex items-center justify-center flex-shrink-0">
+        <div onClick={onClick} className="bg-white rounded-xl border border-slate-200/80 shadow-sm p-4 flex items-center gap-3 cursor-pointer hover:shadow-md hover:border-indigo-500/30 transition-all">
+            <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0">
                 <Icon className={'w-5 h-5 ' + color} />
             </div>
             <div>
-                <p className="text-2xl font-bold text-brand-dark">{value}</p>
-                <p className="text-xs text-brand-muted">{label}</p>
-                {sub && <p className={'text-[10px] font-medium ' + (subColor || 'text-brand-muted')}>{sub}</p>}
+                <p className="text-2xl font-bold text-slate-800">{value}</p>
+                <p className="text-xs text-slate-500">{label}</p>
+                {sub && <p className={'text-[10px] font-medium ' + (subColor || 'text-slate-500')}>{sub}</p>}
             </div>
         </div>
     )
@@ -735,12 +735,12 @@ function KpiCard({ icon: Icon, label, value, color, sub, subColor, onClick }) {
 
 function SectionCard({ title, icon: Icon, subtitle, children }) {
     return (
-        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center gap-3">
-                <Icon className="w-5 h-5 text-brand-accent" />
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
+                <Icon className="w-5 h-5 text-indigo-500" />
                 <div>
-                    <h3 className="text-sm font-semibold text-brand-dark">{title}</h3>
-                    {subtitle && <p className="text-[11px] text-brand-muted">{subtitle}</p>}
+                    <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
+                    {subtitle && <p className="text-[11px] text-slate-500">{subtitle}</p>}
                 </div>
             </div>
             <div className="p-5">{children}</div>
@@ -765,11 +765,11 @@ function Modal({ onClose, children }) {
 
 function InfoRow({ icon: Icon, label, value }) {
     return (
-        <div className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-            <Icon className="w-3.5 h-3.5 text-brand-muted flex-shrink-0" />
+        <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+            <Icon className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" />
             <div className="min-w-0">
-                <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
-                <p className="text-xs font-medium text-brand-dark truncate">{value}</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider">{label}</p>
+                <p className="text-xs font-medium text-slate-800 truncate">{value}</p>
             </div>
         </div>
     )
@@ -782,32 +782,32 @@ function HistoryDetailModal({ item, onClose }) {
     const typeLabel = { intake: 'Intake', medication: 'Medication Change', evaluation: 'Evaluation', report: 'Report', incident: 'Incident' }
     return (
         <div>
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className={'w-8 h-8 rounded-full flex items-center justify-center border-2 ' + style.dot}>
-                        <FileText className="w-4 h-4 text-brand-dark" />
+                        <FileText className="w-4 h-4 text-slate-800" />
                     </div>
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{typeLabel[item.type] || 'Event'}</h3>
-                        <p className="text-[11px] text-brand-muted">{item.date}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{typeLabel[item.type] || 'Event'}</h3>
+                        <p className="text-[11px] text-slate-500">{item.date}</p>
                     </div>
                 </div>
-                <button onClick={onClose} className="p-1 rounded-lg hover:bg-gray-100 transition-colors">
+                <button onClick={onClose} className="p-1 rounded-lg hover:bg-slate-100 transition-colors">
                     <X className="w-5 h-5 text-gray-400" />
                 </button>
             </div>
             <div className="p-6 space-y-4">
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Summary</p>
-                    <p className="text-sm font-medium text-brand-dark">{item.event}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Summary</p>
+                    <p className="text-sm font-medium text-slate-800">{item.event}</p>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Clinical Detail</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{item.detail}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Clinical Detail</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{item.detail}</p>
                     </div>
                 </div>
-                <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors">
+                <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors">
                     <Plus className="w-4 h-4" /> Add Follow-up Note
                 </button>
             </div>
@@ -818,14 +818,14 @@ function HistoryDetailModal({ item, onClose }) {
 function MedicationDetailModal({ med, onClose }) {
     return (
         <div>
-            <div className="px-6 py-4 border-b border-gray-100 bg-blue-50 flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-slate-100 bg-blue-50 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center">
                         <Pill className="w-5 h-5 text-blue-600" />
                     </div>
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{med.name}</h3>
-                        <p className="text-[11px] text-brand-muted">{med.dose} -- {med.frequency}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{med.name}</h3>
+                        <p className="text-[11px] text-slate-500">{med.dose} -- {med.frequency}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -840,16 +840,16 @@ function MedicationDetailModal({ med, onClose }) {
                     <InfoRow icon={CheckCircle2} label="Status" value={med.status} />
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Clinical Notes</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{med.notes}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Clinical Notes</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{med.notes}</p>
                     </div>
                 </div>
                 <div className="flex gap-2">
-                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors">
+                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors">
                         <Clipboard className="w-4 h-4" /> Add Observation
                     </button>
-                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-brand-dark text-sm font-semibold rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors">
+                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-slate-800 text-sm font-semibold rounded-xl border border-slate-200/80 hover:bg-slate-50 transition-colors">
                         <AlertTriangle className="w-4 h-4" /> Flag Issue
                     </button>
                 </div>
@@ -866,7 +866,7 @@ function RiskDetailModal({ risk, onClose }) {
                 <div className="flex items-center gap-3">
                     <ShieldAlert className={'w-5 h-5 ' + rl.color} />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{risk.risk}</h3>
+                        <h3 className="text-sm font-bold text-slate-800">{risk.risk}</h3>
                         <span className={'text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ' + rl.badge}>{risk.level} risk</span>
                     </div>
                 </div>
@@ -876,23 +876,23 @@ function RiskDetailModal({ risk, onClose }) {
             </div>
             <div className="p-6 space-y-4">
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Assessment</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{risk.detail}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Assessment</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{risk.detail}</p>
                     </div>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Active Interventions</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Active Interventions</p>
                     <div className="space-y-1.5">
                         {risk.interventions.map((intv, i) => (
-                            <div key={i} className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                            <div key={i} className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-100">
                                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
-                                <span className="text-xs text-brand-dark">{intv}</span>
+                                <span className="text-xs text-slate-800">{intv}</span>
                             </div>
                         ))}
                     </div>
                 </div>
-                <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors">
+                <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors">
                     <Plus className="w-4 h-4" /> Add Intervention
                 </button>
             </div>
@@ -904,12 +904,12 @@ function SpecialistDetailModal({ specialist, resident, onClose }) {
     const isOverdue = specialist.status === 'overdue'
     return (
         <div>
-            <div className={'px-6 py-4 border-b flex items-center justify-between ' + (isOverdue ? 'bg-amber-50 border-amber-200' : 'bg-gray-50 border-gray-200')}>
+            <div className={'px-6 py-4 border-b flex items-center justify-between ' + (isOverdue ? 'bg-amber-50 border-amber-200' : 'bg-slate-50 border-slate-200/80')}>
                 <div className="flex items-center gap-3">
-                    <Stethoscope className={'w-5 h-5 ' + (isOverdue ? 'text-amber-600' : 'text-brand-accent')} />
+                    <Stethoscope className={'w-5 h-5 ' + (isOverdue ? 'text-amber-600' : 'text-indigo-500')} />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{specialist.specialist}</h3>
-                        <p className="text-[11px] text-brand-muted">Report for {resident}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{specialist.specialist}</h3>
+                        <p className="text-[11px] text-slate-500">Report for {resident}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -926,18 +926,18 @@ function SpecialistDetailModal({ specialist, resident, onClose }) {
                         )}
                         <span className={'text-xs font-semibold uppercase ' + (isOverdue ? 'text-amber-600' : 'text-emerald-600')}>{specialist.status}</span>
                     </div>
-                    <div className="flex items-center gap-1 text-[10px] text-brand-muted">
+                    <div className="flex items-center gap-1 text-[10px] text-slate-500">
                         <Clock className="w-3 h-3" /> {specialist.lastUpdate}
                     </div>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Summary</p>
-                    <p className="text-sm font-medium text-brand-dark">{specialist.summary}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Summary</p>
+                    <p className="text-sm font-medium text-slate-800">{specialist.summary}</p>
                 </div>
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Full Report</p>
-                    <div className="p-4 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{specialist.fullReport}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Full Report</p>
+                    <div className="p-4 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{specialist.fullReport}</p>
                     </div>
                 </div>
                 <div className="flex gap-2">
@@ -946,7 +946,7 @@ function SpecialistDetailModal({ specialist, resident, onClose }) {
                             <Send className="w-4 h-4" /> Request Update
                         </button>
                     )}
-                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-brand-dark text-sm font-semibold rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors">
+                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-slate-800 text-sm font-semibold rounded-xl border border-slate-200/80 hover:bg-slate-50 transition-colors">
                         <Eye className="w-4 h-4" /> Print Report
                     </button>
                 </div>
@@ -971,12 +971,12 @@ function ReportGeneratedModal({ type, resident, onClose }) {
 
     return (
         <div>
-            <div className="px-6 py-4 border-b border-gray-100 bg-brand-light flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-slate-100 bg-slate-100 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <Download className="w-5 h-5 text-brand-primary" />
+                    <Download className="w-5 h-5 text-indigo-600" />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{weekLabel} Report</h3>
-                        <p className="text-[11px] text-brand-muted">{resident.name}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{weekLabel} Report</h3>
+                        <p className="text-[11px] text-slate-500">{resident.name}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -986,9 +986,9 @@ function ReportGeneratedModal({ type, resident, onClose }) {
             <div className="p-6 space-y-4">
                 {generating && (
                     <div className="text-center py-8">
-                        <div className="w-12 h-12 rounded-full border-4 border-brand-primary/20 border-t-brand-primary animate-spin mx-auto mb-4" />
-                        <p className="text-sm font-semibold text-brand-dark">Generating report...</p>
-                        <p className="text-xs text-brand-muted mt-1">Aggregating data from all specialist modules</p>
+                        <div className="w-12 h-12 rounded-full border-4 border-indigo-600/20 border-t-indigo-600 animate-spin mx-auto mb-4" />
+                        <p className="text-sm font-semibold text-slate-800">Generating report...</p>
+                        <p className="text-xs text-slate-500 mt-1">Aggregating data from all specialist modules</p>
                     </div>
                 )}
                 {done && (
@@ -1002,25 +1002,25 @@ function ReportGeneratedModal({ type, resident, onClose }) {
                         </div>
 
                         <div>
-                            <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Report Contents</p>
+                            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Report Contents</p>
                             <div className="space-y-1.5">
                                 {['Executive Summary', 'Clinical History & Timeline', 'Medication Review', '4-Quadrant Analysis & Charts', 'Risk Assessment', 'Specialist Reports (All)', 'Recommendations & Next Steps'].map(section => (
-                                    <div key={section} className="flex items-center gap-2 p-2 rounded-lg bg-gray-50 border border-gray-100">
+                                    <div key={section} className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100">
                                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                                        <span className="text-xs text-brand-dark">{section}</span>
+                                        <span className="text-xs text-slate-800">{section}</span>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
                         <div className="flex gap-2">
-                            <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors">
+                            <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors">
                                 <Download className="w-4 h-4" /> Download PDF
                             </button>
                             <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors">
                                 <FileDown className="w-4 h-4" /> Download Word
                             </button>
-                            <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-brand-dark text-sm font-semibold rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors">
+                            <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-slate-800 text-sm font-semibold rounded-xl border border-slate-200/80 hover:bg-slate-50 transition-colors">
                                 <Eye className="w-4 h-4" /> Preview
                             </button>
                         </div>
@@ -1033,11 +1033,11 @@ function ReportGeneratedModal({ type, resident, onClose }) {
 
 function ProfileField({ icon: Icon, label, value, valueColor }) {
     return (
-        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-gray-50 border border-gray-100">
-            <Icon className="w-4 h-4 text-brand-muted flex-shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-slate-50 border border-slate-100">
+            <Icon className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
             <div className="min-w-0">
-                <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
-                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-brand-dark')}>{value}</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider">{label}</p>
+                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-slate-800')}>{value}</p>
             </div>
         </div>
     )
@@ -1064,12 +1064,12 @@ function ProfileEditModal({ profile, onClose, onSave }) {
 
     return (
         <div>
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-brand-light">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-100">
                 <div className="flex items-center gap-3">
-                    <Pencil className="w-5 h-5 text-brand-accent" />
+                    <Pencil className="w-5 h-5 text-indigo-500" />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">Edit Profile</h3>
-                        <p className="text-[11px] text-brand-muted">Update your personal and professional information</p>
+                        <h3 className="text-sm font-bold text-slate-800">Edit Profile</h3>
+                        <p className="text-[11px] text-slate-500">Update your personal and professional information</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors">
@@ -1080,33 +1080,33 @@ function ProfileEditModal({ profile, onClose, onSave }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {fields.map(f => (
                         <div key={f.key}>
-                            <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">{f.label}</label>
+                            <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">{f.label}</label>
                             <input
                                 type={f.type}
                                 value={form[f.key] || ''}
                                 onChange={e => update(f.key, e.target.value)}
-                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent text-brand-dark"
+                                className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-slate-800"
                             />
                         </div>
                     ))}
                 </div>
                 <div>
-                    <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">Bio</label>
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Bio</label>
                     <textarea
                         rows={3}
                         value={form.bio || ''}
                         onChange={e => update('bio', e.target.value)}
-                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark"
+                        className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800"
                     />
                 </div>
             </div>
-            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-2">
-                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-gray-200 text-brand-dark hover:bg-gray-50 transition-colors">
+            <div className="px-6 py-4 border-t border-slate-100 flex justify-end gap-2">
+                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-slate-200/80 text-slate-800 hover:bg-slate-50 transition-colors">
                     Cancel
                 </button>
                 <button
                     onClick={() => onSave(form)}
-                    className="flex items-center gap-2 px-5 py-2 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors"
+                    className="flex items-center gap-2 px-5 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"
                 >
                     <Save className="w-4 h-4" /> Save Changes
                 </button>

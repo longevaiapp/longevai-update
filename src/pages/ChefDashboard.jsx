@@ -232,7 +232,7 @@ const CHEF_ALERTS = [
    STATUS STYLING
    ================================================================ */
 const STATUS_CONFIG = {
-    queued: { label: 'Queued', color: 'bg-gray-100 text-gray-600 border-gray-200', dot: 'text-gray-400' },
+    queued: { label: 'Queued', color: 'bg-slate-100 text-gray-600 border-slate-200/80', dot: 'text-gray-400' },
     prep: { label: 'Prep', color: 'bg-blue-100 text-blue-700 border-blue-200', dot: 'text-blue-500' },
     cooking: { label: 'Cooking', color: 'bg-amber-100 text-amber-700 border-amber-200', dot: 'text-amber-500' },
     plating: { label: 'Plating', color: 'bg-purple-100 text-purple-700 border-purple-200', dot: 'text-purple-500' },
@@ -345,14 +345,14 @@ export default function ChefDashboard() {
             {/* Date Bar + Profile Button */}
             <div className="flex items-center justify-between mb-4 px-1">
                 <div className="flex items-center gap-2">
-                    <CalendarDays className="w-4 h-4 text-brand-accent" />
-                    <span className="text-sm font-semibold text-brand-dark">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                    <CalendarDays className="w-4 h-4 text-indigo-500" />
+                    <span className="text-sm font-semibold text-slate-800">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
                 </div>
-                <button onClick={() => setActiveSection('profile')} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-gray-200 hover:border-brand-accent/30 hover:shadow-sm transition-all">
-                    <div className="w-5 h-5 rounded-full bg-brand-primary/10 flex items-center justify-center">
-                        <UserCircle className="w-3.5 h-3.5 text-brand-primary" />
+                <button onClick={() => setActiveSection('profile')} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200/80 hover:border-indigo-500/30 hover:shadow-sm transition-all">
+                    <div className="w-5 h-5 rounded-full bg-indigo-600/10 flex items-center justify-center">
+                        <UserCircle className="w-3.5 h-3.5 text-indigo-600" />
                     </div>
-                    <span className="text-[11px] font-medium text-brand-dark hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
+                    <span className="text-[11px] font-medium text-slate-800 hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
                 </button>
             </div>
 
@@ -370,14 +370,14 @@ export default function ChefDashboard() {
                             ) : (
                                 <ShieldCheck className="w-5 h-5 text-emerald-600" />
                             )}
-                            <h3 className="text-sm font-bold text-brand-dark uppercase tracking-wider">
+                            <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
                                 Pre-Service Allergen Verification
                             </h3>
                             <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded ml-auto ${unconfirmedAllergens > 0 ? 'bg-red-200 text-red-700' : 'bg-emerald-200 text-emerald-700'}`}>
                                 {unconfirmedAllergens > 0 ? unconfirmedAllergens + ' Pending' : 'All Verified'}
                             </span>
                         </div>
-                        <p className="text-xs text-brand-muted mb-4">
+                        <p className="text-xs text-slate-500 mb-4">
                             Each allergen-sensitive meal must be individually confirmed before service. Verify ingredients, cross-contamination protocols, and preparation notes.
                         </p>
 
@@ -396,21 +396,21 @@ export default function ChefDashboard() {
                                             </div>
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex items-center gap-2 flex-wrap">
-                                                    <span className="text-sm font-bold text-brand-dark">{check.resident}</span>
-                                                    <span className="text-[10px] text-brand-muted">Rm {check.room}</span>
+                                                    <span className="text-sm font-bold text-slate-800">{check.resident}</span>
+                                                    <span className="text-[10px] text-slate-500">Rm {check.room}</span>
                                                     <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-red-100 text-red-700 border border-red-200">
                                                         {check.allergen}
                                                     </span>
                                                 </div>
-                                                <p className="text-xs text-brand-dark mt-1 font-medium">{check.dish}</p>
-                                                <p className="text-[11px] text-brand-muted mt-1">{check.verification}</p>
+                                                <p className="text-xs text-slate-800 mt-1 font-medium">{check.dish}</p>
+                                                <p className="text-[11px] text-slate-500 mt-1">{check.verification}</p>
 
                                                 <div className="flex items-center gap-4 mt-2 text-[10px]">
                                                     <span className={`font-semibold px-1.5 py-0.5 rounded border ${riskStyles[riskLevel]}`}>
                                                         Cross-contam: {check.crossContamRisk}
                                                     </span>
                                                 </div>
-                                                <p className="text-[10px] text-brand-muted mt-1">
+                                                <p className="text-[10px] text-slate-500 mt-1">
                                                     <strong>Mitigation:</strong> {check.mitigation}
                                                 </p>
                                             </div>
@@ -419,7 +419,7 @@ export default function ChefDashboard() {
                                                     <div className="text-center">
                                                         <CheckCircle2 className="w-6 h-6 text-emerald-500 mx-auto" />
                                                         <p className="text-[9px] text-emerald-600 font-semibold mt-1">Confirmed</p>
-                                                        <p className="text-[8px] text-brand-muted">{confirmed}</p>
+                                                        <p className="text-[8px] text-slate-500">{confirmed}</p>
                                                     </div>
                                                 ) : (
                                                     <button
@@ -442,10 +442,10 @@ export default function ChefDashboard() {
                     <SectionCard title="Resident Allergen Registry" icon={Users} subtitle="All residents with dietary allergens">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {RESIDENTS.filter(r => r.allergens.length > 0).map(r => (
-                                <div key={r.id} className="p-3 rounded-xl border border-gray-100 bg-gray-50">
+                                <div key={r.id} className="p-3 rounded-xl border border-slate-100 bg-slate-50 shadow-sm">
                                     <div className="flex items-center gap-2 mb-2">
-                                        <span className="text-sm font-semibold text-brand-dark">{r.name}</span>
-                                        <span className="text-[10px] text-brand-muted">Rm {r.room}</span>
+                                        <span className="text-sm font-semibold text-slate-800">{r.name}</span>
+                                        <span className="text-[10px] text-slate-500">Rm {r.room}</span>
                                     </div>
                                     <div className="flex flex-wrap gap-1.5 mb-2">
                                         {r.allergens.map((a, i) => {
@@ -457,9 +457,9 @@ export default function ChefDashboard() {
                                             )
                                         })}
                                     </div>
-                                    <div className="flex items-center gap-2 text-[10px] text-brand-muted">
-                                        <span>Diet: <strong className="text-brand-dark">{r.dietType}</strong></span>
-                                        <span>Texture: <strong className="text-brand-dark">{r.texture}</strong></span>
+                                    <div className="flex items-center gap-2 text-[10px] text-slate-500">
+                                        <span>Diet: <strong className="text-slate-800">{r.dietType}</strong></span>
+                                        <span>Texture: <strong className="text-slate-800">{r.texture}</strong></span>
                                     </div>
                                 </div>
                             ))}
@@ -472,18 +472,18 @@ export default function ChefDashboard() {
             {activeSection === 'service' && (
                 <div className="space-y-6">
                     {/* Meal Service Selector */}
-                    <div className="bg-white rounded-2xl border border-gray-200 p-4">
+                    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5">
                         <div className="flex items-center gap-3 flex-wrap">
-                            <UtensilsCrossed className="w-5 h-5 text-brand-accent" />
-                            <span className="text-sm font-semibold text-brand-dark">Service:</span>
+                            <UtensilsCrossed className="w-5 h-5 text-indigo-500" />
+                            <span className="text-sm font-semibold text-slate-800">Service:</span>
                             <div className="flex gap-2 flex-wrap">
                                 {MEAL_SERVICES.map(ms => (
                                     <button
                                         key={ms.id}
                                         onClick={() => setSelectedMealService(ms.id)}
                                         className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-colors ${selectedMealService === ms.id
-                                            ? 'bg-brand-primary text-white border-brand-primary'
-                                            : 'bg-white text-brand-dark border-gray-200 hover:bg-gray-50'
+                                            ? 'bg-indigo-600 text-white border-indigo-600'
+                                            : 'bg-white text-slate-800 border-slate-200/80 hover:bg-slate-50'
                                         }`}
                                     >
                                         {ms.label} ({ms.time})
@@ -491,7 +491,7 @@ export default function ChefDashboard() {
                                 ))}
                             </div>
                             <div className="ml-auto flex gap-2">
-                                <span className="text-[10px] text-brand-muted flex items-center gap-1">
+                                <span className="text-[10px] text-slate-500 flex items-center gap-1">
                                     <Users className="w-3 h-3" /> {currentMeals.length} plates
                                 </span>
                             </div>
@@ -502,13 +502,13 @@ export default function ChefDashboard() {
                     <div className="flex gap-2 flex-wrap">
                         <button
                             onClick={() => setFilterStatus('all')}
-                            className={`px-2.5 py-1 text-[10px] font-semibold rounded-lg border transition-colors ${filterStatus === 'all' ? 'bg-brand-dark text-white border-brand-dark' : 'bg-white text-brand-muted border-gray-200 hover:bg-gray-50'}`}
+                            className={`px-2.5 py-1 text-[10px] font-semibold rounded-lg border transition-colors ${filterStatus === 'all' ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-slate-500 border-slate-200/80 hover:bg-slate-50'}`}
                         >All</button>
                         {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
                             <button
                                 key={key}
                                 onClick={() => setFilterStatus(key)}
-                                className={`px-2.5 py-1 text-[10px] font-semibold rounded-lg border transition-colors ${filterStatus === key ? cfg.color + ' border-current' : 'bg-white text-brand-muted border-gray-200 hover:bg-gray-50'}`}
+                                className={`px-2.5 py-1 text-[10px] font-semibold rounded-lg border transition-colors ${filterStatus === key ? cfg.color + ' border-current' : 'bg-white text-slate-500 border-slate-200/80 hover:bg-slate-50'}`}
                             >
                                 {cfg.label}
                             </button>
@@ -530,16 +530,16 @@ export default function ChefDashboard() {
                                 return (
                                     <div
                                         key={meal.residentId}
-                                        className={`p-3 rounded-xl border bg-white hover:shadow-md transition-all cursor-pointer ${hasAllergens ? 'border-red-200 ring-1 ring-red-100' : 'border-gray-200'}`}
+                                        className={`p-3 rounded-xl border bg-white hover:shadow-md transition-all cursor-pointer ${hasAllergens ? 'border-red-200 ring-1 ring-red-100' : 'border-slate-200/80'}`}
                                         onClick={() => setSelectedMealCard({ ...meal, resident, currentStatus })}
                                     >
                                         <div className="flex items-center justify-between mb-2">
                                             <div className="flex items-center gap-1.5">
-                                                <span className="text-xs font-bold text-brand-dark">{resident && resident.name}</span>
+                                                <span className="text-xs font-bold text-slate-800">{resident && resident.name}</span>
                                             </div>
-                                            <span className="text-[9px] text-brand-muted">Rm {resident && resident.room}</span>
+                                            <span className="text-[9px] text-slate-500">Rm {resident && resident.room}</span>
                                         </div>
-                                        <p className="text-[11px] text-brand-dark font-medium mb-2 line-clamp-2">{meal.dish}</p>
+                                        <p className="text-[11px] text-slate-800 font-medium mb-2 line-clamp-2">{meal.dish}</p>
 
                                         {hasAllergens && (
                                             <div className="flex flex-wrap gap-1 mb-2">
@@ -549,7 +549,7 @@ export default function ChefDashboard() {
                                             </div>
                                         )}
 
-                                        <div className="flex items-center gap-2 mb-2 text-[10px] text-brand-muted">
+                                        <div className="flex items-center gap-2 mb-2 text-[10px] text-slate-500">
                                             <span>{meal.calories} kcal</span>
                                             <span>{meal.protein}g protein</span>
                                         </div>
@@ -567,7 +567,7 @@ export default function ChefDashboard() {
                                             {nextStatus && (
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); handleUpdateMealStatus(selectedMealService, meal.residentId, nextStatus) }}
-                                                    className="flex items-center gap-0.5 text-[9px] font-semibold text-brand-primary hover:text-brand-primary-dark transition-colors"
+                                                    className="flex items-center gap-0.5 text-[9px] font-semibold text-indigo-600 hover:text-indigo-700 transition-colors"
                                                 >
                                                     <ArrowRight className="w-3 h-3" /> {STATUS_CONFIG[nextStatus].label}
                                                 </button>
@@ -586,8 +586,8 @@ export default function ChefDashboard() {
                                 return (
                                     <div key={key} className="flex items-center gap-2">
                                         <Circle className={`w-3 h-3 fill-current ${cfg.dot}`} />
-                                        <span className="text-xs text-brand-dark font-medium">{cfg.label}</span>
-                                        <span className="text-sm font-bold text-brand-dark">{count}</span>
+                                        <span className="text-xs text-slate-800 font-medium">{cfg.label}</span>
+                                        <span className="text-sm font-bold text-slate-800">{count}</span>
                                     </div>
                                 )
                             })}
@@ -632,8 +632,8 @@ export default function ChefDashboard() {
                                         <Circle className={`w-3 h-3 fill-current flex-shrink-0 ${cfg.dot}`} />
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2">
-                                                <span className="text-sm font-semibold text-brand-dark">{item.item}</span>
-                                                <span className="text-[10px] text-brand-muted">{item.category}</span>
+                                                <span className="text-sm font-semibold text-slate-800">{item.item}</span>
+                                                <span className="text-[10px] text-slate-500">{item.category}</span>
                                             </div>
                                             <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
                                                 <div className="h-1.5 rounded-full transition-all" style={{ width: fillPct + '%', backgroundColor: cfg.barColor }} />
@@ -641,7 +641,7 @@ export default function ChefDashboard() {
                                         </div>
                                         <div className="text-right flex-shrink-0">
                                             <span className={`text-sm font-bold ${cfg.text}`}>{item.stock} {item.unit}</span>
-                                            <p className="text-[9px] text-brand-muted">of {item.maxCapacity} {item.unit}</p>
+                                            <p className="text-[9px] text-slate-500">of {item.maxCapacity} {item.unit}</p>
                                         </div>
                                         <span className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${cfg.bg} ${cfg.text} border ${cfg.border}`}>{cfg.label}</span>
                                         <ChevronRight className="w-4 h-4 text-gray-300 flex-shrink-0" />
@@ -723,12 +723,12 @@ export default function ChefDashboard() {
                                 <div
                                     key={i}
                                     onClick={() => setSelectedFeedbackDish(dish)}
-                                    className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 bg-gray-50 hover:shadow-md cursor-pointer transition-all"
+                                    className="flex items-center gap-3 p-3 rounded-xl border border-slate-100 bg-slate-50 shadow-sm hover:shadow-md cursor-pointer transition-all"
                                 >
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2">
-                                            <span className="text-sm font-semibold text-brand-dark">{dish.dish}</span>
-                                            <span className="text-[10px] text-brand-muted">{dish.category}</span>
+                                            <span className="text-sm font-semibold text-slate-800">{dish.dish}</span>
+                                            <span className="text-[10px] text-slate-500">{dish.category}</span>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-1 flex-shrink-0">
@@ -738,7 +738,7 @@ export default function ChefDashboard() {
                                     </div>
                                     <div className="flex items-center gap-1 flex-shrink-0">
                                         <Star className={`w-3.5 h-3.5 ${dish.avgRating >= 4.0 ? 'text-amber-400 fill-amber-400' : 'text-gray-300'}`} />
-                                        <span className="text-sm font-bold text-brand-dark">{dish.avgRating}</span>
+                                        <span className="text-sm font-bold text-slate-800">{dish.avgRating}</span>
                                     </div>
                                     <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded flex-shrink-0 ${dish.rejection <= 5 ? 'bg-emerald-100 text-emerald-700' : dish.rejection <= 12 ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'}`}>
                                         {dish.rejection}% reject
@@ -753,15 +753,15 @@ export default function ChefDashboard() {
                     <SectionCard title="Recent Resident Feedback" icon={FileText} subtitle="Direct comments from residents">
                         <div className="space-y-2">
                             {FEEDBACK_DATA.residentFeedback.map((fb, i) => (
-                                <div key={i} className={`p-3 rounded-xl border ${fb.sentiment === 'positive' ? 'border-emerald-100 bg-emerald-50/50' : fb.sentiment === 'negative' ? 'border-red-100 bg-red-50/50' : 'border-gray-100 bg-gray-50'}`}>
+                                <div key={i} className={`p-3 rounded-xl border ${fb.sentiment === 'positive' ? 'border-emerald-100 bg-emerald-50/50' : fb.sentiment === 'negative' ? 'border-red-100 bg-red-50/50' : 'border-slate-100 bg-slate-50'}`}>
                                     <div className="flex items-center gap-2 mb-1">
                                         {fb.sentiment === 'positive' && <ThumbsUp className="w-3.5 h-3.5 text-emerald-500" />}
                                         {fb.sentiment === 'negative' && <ThumbsDown className="w-3.5 h-3.5 text-red-500" />}
                                         {fb.sentiment === 'neutral' && <MinusIcon className="w-3.5 h-3.5 text-gray-400" />}
-                                        <span className="text-sm font-semibold text-brand-dark">{fb.resident}</span>
-                                        <span className="text-[10px] text-brand-muted">{fb.meal} -- {fb.date}</span>
+                                        <span className="text-sm font-semibold text-slate-800">{fb.resident}</span>
+                                        <span className="text-[10px] text-slate-500">{fb.meal} -- {fb.date}</span>
                                     </div>
-                                    <p className="text-xs text-brand-dark leading-relaxed pl-6">"{fb.comment}"</p>
+                                    <p className="text-xs text-slate-800 leading-relaxed pl-6">"{fb.comment}"</p>
                                 </div>
                             ))}
                         </div>
@@ -793,7 +793,7 @@ export default function ChefDashboard() {
                                 <p className="text-[10px] text-blue-600 font-semibold uppercase">Avg Food/Week</p>
                                 <p className="text-lg font-bold text-blue-800">${Math.round(WEEKLY_COST_DATA.reduce((s, w) => s + w.food, 0) / WEEKLY_COST_DATA.length)}</p>
                             </div>
-                            <div className="p-2.5 rounded-lg bg-gray-50 border border-gray-200 text-center">
+                            <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200/80 text-center">
                                 <p className="text-[10px] text-gray-600 font-semibold uppercase">Avg Supplies/Week</p>
                                 <p className="text-lg font-bold text-gray-800">${Math.round(WEEKLY_COST_DATA.reduce((s, w) => s + w.supplies, 0) / WEEKLY_COST_DATA.length)}</p>
                             </div>
@@ -811,22 +811,22 @@ export default function ChefDashboard() {
                                 <div
                                     key={p.id}
                                     onClick={() => setSelectedPurchase(p)}
-                                    className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer hover:shadow-md transition-all ${!p.orderMatch || !p.deliveryOnTime ? 'border-amber-200 bg-amber-50/30' : 'border-gray-100 bg-gray-50'}`}
+                                    className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer hover:shadow-md transition-all ${!p.orderMatch || !p.deliveryOnTime ? 'border-amber-200 bg-amber-50/30' : 'border-slate-100 bg-slate-50'}`}
                                 >
-                                    <div className="w-10 h-10 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary flex-shrink-0">
+                                    <div className="w-10 h-10 rounded-lg bg-indigo-600/10 flex items-center justify-center text-indigo-600 flex-shrink-0">
                                         <Truck className="w-5 h-5" />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2">
-                                            <span className="text-sm font-semibold text-brand-dark">{p.supplier}</span>
-                                            <span className="text-[10px] text-brand-muted">{p.date}</span>
+                                            <span className="text-sm font-semibold text-slate-800">{p.supplier}</span>
+                                            <span className="text-[10px] text-slate-500">{p.date}</span>
                                         </div>
-                                        <p className="text-[11px] text-brand-muted mt-0.5">
+                                        <p className="text-[11px] text-slate-500 mt-0.5">
                                             {p.items.map(it => it.name).join(', ')}
                                         </p>
                                     </div>
                                     <div className="flex items-center gap-2 flex-shrink-0">
-                                        <span className="text-sm font-bold text-brand-dark">${p.totalCost.toFixed(2)}</span>
+                                        <span className="text-sm font-bold text-slate-800">${p.totalCost.toFixed(2)}</span>
                                         <div className="flex gap-1">
                                             {p.orderMatch ? (
                                                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
@@ -849,24 +849,24 @@ export default function ChefDashboard() {
                     {/* Cost per Plate */}
                     <SectionCard title="Cost Analytics" icon={Percent} subtitle="Cost efficiency metrics">
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                            <div className="p-3 rounded-xl border border-gray-100 bg-gray-50 text-center">
-                                <p className="text-[10px] text-brand-muted font-semibold uppercase">Cost/Plate (Avg)</p>
-                                <p className="text-xl font-bold text-brand-dark mt-1">$5.80</p>
+                            <div className="p-3 rounded-xl border border-slate-100 bg-slate-50 shadow-sm text-center">
+                                <p className="text-[10px] text-slate-500 font-semibold uppercase">Cost/Plate (Avg)</p>
+                                <p className="text-xl font-bold text-slate-800 mt-1">$5.80</p>
                                 <p className="text-[9px] text-emerald-600 font-semibold flex items-center justify-center gap-0.5 mt-0.5"><TrendingDown className="w-3 h-3" /> -3.2% vs last month</p>
                             </div>
-                            <div className="p-3 rounded-xl border border-gray-100 bg-gray-50 text-center">
-                                <p className="text-[10px] text-brand-muted font-semibold uppercase">Cost/Resident/Day</p>
-                                <p className="text-xl font-bold text-brand-dark mt-1">$15.90</p>
-                                <p className="text-[9px] text-brand-muted mt-0.5">Target: $16.50</p>
+                            <div className="p-3 rounded-xl border border-slate-100 bg-slate-50 shadow-sm text-center">
+                                <p className="text-[10px] text-slate-500 font-semibold uppercase">Cost/Resident/Day</p>
+                                <p className="text-xl font-bold text-slate-800 mt-1">$15.90</p>
+                                <p className="text-[9px] text-slate-500 mt-0.5">Target: $16.50</p>
                             </div>
-                            <div className="p-3 rounded-xl border border-gray-100 bg-gray-50 text-center">
-                                <p className="text-[10px] text-brand-muted font-semibold uppercase">Waste % of Budget</p>
+                            <div className="p-3 rounded-xl border border-slate-100 bg-slate-50 shadow-sm text-center">
+                                <p className="text-[10px] text-slate-500 font-semibold uppercase">Waste % of Budget</p>
                                 <p className="text-xl font-bold text-amber-600 mt-1">4.1%</p>
-                                <p className="text-[9px] text-brand-muted mt-0.5">Target: &lt; 5%</p>
+                                <p className="text-[9px] text-slate-500 mt-0.5">Target: &lt; 5%</p>
                             </div>
-                            <div className="p-3 rounded-xl border border-gray-100 bg-gray-50 text-center">
-                                <p className="text-[10px] text-brand-muted font-semibold uppercase">Supplier Score</p>
-                                <p className="text-xl font-bold text-brand-dark mt-1">4.2/5</p>
+                            <div className="p-3 rounded-xl border border-slate-100 bg-slate-50 shadow-sm text-center">
+                                <p className="text-[10px] text-slate-500 font-semibold uppercase">Supplier Score</p>
+                                <p className="text-xl font-bold text-slate-800 mt-1">4.2/5</p>
                                 <p className="text-[9px] text-emerald-600 font-semibold flex items-center justify-center gap-0.5 mt-0.5"><TrendingUp className="w-3 h-3" /> Stable</p>
                             </div>
                         </div>
@@ -917,29 +917,29 @@ export default function ChefDashboard() {
             {/* SECTION: My Profile */}
             {activeSection === 'profile' && (
                 <div className="space-y-6">
-                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                        <div className="bg-gradient-to-r from-brand-primary/10 via-brand-accent/5 to-transparent px-6 py-5 border-b border-gray-100">
+                    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                        <div className="bg-gradient-to-r from-indigo-600/10 via-indigo-500/5 to-transparent px-6 py-5 border-b border-slate-100">
                             <div className="flex items-start gap-4">
-                                <div className="w-16 h-16 rounded-2xl bg-brand-primary/10 border-2 border-brand-primary/20 flex items-center justify-center flex-shrink-0">
-                                    <UserCircle className="w-8 h-8 text-brand-primary" />
+                                <div className="w-16 h-16 rounded-2xl bg-indigo-600/10 border-2 border-indigo-600/20 flex items-center justify-center flex-shrink-0">
+                                    <UserCircle className="w-8 h-8 text-indigo-600" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="text-xl font-bold text-brand-dark">{profile.name}</h3>
-                                    <p className="text-sm text-brand-accent font-medium">{profile.title}</p>
-                                    <p className="text-xs text-brand-muted mt-1">{profile.institution}</p>
+                                    <h3 className="text-xl font-bold text-slate-800">{profile.name}</h3>
+                                    <p className="text-sm text-indigo-500 font-medium">{profile.title}</p>
+                                    <p className="text-xs text-slate-500 mt-1">{profile.institution}</p>
                                     <div className="flex items-center gap-3 mt-2 flex-wrap">
-                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-brand-primary/10 text-brand-primary border border-brand-primary/20">{profile.license}</span>
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Users className="w-3 h-3" /> {profile.residentsManaged} residents</span>
+                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-indigo-600/10 text-indigo-600 border border-indigo-600/20">{profile.license}</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Users className="w-3 h-3" /> {profile.residentsManaged} residents</span>
                                     </div>
                                 </div>
-                                <button onClick={() => setEditingProfile(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-gray-200 text-brand-dark hover:border-brand-accent hover:shadow-sm transition-all">
-                                    <Pencil className="w-3.5 h-3.5 text-brand-accent" /> Edit Profile
+                                <button onClick={() => setEditingProfile(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-slate-200/80 text-slate-800 hover:border-indigo-500 hover:shadow-sm transition-all">
+                                    <Pencil className="w-3.5 h-3.5 text-indigo-500" /> Edit Profile
                                 </button>
                             </div>
                         </div>
                         <div className="p-6">
-                            <p className="text-sm text-brand-dark leading-relaxed mb-5">{profile.bio}</p>
+                            <p className="text-sm text-slate-800 leading-relaxed mb-5">{profile.bio}</p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <ProfileField icon={GraduationCap} label="Education" value={profile.education} />
                                 <ProfileField icon={FileText} label="Certifications" value={profile.certifications} />
@@ -970,10 +970,10 @@ export default function ChefDashboard() {
    ================================================================ */
 function ServiceCountdownBar() {
     return (
-        <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6">
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 mb-6">
             <div className="flex items-center gap-2 mb-3">
-                <Timer className="w-4 h-4 text-brand-accent" />
-                <span className="text-xs font-semibold text-brand-dark uppercase tracking-wider">Service Countdown</span>
+                <Timer className="w-4 h-4 text-indigo-500" />
+                <span className="text-xs font-semibold text-slate-800 uppercase tracking-wider">Service Countdown</span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {MEAL_SERVICES.map(ms => (
@@ -987,20 +987,20 @@ function ServiceCountdownBar() {
 function CountdownChip({ label, time, targetHour, targetMin }) {
     const { timeLeft, urgency } = useCountdown(targetHour, targetMin)
     const urgencyStyles = {
-        normal: 'border-gray-200 bg-gray-50',
+        normal: 'border-slate-200/80 bg-slate-50',
         warning: 'border-amber-200 bg-amber-50',
         critical: 'border-red-200 bg-red-50 animate-pulse',
         past: 'border-emerald-200 bg-emerald-50',
     }
     const textStyles = {
-        normal: 'text-brand-dark',
+        normal: 'text-slate-800',
         warning: 'text-amber-700',
         critical: 'text-red-700',
         past: 'text-emerald-700',
     }
     return (
         <div className={`p-3 rounded-xl border text-center ${urgencyStyles[urgency]}`}>
-            <p className="text-[10px] font-semibold text-brand-muted uppercase">{label} ({time})</p>
+            <p className="text-[10px] font-semibold text-slate-500 uppercase">{label} ({time})</p>
             <p className={`text-sm font-bold mt-1 ${textStyles[urgency]}`}>{timeLeft}</p>
         </div>
     )
@@ -1012,12 +1012,12 @@ function CountdownChip({ label, time, targetHour, targetMin }) {
 
 function SectionCard({ title, icon: Icon, subtitle, children }) {
     return (
-        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center gap-3">
-                <Icon className="w-5 h-5 text-brand-accent" />
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
+                <Icon className="w-5 h-5 text-indigo-500" />
                 <div>
-                    <h3 className="text-sm font-semibold text-brand-dark">{title}</h3>
-                    {subtitle && <p className="text-[11px] text-brand-muted">{subtitle}</p>}
+                    <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
+                    {subtitle && <p className="text-[11px] text-slate-500">{subtitle}</p>}
                 </div>
             </div>
             <div className="p-5">{children}</div>
@@ -1027,7 +1027,7 @@ function SectionCard({ title, icon: Icon, subtitle, children }) {
 
 function StatCard({ icon: Icon, label, value, color }) {
     const colors = {
-        brand: 'bg-brand-primary/10 text-brand-primary border-brand-primary/20',
+        brand: 'bg-indigo-600/10 text-indigo-600 border-indigo-600/20',
         red: 'bg-red-50 text-red-600 border-red-200',
         emerald: 'bg-emerald-50 text-emerald-600 border-emerald-200',
         blue: 'bg-blue-50 text-blue-600 border-blue-200',
@@ -1074,8 +1074,8 @@ function NoteSection({ notes, onAddNote }) {
     return (
         <div>
             <div className="flex items-center justify-between mb-2">
-                <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider">
-                    Kitchen Notes {notes.length > 0 && <span className="text-brand-primary">({notes.length})</span>}
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    Kitchen Notes {notes.length > 0 && <span className="text-indigo-600">({notes.length})</span>}
                 </p>
             </div>
             {notes.length > 0 && (
@@ -1085,8 +1085,8 @@ function NoteSection({ notes, onAddNote }) {
                             <div className="flex items-start gap-2">
                                 <FileText className="w-3.5 h-3.5 text-amber-500 mt-0.5 flex-shrink-0" />
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm text-brand-dark leading-relaxed">{note.text}</p>
-                                    <p className="text-[10px] text-brand-muted mt-1 flex items-center gap-1"><Clock className="w-3 h-3" /> {note.timestamp}</p>
+                                    <p className="text-sm text-slate-800 leading-relaxed">{note.text}</p>
+                                    <p className="text-[10px] text-slate-500 mt-1 flex items-center gap-1"><Clock className="w-3 h-3" /> {note.timestamp}</p>
                                 </div>
                             </div>
                         </div>
@@ -1094,20 +1094,20 @@ function NoteSection({ notes, onAddNote }) {
                 </div>
             )}
             {notes.length === 0 && !showForm && (
-                <div className="p-3 rounded-lg bg-gray-50 border border-gray-100 text-center mb-3">
-                    <p className="text-xs text-brand-muted">No kitchen notes added yet</p>
+                <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 text-center mb-3">
+                    <p className="text-xs text-slate-500">No kitchen notes added yet</p>
                 </div>
             )}
             {showForm && (
-                <div className="p-3 rounded-lg bg-gray-50 border border-gray-200 space-y-2 mb-3" style={{ animation: 'modalIn 0.2s ease-out' }}>
+                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200/80 space-y-2 mb-3" style={{ animation: 'modalIn 0.2s ease-out' }}>
                     <textarea
                         autoFocus rows={3} value={text} onChange={e => setText(e.target.value)}
-                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark placeholder-brand-muted/50"
+                        className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800 placeholder-slate-500/50"
                         placeholder="Enter kitchen note, preparation instruction, or issue..."
                     />
                     <div className="flex items-center gap-2 justify-end">
-                        <button onClick={() => { setShowForm(false); setText('') }} className="px-3 py-1.5 text-xs font-medium text-brand-muted hover:text-brand-dark transition-colors rounded-lg">Cancel</button>
-                        <button onClick={handleSave} disabled={!text.trim()} className={`flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg transition-colors ${text.trim() ? 'bg-brand-primary text-white hover:bg-brand-primary-dark' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}>
+                        <button onClick={() => { setShowForm(false); setText('') }} className="px-3 py-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors rounded-lg">Cancel</button>
+                        <button onClick={handleSave} disabled={!text.trim()} className={`flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg transition-colors ${text.trim() ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}>
                             <Send className="w-3 h-3" /> Save Note
                         </button>
                     </div>
@@ -1119,7 +1119,7 @@ function NoteSection({ notes, onAddNote }) {
                     <p className="text-xs font-medium text-emerald-700">Kitchen note saved successfully</p>
                 </div>
             )}
-            <button onClick={() => setShowForm(true)} disabled={showForm} className={`w-full flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl border transition-colors ${showForm ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-default' : 'bg-white text-brand-dark border-gray-200 hover:bg-gray-50'}`}>
+            <button onClick={() => setShowForm(true)} disabled={showForm} className={`w-full flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl border transition-colors ${showForm ? 'bg-slate-100 text-gray-400 border-slate-200/80 cursor-default' : 'bg-white text-slate-800 border-slate-200/80 hover:bg-slate-50'}`}>
                 <Plus className="w-3.5 h-3.5" /> Add Kitchen Note
             </button>
         </div>
@@ -1136,21 +1136,21 @@ function MealCardModal({ meal, onStatusChange, notes, onAddNote, onClose }) {
 
     return (
         <div>
-            <div className="px-6 py-4 border-b bg-gray-50 border-gray-200 flex items-center justify-between">
+            <div className="px-6 py-4 border-b bg-slate-50 border-slate-200/80 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <UtensilsCrossed className="w-5 h-5 text-brand-accent" />
+                    <UtensilsCrossed className="w-5 h-5 text-indigo-500" />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{resident && resident.name} -- Meal Card</h3>
-                        <p className="text-[11px] text-brand-muted">Rm {resident && resident.room} -- {resident && resident.dietType}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{resident && resident.name} -- Meal Card</h3>
+                        <p className="text-[11px] text-slate-500">Rm {resident && resident.room} -- {resident && resident.dietType}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
             <div className="p-6 space-y-4">
                 {/* Dish info */}
-                <div className="p-3 rounded-lg bg-brand-primary/5 border border-brand-primary/10">
-                    <p className="text-sm font-semibold text-brand-dark">{meal.dish}</p>
-                    <div className="flex gap-4 mt-1 text-[11px] text-brand-muted">
+                <div className="p-3 rounded-lg bg-indigo-600/5 border border-indigo-600/10">
+                    <p className="text-sm font-semibold text-slate-800">{meal.dish}</p>
+                    <div className="flex gap-4 mt-1 text-[11px] text-slate-500">
                         <span>{meal.calories} kcal</span>
                         <span>{meal.protein}g protein</span>
                     </div>
@@ -1158,13 +1158,13 @@ function MealCardModal({ meal, onStatusChange, notes, onAddNote, onClose }) {
 
                 {/* Resident profile */}
                 <div className="grid grid-cols-2 gap-3">
-                    <div className="p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-[10px] text-brand-muted uppercase">Diet Type</p>
-                        <p className="text-xs font-medium text-brand-dark">{resident && resident.dietType}</p>
+                    <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-[10px] text-slate-500 uppercase">Diet Type</p>
+                        <p className="text-xs font-medium text-slate-800">{resident && resident.dietType}</p>
                     </div>
-                    <div className="p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-[10px] text-brand-muted uppercase">Texture</p>
-                        <p className="text-xs font-medium text-brand-dark">{resident && resident.texture}</p>
+                    <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-[10px] text-slate-500 uppercase">Texture</p>
+                        <p className="text-xs font-medium text-slate-800">{resident && resident.texture}</p>
                     </div>
                 </div>
 
@@ -1187,15 +1187,15 @@ function MealCardModal({ meal, onStatusChange, notes, onAddNote, onClose }) {
 
                 {/* Preparation notes */}
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Preparation Notes</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{meal.notes}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Preparation Notes</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{meal.notes}</p>
                     </div>
                 </div>
 
                 {/* Status workflow */}
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Workflow Status</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Workflow Status</p>
                     <div className="flex gap-1 items-center flex-wrap">
                         {statusOrder.map((s, i) => {
                             const cfg = STATUS_CONFIG[s]
@@ -1205,7 +1205,7 @@ function MealCardModal({ meal, onStatusChange, notes, onAddNote, onClose }) {
                                 <div key={s} className="flex items-center gap-1">
                                     <button
                                         onClick={() => onStatusChange(s)}
-                                        className={`px-2 py-1 text-[10px] font-semibold rounded-lg border transition-all ${isActive ? cfg.color + ' ring-2 ring-offset-1 ring-brand-primary/30' : isPast ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200'}`}
+                                        className={`px-2 py-1 text-[10px] font-semibold rounded-lg border transition-all ${isActive ? cfg.color + ' ring-2 ring-offset-1 ring-indigo-600/30' : isPast ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'bg-slate-100 text-gray-500 border-slate-200/80 hover:bg-gray-200'}`}
                                     >
                                         {cfg.label}
                                     </button>
@@ -1219,7 +1219,7 @@ function MealCardModal({ meal, onStatusChange, notes, onAddNote, onClose }) {
                 {/* Conditions */}
                 {resident && resident.conditions.length > 0 && (
                     <div>
-                        <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Medical Conditions</p>
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Medical Conditions</p>
                         <div className="flex flex-wrap gap-1.5">
                             {resident.conditions.map((c, i) => (
                                 <span key={i} className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-blue-50 border border-blue-200 text-blue-700">{c}</span>
@@ -1244,45 +1244,45 @@ function InventoryDetailModal({ item, onClose }) {
                 <div className="flex items-center gap-3">
                     <Package className={`w-5 h-5 ${cfg.text}`} />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{item.item}</h3>
-                        <p className="text-[11px] text-brand-muted">{item.category} -- {item.supplier}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{item.item}</h3>
+                        <p className="text-[11px] text-slate-500">{item.category} -- {item.supplier}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
             <div className="p-6 space-y-4">
                 <div className="text-center py-2">
-                    <p className={`text-4xl font-bold ${cfg.text}`}>{item.stock}<span className="text-lg text-brand-muted"> {item.unit}</span></p>
-                    <p className="text-xs text-brand-muted mt-1">of {item.maxCapacity} {item.unit} capacity</p>
+                    <p className={`text-4xl font-bold ${cfg.text}`}>{item.stock}<span className="text-lg text-slate-500"> {item.unit}</span></p>
+                    <p className="text-xs text-slate-500 mt-1">of {item.maxCapacity} {item.unit} capacity</p>
                     <div className="w-full bg-gray-200 rounded-full h-3 mt-3 mx-auto max-w-xs">
                         <div className="h-3 rounded-full transition-all" style={{ width: fillPct + '%', backgroundColor: cfg.barColor }} />
                     </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
-                    <div className="p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-[10px] text-brand-muted uppercase">Reorder Threshold</p>
-                        <p className="text-xs font-medium text-brand-dark">{item.threshold} {item.unit}</p>
+                    <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-[10px] text-slate-500 uppercase">Reorder Threshold</p>
+                        <p className="text-xs font-medium text-slate-800">{item.threshold} {item.unit}</p>
                     </div>
-                    <div className="p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-[10px] text-brand-muted uppercase">Cost per {item.unit}</p>
-                        <p className="text-xs font-medium text-brand-dark">${item.costPerUnit.toFixed(2)}</p>
+                    <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-[10px] text-slate-500 uppercase">Cost per {item.unit}</p>
+                        <p className="text-xs font-medium text-slate-800">${item.costPerUnit.toFixed(2)}</p>
                     </div>
-                    <div className="p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-[10px] text-brand-muted uppercase">Last Delivery</p>
-                        <p className="text-xs font-medium text-brand-dark">{item.lastDelivery}</p>
+                    <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-[10px] text-slate-500 uppercase">Last Delivery</p>
+                        <p className="text-xs font-medium text-slate-800">{item.lastDelivery}</p>
                     </div>
-                    <div className="p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-[10px] text-brand-muted uppercase">Next Delivery</p>
-                        <p className="text-xs font-medium text-brand-dark">{item.nextDelivery}</p>
+                    <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-[10px] text-slate-500 uppercase">Next Delivery</p>
+                        <p className="text-xs font-medium text-slate-800">{item.nextDelivery}</p>
                     </div>
                 </div>
 
-                <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                    <p className="text-[10px] text-brand-muted uppercase mb-1">Supplier</p>
+                <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                    <p className="text-[10px] text-slate-500 uppercase mb-1">Supplier</p>
                     <div className="flex items-center gap-2">
-                        <Truck className="w-4 h-4 text-brand-muted" />
-                        <span className="text-sm font-medium text-brand-dark">{item.supplier}</span>
+                        <Truck className="w-4 h-4 text-slate-500" />
+                        <span className="text-sm font-medium text-slate-800">{item.supplier}</span>
                     </div>
                 </div>
 
@@ -1299,12 +1299,12 @@ function InventoryDetailModal({ item, onClose }) {
 function PurchaseDetailModal({ purchase, notes, onAddNote, onClose }) {
     return (
         <div>
-            <div className={`px-6 py-4 border-b flex items-center justify-between ${!purchase.orderMatch || !purchase.deliveryOnTime ? 'bg-amber-50 border-amber-200' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`px-6 py-4 border-b flex items-center justify-between ${!purchase.orderMatch || !purchase.deliveryOnTime ? 'bg-amber-50 border-amber-200' : 'bg-slate-50 border-slate-200/80'}`}>
                 <div className="flex items-center gap-3">
-                    <Receipt className="w-5 h-5 text-brand-accent" />
+                    <Receipt className="w-5 h-5 text-indigo-500" />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{purchase.supplier}</h3>
-                        <p className="text-[11px] text-brand-muted">{purchase.date} -- Ref: {purchase.invoiceRef}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{purchase.supplier}</h3>
+                        <p className="text-[11px] text-slate-500">{purchase.date} -- Ref: {purchase.invoiceRef}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
@@ -1312,14 +1312,14 @@ function PurchaseDetailModal({ purchase, notes, onAddNote, onClose }) {
             <div className="p-6 space-y-4">
                 {/* Order items */}
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Items Delivered</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Items Delivered</p>
                     <div className="space-y-1.5">
                         {purchase.items.map((item, i) => (
-                            <div key={i} className="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-gray-100">
-                                <span className="text-sm text-brand-dark">{item.name}</span>
+                            <div key={i} className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                                <span className="text-sm text-slate-800">{item.name}</span>
                                 <div className="flex items-center gap-3">
-                                    <span className="text-xs text-brand-muted">{item.qty}</span>
-                                    <span className="text-sm font-semibold text-brand-dark">${item.cost.toFixed(2)}</span>
+                                    <span className="text-xs text-slate-500">{item.qty}</span>
+                                    <span className="text-sm font-semibold text-slate-800">${item.cost.toFixed(2)}</span>
                                 </div>
                             </div>
                         ))}
@@ -1327,9 +1327,9 @@ function PurchaseDetailModal({ purchase, notes, onAddNote, onClose }) {
                 </div>
 
                 {/* Total */}
-                <div className="p-3 rounded-lg bg-brand-primary/5 border border-brand-primary/10 flex items-center justify-between">
-                    <span className="text-sm font-semibold text-brand-dark">Total Cost</span>
-                    <span className="text-lg font-bold text-brand-primary">${purchase.totalCost.toFixed(2)}</span>
+                <div className="p-3 rounded-lg bg-indigo-600/5 border border-indigo-600/10 flex items-center justify-between">
+                    <span className="text-sm font-semibold text-slate-800">Total Cost</span>
+                    <span className="text-lg font-bold text-indigo-600">${purchase.totalCost.toFixed(2)}</span>
                 </div>
 
                 {/* Status indicators */}
@@ -1338,7 +1338,7 @@ function PurchaseDetailModal({ purchase, notes, onAddNote, onClose }) {
                         <div className="flex items-center gap-2">
                             {purchase.orderMatch ? <CheckCircle2 className="w-4 h-4 text-emerald-600" /> : <AlertTriangle className="w-4 h-4 text-amber-600" />}
                             <div>
-                                <p className="text-[10px] uppercase font-semibold text-brand-muted">Order Match</p>
+                                <p className="text-[10px] uppercase font-semibold text-slate-500">Order Match</p>
                                 <p className={`text-xs font-medium ${purchase.orderMatch ? 'text-emerald-700' : 'text-amber-700'}`}>
                                     {purchase.orderMatch ? 'Matched' : 'Discrepancy'}
                                 </p>
@@ -1349,7 +1349,7 @@ function PurchaseDetailModal({ purchase, notes, onAddNote, onClose }) {
                         <div className="flex items-center gap-2">
                             {purchase.deliveryOnTime ? <Clock className="w-4 h-4 text-emerald-600" /> : <Clock className="w-4 h-4 text-red-600" />}
                             <div>
-                                <p className="text-[10px] uppercase font-semibold text-brand-muted">Delivery</p>
+                                <p className="text-[10px] uppercase font-semibold text-slate-500">Delivery</p>
                                 <p className={`text-xs font-medium ${purchase.deliveryOnTime ? 'text-emerald-700' : 'text-red-700'}`}>
                                     {purchase.deliveryOnTime ? 'On Time' : 'Late'}
                                 </p>
@@ -1359,13 +1359,13 @@ function PurchaseDetailModal({ purchase, notes, onAddNote, onClose }) {
                 </div>
 
                 {/* Quality score */}
-                <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                    <p className="text-[10px] text-brand-muted uppercase mb-1">Quality Score</p>
+                <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                    <p className="text-[10px] text-slate-500 uppercase mb-1">Quality Score</p>
                     <div className="flex items-center gap-1">
                         {[1, 2, 3, 4, 5].map(s => (
                             <Star key={s} className={`w-4 h-4 ${s <= purchase.qualityScore ? 'text-amber-400 fill-amber-400' : 'text-gray-200'}`} />
                         ))}
-                        <span className="text-sm font-bold text-brand-dark ml-2">{purchase.qualityScore}/5</span>
+                        <span className="text-sm font-bold text-slate-800 ml-2">{purchase.qualityScore}/5</span>
                     </div>
                 </div>
 
@@ -1378,12 +1378,12 @@ function PurchaseDetailModal({ purchase, notes, onAddNote, onClose }) {
 function DishFeedbackModal({ dish, residentFeedback, onClose }) {
     return (
         <div>
-            <div className="px-6 py-4 border-b bg-gray-50 border-gray-200 flex items-center justify-between">
+            <div className="px-6 py-4 border-b bg-slate-50 border-slate-200/80 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <Star className="w-5 h-5 text-brand-accent" />
+                    <Star className="w-5 h-5 text-indigo-500" />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{dish.dish}</h3>
-                        <p className="text-[11px] text-brand-muted">{dish.category} -- {dish.totalRatings} ratings</p>
+                        <h3 className="text-sm font-bold text-slate-800">{dish.dish}</h3>
+                        <p className="text-[11px] text-slate-500">{dish.category} -- {dish.totalRatings} ratings</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
@@ -1396,8 +1396,8 @@ function DishFeedbackModal({ dish, residentFeedback, onClose }) {
                             <Star key={s} className={`w-5 h-5 ${s <= Math.round(dish.avgRating) ? 'text-amber-400 fill-amber-400' : 'text-gray-200'}`} />
                         ))}
                     </div>
-                    <p className="text-3xl font-bold text-brand-dark">{dish.avgRating}<span className="text-lg text-brand-muted">/5</span></p>
-                    <p className="text-xs text-brand-muted mt-1">{dish.totalRatings} total ratings</p>
+                    <p className="text-3xl font-bold text-slate-800">{dish.avgRating}<span className="text-lg text-slate-500">/5</span></p>
+                    <p className="text-xs text-slate-500 mt-1">{dish.totalRatings} total ratings</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
@@ -1405,8 +1405,8 @@ function DishFeedbackModal({ dish, residentFeedback, onClose }) {
                         <p className="text-[10px] font-semibold uppercase opacity-70">Rejection Rate</p>
                         <p className={`text-xl font-bold ${dish.rejection <= 5 ? 'text-emerald-700' : dish.rejection <= 12 ? 'text-amber-700' : 'text-red-700'}`}>{dish.rejection}%</p>
                     </div>
-                    <div className="p-3 rounded-xl border border-gray-200 bg-gray-50 text-center">
-                        <p className="text-[10px] font-semibold uppercase text-brand-muted">Trend</p>
+                    <div className="p-3 rounded-xl border border-slate-200/80 bg-slate-50 text-center">
+                        <p className="text-[10px] font-semibold uppercase text-slate-500">Trend</p>
                         <div className="flex items-center justify-center gap-1 mt-1">
                             {dish.trend === 'up' && <TrendingUp className="w-5 h-5 text-emerald-500" />}
                             {dish.trend === 'down' && <TrendingDown className="w-5 h-5 text-red-500" />}
@@ -1421,18 +1421,18 @@ function DishFeedbackModal({ dish, residentFeedback, onClose }) {
                 {/* Related feedback */}
                 {residentFeedback.length > 0 && (
                     <div>
-                        <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Recent Resident Comments</p>
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Recent Resident Comments</p>
                         <div className="space-y-2">
                             {residentFeedback.slice(0, 4).map((fb, i) => (
-                                <div key={i} className={`p-3 rounded-lg border ${fb.sentiment === 'positive' ? 'bg-emerald-50/50 border-emerald-100' : fb.sentiment === 'negative' ? 'bg-red-50/50 border-red-100' : 'bg-gray-50 border-gray-100'}`}>
+                                <div key={i} className={`p-3 rounded-lg border ${fb.sentiment === 'positive' ? 'bg-emerald-50/50 border-emerald-100' : fb.sentiment === 'negative' ? 'bg-red-50/50 border-red-100' : 'bg-slate-50 border-slate-100'}`}>
                                     <div className="flex items-center gap-2 mb-1">
                                         {fb.sentiment === 'positive' && <ThumbsUp className="w-3 h-3 text-emerald-500" />}
                                         {fb.sentiment === 'negative' && <ThumbsDown className="w-3 h-3 text-red-500" />}
                                         {fb.sentiment === 'neutral' && <MinusIcon className="w-3 h-3 text-gray-400" />}
-                                        <span className="text-xs font-semibold text-brand-dark">{fb.resident}</span>
-                                        <span className="text-[10px] text-brand-muted">{fb.date}</span>
+                                        <span className="text-xs font-semibold text-slate-800">{fb.resident}</span>
+                                        <span className="text-[10px] text-slate-500">{fb.date}</span>
                                     </div>
-                                    <p className="text-xs text-brand-dark pl-5">"{fb.comment}"</p>
+                                    <p className="text-xs text-slate-800 pl-5">"{fb.comment}"</p>
                                 </div>
                             ))}
                         </div>
@@ -1444,11 +1444,11 @@ function DishFeedbackModal({ dish, residentFeedback, onClose }) {
 }
 function ProfileField({ icon: Icon, label, value, valueColor }) {
     return (
-        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-gray-50 border border-gray-100">
-            <Icon className="w-4 h-4 text-brand-muted flex-shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-slate-50 border border-slate-100">
+            <Icon className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
             <div className="min-w-0">
-                <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
-                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-brand-dark')}>{value}</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider">{label}</p>
+                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-slate-800')}>{value}</p>
             </div>
         </div>
     )
@@ -1467,10 +1467,10 @@ function ProfileEditModal({ profile, onClose, onSave }) {
     ]
     return (
         <div>
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-brand-light">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-100">
                 <div className="flex items-center gap-3">
-                    <Pencil className="w-5 h-5 text-brand-accent" />
-                    <div><h3 className="text-sm font-bold text-brand-dark">Edit Profile</h3><p className="text-[11px] text-brand-muted">Update your personal and professional information</p></div>
+                    <Pencil className="w-5 h-5 text-indigo-500" />
+                    <div><h3 className="text-sm font-bold text-slate-800">Edit Profile</h3><p className="text-[11px] text-slate-500">Update your personal and professional information</p></div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
@@ -1478,19 +1478,19 @@ function ProfileEditModal({ profile, onClose, onSave }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {fields.map(f => (
                         <div key={f.key}>
-                            <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">{f.label}</label>
-                            <input type={f.type} value={form[f.key] || ''} onChange={e => update(f.key, e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent text-brand-dark" />
+                            <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">{f.label}</label>
+                            <input type={f.type} value={form[f.key] || ''} onChange={e => update(f.key, e.target.value)} className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-slate-800" />
                         </div>
                     ))}
                 </div>
                 <div>
-                    <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">Bio</label>
-                    <textarea rows={3} value={form.bio || ''} onChange={e => update('bio', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark" />
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Bio</label>
+                    <textarea rows={3} value={form.bio || ''} onChange={e => update('bio', e.target.value)} className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800" />
                 </div>
             </div>
-            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-2">
-                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-gray-200 text-brand-dark hover:bg-gray-50 transition-colors">Cancel</button>
-                <button onClick={() => onSave(form)} className="flex items-center gap-2 px-5 py-2 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors"><Save className="w-4 h-4" /> Save Changes</button>
+            <div className="px-6 py-4 border-t border-slate-100 flex justify-end gap-2">
+                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-slate-200/80 text-slate-800 hover:bg-slate-50 transition-colors">Cancel</button>
+                <button onClick={() => onSave(form)} className="flex items-center gap-2 px-5 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"><Save className="w-4 h-4" /> Save Changes</button>
             </div>
         </div>
     )

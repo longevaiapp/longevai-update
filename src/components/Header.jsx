@@ -1,4 +1,4 @@
-import { Search, Menu, Sparkles, Bell } from 'lucide-react'
+import { Search, Menu, Sparkles, Bell, LogOut } from 'lucide-react'
 
 const SEGMENT_LABELS = {
   geri: 'Geriatric Residence',
@@ -6,7 +6,7 @@ const SEGMENT_LABELS = {
   wellness: 'Wellness Center',
 }
 
-export default function Header({ title, subtitle, segment, onToggleSidebar, onOpenCopilot }) {
+export default function Header({ title, subtitle, segment, onToggleSidebar, onOpenCopilot, onLogout }) {
   return (
     <header className="h-16 bg-slate-900 border-b border-slate-700/50 flex items-center px-6 gap-4 flex-shrink-0 shadow-lg shadow-slate-900/20">
       <button onClick={onToggleSidebar} className="lg:hidden text-white/60 hover:text-white">
@@ -55,6 +55,17 @@ export default function Header({ title, subtitle, segment, onToggleSidebar, onOp
           <Sparkles className="w-4 h-4" />
           <span className="hidden sm:inline">AI Copilot</span>
         </button>
+
+        {/* Logout */}
+        {onLogout && (
+          <button
+            onClick={onLogout}
+            className="p-2 rounded-lg bg-white/[0.07] border border-white/10 text-white/50 hover:text-rose-400 hover:bg-rose-500/10 hover:border-rose-500/30 transition-all"
+            title="Logout"
+          >
+            <LogOut className="w-4 h-4" />
+          </button>
+        )}
       </div>
     </header>
   )

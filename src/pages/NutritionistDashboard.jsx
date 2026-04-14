@@ -210,7 +210,7 @@ const MEAL_STATUS = {
 const FEEDBACK_STYLE = {
     positive: { bg: 'border-emerald-100 bg-emerald-50/50', icon: ThumbsUp, iconColor: 'text-emerald-500' },
     negative: { bg: 'border-red-100 bg-red-50/50', icon: ThumbsDown, iconColor: 'text-red-500' },
-    neutral: { bg: 'border-gray-100 bg-gray-50', icon: MessageCircle, iconColor: 'text-gray-400' },
+    neutral: { bg: 'border-slate-100 bg-slate-50', icon: MessageCircle, iconColor: 'text-gray-400' },
     request: { bg: 'border-blue-100 bg-blue-50/50', icon: MessageSquare, iconColor: 'text-blue-500' },
 }
 
@@ -290,40 +290,40 @@ export default function NutritionistDashboard() {
             {/* Date Bar + Profile Button */}
             <div className="flex items-center justify-between mb-4 px-1">
                 <div className="flex items-center gap-2">
-                    <CalendarDays className="w-4 h-4 text-brand-accent" />
-                    <span className="text-sm font-semibold text-brand-dark">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                    <CalendarDays className="w-4 h-4 text-indigo-500" />
+                    <span className="text-sm font-semibold text-slate-800">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
                 </div>
-                <button onClick={() => setActiveSection('profile')} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-gray-200 hover:border-brand-accent/30 hover:shadow-sm transition-all">
-                    <div className="w-5 h-5 rounded-full bg-brand-primary/10 flex items-center justify-center">
-                        <UserCircle className="w-3.5 h-3.5 text-brand-primary" />
+                <button onClick={() => setActiveSection('profile')} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200/80 hover:border-indigo-500/30 hover:shadow-sm transition-all">
+                    <div className="w-5 h-5 rounded-full bg-indigo-600/10 flex items-center justify-center">
+                        <UserCircle className="w-3.5 h-3.5 text-indigo-600" />
                     </div>
-                    <span className="text-[11px] font-medium text-brand-dark hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
+                    <span className="text-[11px] font-medium text-slate-800 hidden sm:inline">{profile.name.split(' ').slice(0, 2).join(' ')}</span>
                 </button>
             </div>
 
             {/* Resident Selector */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6">
+            <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 mb-6">
                 <div className="flex flex-wrap items-center gap-4">
                     <div className="flex items-center gap-2">
-                        <UserCheck className="w-5 h-5 text-brand-accent" />
-                        <span className="text-sm font-semibold text-brand-dark">Patient:</span>
+                        <UserCheck className="w-5 h-5 text-indigo-500" />
+                        <span className="text-sm font-semibold text-slate-800">Patient:</span>
                     </div>
                     <div className="relative">
                         <select
                             value={selectedResident.id}
                             onChange={e => setSelectedResident(RESIDENTS_LIST.find(r => r.id === Number(e.target.value)))}
-                            className="appearance-none bg-brand-light border border-gray-200 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-accent/30"
+                            className="appearance-none bg-slate-100 border border-slate-200/80 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
                         >
                             {RESIDENTS_LIST.map(r => (
                                 <option key={r.id} value={r.id}>{r.name} (Rm {r.room})</option>
                             ))}
                         </select>
-                        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-muted pointer-events-none" />
+                        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
                     </div>
-                    <div className="flex flex-wrap gap-3 text-xs text-brand-muted">
-                        <span>Diet: <strong className="text-brand-dark">{selectedResident.dietType}</strong></span>
-                        <span>Target: <strong className="text-brand-dark">{selectedResident.caloricTarget} kcal</strong></span>
-                        <span>Week: <strong className="text-brand-dark">{selectedResident.week}/16</strong></span>
+                    <div className="flex flex-wrap gap-3 text-xs text-slate-500">
+                        <span>Diet: <strong className="text-slate-800">{selectedResident.dietType}</strong></span>
+                        <span>Target: <strong className="text-slate-800">{selectedResident.caloricTarget} kcal</strong></span>
+                        <span>Week: <strong className="text-slate-800">{selectedResident.week}/16</strong></span>
                     </div>
                     <div className="ml-auto flex items-center gap-2 flex-wrap">
                         {conflictCount > 0 && (
@@ -352,10 +352,10 @@ export default function NutritionistDashboard() {
                     <div className="overflow-x-auto">
                         <table className="w-full text-xs">
                             <thead>
-                                <tr className="border-b border-gray-200">
-                                    <th className="text-left py-2 px-3 font-semibold text-brand-muted">Day</th>
+                                <tr className="border-b border-slate-200/80">
+                                    <th className="text-left py-2 px-3 font-semibold text-slate-500">Day</th>
                                     {['Breakfast', 'Lunch', 'Dinner', 'Snacks'].map(meal => (
-                                        <th key={meal} className="text-center py-2 px-3 font-semibold text-brand-muted">
+                                        <th key={meal} className="text-center py-2 px-3 font-semibold text-slate-500">
                                             <div className="flex items-center justify-center gap-1">{meal}</div>
                                         </th>
                                     ))}
@@ -363,8 +363,8 @@ export default function NutritionistDashboard() {
                             </thead>
                             <tbody>
                                 {data.menuMatrix.map((row, i) => (
-                                    <tr key={i} className="border-b border-gray-50 hover:bg-gray-50/50">
-                                        <td className="py-2 px-3 font-semibold text-brand-dark text-[11px]">{row.day}</td>
+                                    <tr key={i} className="border-b border-slate-50 hover:bg-slate-50/50">
+                                        <td className="py-2 px-3 font-semibold text-slate-800 text-[11px]">{row.day}</td>
                                         {['breakfast', 'lunch', 'dinner', 'snacks'].map(mealKey => {
                                             const meal = row[mealKey]
                                             const st = MEAL_STATUS[meal.status]
@@ -372,11 +372,11 @@ export default function NutritionistDashboard() {
                                                 <td key={mealKey} className="py-1.5 px-2 text-center">
                                                     <button
                                                         onClick={() => setSelectedMeal({ ...meal, day: row.day, mealType: mealKey })}
-                                                        className="w-full p-2 rounded-lg border border-gray-100 bg-white hover:shadow-md transition-all cursor-pointer text-left"
+                                                        className="w-full p-2 rounded-lg border border-slate-100 bg-white hover:shadow-md transition-all cursor-pointer text-left"
                                                     >
-                                                        <p className="text-[11px] font-medium text-brand-dark line-clamp-1">{meal.meal}</p>
+                                                        <p className="text-[11px] font-medium text-slate-800 line-clamp-1">{meal.meal}</p>
                                                         <div className="flex items-center justify-between mt-1">
-                                                            <span className="text-[9px] text-brand-muted">{meal.calories} kcal</span>
+                                                            <span className="text-[9px] text-slate-500">{meal.calories} kcal</span>
                                                             <span className={`text-[9px] font-bold uppercase px-1 py-0.5 rounded ${st.bg}`}>{st.label}</span>
                                                         </div>
                                                     </button>
@@ -388,7 +388,7 @@ export default function NutritionistDashboard() {
                             </tbody>
                         </table>
                     </div>
-                    <div className="flex gap-3 mt-3 flex-wrap text-[10px] text-brand-muted">
+                    <div className="flex gap-3 mt-3 flex-wrap text-[10px] text-slate-500">
                         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500" /> Validated</span>
                         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-500" /> Pending review</span>
                         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500" /> Restriction conflict</span>
@@ -403,8 +403,8 @@ export default function NutritionistDashboard() {
                     {data.restrictions.length === 0 || data.restrictions[0].severity === 'none' ? (
                         <div className="text-center py-8">
                             <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
-                            <p className="text-sm font-medium text-brand-dark">No dietary restrictions identified</p>
-                            <p className="text-xs text-brand-muted mt-1">{data.restrictions[0]?.notes || 'This resident has no known allergies or restrictions.'}</p>
+                            <p className="text-sm font-medium text-slate-800">No dietary restrictions identified</p>
+                            <p className="text-xs text-slate-500 mt-1">{data.restrictions[0]?.notes || 'This resident has no known allergies or restrictions.'}</p>
                         </div>
                     ) : (
                         <div className="space-y-3">
@@ -414,12 +414,12 @@ export default function NutritionistDashboard() {
                                     <div
                                         key={r.id}
                                         onClick={() => setSelectedRestriction(r)}
-                                        className={`p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ${r.severity === 'critical' ? 'border-red-200 bg-red-50/50' : r.severity === 'high' ? 'border-amber-200 bg-amber-50/50' : 'border-gray-200 bg-gray-50'}`}
+                                        className={`p-4 rounded-xl border cursor-pointer hover:shadow-md transition-all ${r.severity === 'critical' ? 'border-red-200 bg-red-50/50' : r.severity === 'high' ? 'border-amber-200 bg-amber-50/50' : 'border-slate-200/80 bg-slate-50'}`}
                                     >
                                         <div className="flex items-center justify-between mb-2">
                                             <div className="flex items-center gap-2">
                                                 <AlertTriangle className={`w-4 h-4 ${r.severity === 'critical' ? 'text-red-500' : r.severity === 'high' ? 'text-amber-500' : 'text-gray-400'}`} />
-                                                <span className="text-sm font-semibold text-brand-dark">{r.allergen}</span>
+                                                <span className="text-sm font-semibold text-slate-800">{r.allergen}</span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 {acknowledgedItems[ackKey] && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />}
@@ -430,12 +430,12 @@ export default function NutritionistDashboard() {
                                         </div>
                                         <div className="flex flex-wrap gap-1 mb-2">
                                             {r.items.map((item, j) => (
-                                                <span key={j} className="text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-brand-muted">{item}</span>
+                                                <span key={j} className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-500">{item}</span>
                                             ))}
                                         </div>
-                                        <p className="text-xs text-brand-muted line-clamp-2">{r.notes}</p>
+                                        <p className="text-xs text-slate-500 line-clamp-2">{r.notes}</p>
                                         <div className="flex items-center justify-between mt-2">
-                                            <span className="text-[10px] text-brand-muted">Last reviewed: {r.lastReviewed}</span>
+                                            <span className="text-[10px] text-slate-500">Last reviewed: {r.lastReviewed}</span>
                                             <ChevronRight className="w-4 h-4 text-gray-300" />
                                         </div>
                                     </div>
@@ -481,7 +481,7 @@ export default function NutritionistDashboard() {
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>
-                        <p className="text-[11px] text-brand-muted mt-2">Adherence based on nursing-confirmed meal consumption rates. Below 80% triggers follow-up.</p>
+                        <p className="text-[11px] text-slate-500 mt-2">Adherence based on nursing-confirmed meal consumption rates. Below 80% triggers follow-up.</p>
                     </SectionCard>
                 </div>
             )}
@@ -503,11 +503,11 @@ export default function NutritionistDashboard() {
                                         <FIcon className={`w-4 h-4 mt-0.5 flex-shrink-0 ${style.iconColor}`} />
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2 flex-wrap">
-                                                <span className="text-[10px] font-semibold text-brand-muted">{f.date} -- {f.meal}</span>
-                                                <span className="text-[10px] font-semibold text-brand-dark">{f.dish}</span>
-                                                <span className={`text-[9px] font-bold uppercase px-1 py-0.5 rounded ${f.type === 'positive' ? 'bg-emerald-100 text-emerald-700' : f.type === 'negative' ? 'bg-red-100 text-red-700' : f.type === 'request' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}`}>{f.type}</span>
+                                                <span className="text-[10px] font-semibold text-slate-500">{f.date} -- {f.meal}</span>
+                                                <span className="text-[10px] font-semibold text-slate-800">{f.dish}</span>
+                                                <span className={`text-[9px] font-bold uppercase px-1 py-0.5 rounded ${f.type === 'positive' ? 'bg-emerald-100 text-emerald-700' : f.type === 'negative' ? 'bg-red-100 text-red-700' : f.type === 'request' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-gray-600'}`}>{f.type}</span>
                                             </div>
-                                            <p className="text-xs text-brand-muted mt-1 line-clamp-2">{f.feedback}</p>
+                                            <p className="text-xs text-slate-500 mt-1 line-clamp-2">{f.feedback}</p>
                                             {f.response && <p className="text-[10px] text-blue-600 mt-1 line-clamp-1">Response: {f.response}</p>}
                                         </div>
                                         <ChevronRight className="w-4 h-4 text-gray-300 flex-shrink-0 mt-0.5" />
@@ -551,17 +551,17 @@ export default function NutritionistDashboard() {
                                     <div
                                         key={i}
                                         onClick={() => setSelectedEvolution(ev)}
-                                        className="flex items-center gap-3 p-3 rounded-lg border border-gray-100 bg-white hover:shadow-md cursor-pointer transition-all group"
+                                        className="flex items-center gap-3 p-3 rounded-lg border border-slate-100 bg-white hover:shadow-md cursor-pointer transition-all group"
                                     >
-                                        <div className="w-10 h-10 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary font-bold text-xs flex-shrink-0">
+                                        <div className="w-10 h-10 rounded-lg bg-indigo-600/10 flex items-center justify-center text-indigo-600 font-bold text-xs flex-shrink-0">
                                             {ev.period}
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2">
-                                                <span className="text-sm font-semibold text-brand-dark">{ev.date}</span>
-                                                <span className="text-[10px] text-brand-muted">{ev.weight}kg | BMI {ev.bmi} | {ev.calories} kcal | {ev.protein}g protein</span>
+                                                <span className="text-sm font-semibold text-slate-800">{ev.date}</span>
+                                                <span className="text-[10px] text-slate-500">{ev.weight}kg | BMI {ev.bmi} | {ev.calories} kcal | {ev.protein}g protein</span>
                                             </div>
-                                            <p className="text-xs text-brand-muted line-clamp-1 mt-0.5">{ev.notes}</p>
+                                            <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">{ev.notes}</p>
                                         </div>
                                         {i > 0 && (
                                             <div className="flex items-center gap-1 flex-shrink-0">
@@ -589,13 +589,13 @@ export default function NutritionistDashboard() {
                             <div className="space-y-4">
                                 {categories.map(cat => (
                                     <div key={cat}>
-                                        <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">{cat}</p>
+                                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">{cat}</p>
                                         <div className="space-y-1.5">
                                             {SHOPPING_LIST.filter(i => i.category === cat).map((item, j) => (
-                                                <div key={j} className="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                                                <div key={j} className="flex items-center gap-3 p-2.5 rounded-lg bg-slate-50 border border-slate-100">
                                                     <Circle className={`w-2.5 h-2.5 fill-current flex-shrink-0 ${item.status === 'stocked' ? 'text-emerald-500' : item.priority === 'critical' ? 'text-red-500' : item.priority === 'high' ? 'text-amber-500' : 'text-blue-400'}`} />
-                                                    <span className="text-sm font-medium text-brand-dark flex-1">{item.item}</span>
-                                                    <span className="text-xs text-brand-muted">{item.qty}</span>
+                                                    <span className="text-sm font-medium text-slate-800 flex-1">{item.item}</span>
+                                                    <span className="text-xs text-slate-500">{item.qty}</span>
                                                     <span className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${item.status === 'stocked' ? 'bg-emerald-100 text-emerald-700' : item.priority === 'critical' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700'}`}>
                                                         {item.status === 'stocked' ? 'In Stock' : item.priority}
                                                     </span>
@@ -604,13 +604,13 @@ export default function NutritionistDashboard() {
                                         </div>
                                     </div>
                                 ))}
-                                <div className="flex justify-between items-center pt-3 border-t border-gray-100">
-                                    <p className="text-[10px] text-brand-muted">
+                                <div className="flex justify-between items-center pt-3 border-t border-slate-100">
+                                    <p className="text-[10px] text-slate-500">
                                         {SHOPPING_LIST.filter(i => i.status === 'needed').length} items needed -- {SHOPPING_LIST.filter(i => i.status === 'stocked').length} in stock
                                     </p>
                                     <div className="flex gap-2">
-                                        <button className="text-xs font-semibold text-brand-primary hover:text-brand-primary-dark transition-colors px-3 py-1.5 border border-brand-primary/20 rounded-lg">Export CSV</button>
-                                        <button className="text-xs font-semibold text-white bg-brand-primary hover:bg-brand-primary-dark transition-colors px-3 py-1.5 rounded-lg">Generate Order</button>
+                                        <button className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 transition-colors px-3 py-1.5 border border-indigo-600/20 rounded-lg">Export CSV</button>
+                                        <button className="text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors px-3 py-1.5 rounded-lg">Generate Order</button>
                                     </div>
                                 </div>
                             </div>
@@ -672,29 +672,29 @@ export default function NutritionistDashboard() {
             {/* SECTION: My Profile */}
             {activeSection === 'profile' && (
                 <div className="space-y-6">
-                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                        <div className="bg-gradient-to-r from-brand-primary/10 via-brand-accent/5 to-transparent px-6 py-5 border-b border-gray-100">
+                    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                        <div className="bg-gradient-to-r from-indigo-600/10 via-indigo-500/5 to-transparent px-6 py-5 border-b border-slate-100">
                             <div className="flex items-start gap-4">
-                                <div className="w-16 h-16 rounded-2xl bg-brand-primary/10 border-2 border-brand-primary/20 flex items-center justify-center flex-shrink-0">
-                                    <UserCircle className="w-8 h-8 text-brand-primary" />
+                                <div className="w-16 h-16 rounded-2xl bg-indigo-600/10 border-2 border-indigo-600/20 flex items-center justify-center flex-shrink-0">
+                                    <UserCircle className="w-8 h-8 text-indigo-600" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="text-xl font-bold text-brand-dark">{profile.name}</h3>
-                                    <p className="text-sm text-brand-accent font-medium">{profile.title}</p>
-                                    <p className="text-xs text-brand-muted mt-1">{profile.institution}</p>
+                                    <h3 className="text-xl font-bold text-slate-800">{profile.name}</h3>
+                                    <p className="text-sm text-indigo-500 font-medium">{profile.title}</p>
+                                    <p className="text-xs text-slate-500 mt-1">{profile.institution}</p>
                                     <div className="flex items-center gap-3 mt-2 flex-wrap">
-                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-brand-primary/10 text-brand-primary border border-brand-primary/20">{profile.license}</span>
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
-                                        <span className="text-[10px] text-brand-muted flex items-center gap-1"><Users className="w-3 h-3" /> {profile.residentsManaged} residents</span>
+                                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-indigo-600/10 text-indigo-600 border border-indigo-600/20">{profile.license}</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Briefcase className="w-3 h-3" /> {profile.yearsExperience} years experience</span>
+                                        <span className="text-[10px] text-slate-500 flex items-center gap-1"><Users className="w-3 h-3" /> {profile.residentsManaged} residents</span>
                                     </div>
                                 </div>
-                                <button onClick={() => setEditingProfile(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-gray-200 text-brand-dark hover:border-brand-accent hover:shadow-sm transition-all">
-                                    <Pencil className="w-3.5 h-3.5 text-brand-accent" /> Edit Profile
+                                <button onClick={() => setEditingProfile(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-slate-200/80 text-slate-800 hover:border-indigo-500 hover:shadow-sm transition-all">
+                                    <Pencil className="w-3.5 h-3.5 text-indigo-500" /> Edit Profile
                                 </button>
                             </div>
                         </div>
                         <div className="p-6">
-                            <p className="text-sm text-brand-dark leading-relaxed mb-5">{profile.bio}</p>
+                            <p className="text-sm text-slate-800 leading-relaxed mb-5">{profile.bio}</p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <ProfileField icon={GraduationCap} label="Education" value={profile.education} />
                                 <ProfileField icon={FileText} label="Certifications" value={profile.certifications} />
@@ -726,12 +726,12 @@ export default function NutritionistDashboard() {
 
 function SectionCard({ title, icon: Icon, subtitle, children }) {
     return (
-        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center gap-3">
-                <Icon className="w-5 h-5 text-brand-accent" />
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
+                <Icon className="w-5 h-5 text-indigo-500" />
                 <div>
-                    <h3 className="text-sm font-semibold text-brand-dark">{title}</h3>
-                    {subtitle && <p className="text-[11px] text-brand-muted">{subtitle}</p>}
+                    <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
+                    {subtitle && <p className="text-[11px] text-slate-500">{subtitle}</p>}
                 </div>
             </div>
             <div className="p-5">{children}</div>
@@ -762,8 +762,8 @@ function NoteSection({ notes, onAddNote }) {
     }
     return (
         <div>
-            <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">
-                Clinical Notes {notes.length > 0 && <span className="text-brand-primary">({notes.length})</span>}
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                Clinical Notes {notes.length > 0 && <span className="text-indigo-600">({notes.length})</span>}
             </p>
             {notes.length > 0 && (
                 <div className="space-y-2 mb-3">
@@ -772,8 +772,8 @@ function NoteSection({ notes, onAddNote }) {
                             <div className="flex items-start gap-2">
                                 <FileText className="w-3.5 h-3.5 text-purple-500 mt-0.5 flex-shrink-0" />
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm text-brand-dark leading-relaxed">{note.text}</p>
-                                    <p className="text-[10px] text-brand-muted mt-1 flex items-center gap-1"><Clock className="w-3 h-3" /> {note.timestamp}</p>
+                                    <p className="text-sm text-slate-800 leading-relaxed">{note.text}</p>
+                                    <p className="text-[10px] text-slate-500 mt-1 flex items-center gap-1"><Clock className="w-3 h-3" /> {note.timestamp}</p>
                                 </div>
                             </div>
                         </div>
@@ -781,16 +781,16 @@ function NoteSection({ notes, onAddNote }) {
                 </div>
             )}
             {notes.length === 0 && !showForm && (
-                <div className="p-3 rounded-lg bg-gray-50 border border-gray-100 text-center mb-3"><p className="text-xs text-brand-muted">No clinical notes added yet</p></div>
+                <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 text-center mb-3"><p className="text-xs text-slate-500">No clinical notes added yet</p></div>
             )}
             {showForm && (
-                <div className="p-3 rounded-lg bg-gray-50 border border-gray-200 space-y-2 mb-3" style={{ animation: 'modalIn 0.2s ease-out' }}>
+                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200/80 space-y-2 mb-3" style={{ animation: 'modalIn 0.2s ease-out' }}>
                     <textarea autoFocus rows={3} value={text} onChange={e => setText(e.target.value)}
-                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark placeholder-brand-muted/50"
+                        className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800 placeholder-slate-500/50"
                         placeholder="Enter dietary observation, meal modification, or follow-up note..." />
                     <div className="flex items-center gap-2 justify-end">
-                        <button onClick={() => { setShowForm(false); setText('') }} className="px-3 py-1.5 text-xs font-medium text-brand-muted hover:text-brand-dark transition-colors rounded-lg">Cancel</button>
-                        <button onClick={handleSave} disabled={!text.trim()} className={`flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg transition-colors ${text.trim() ? 'bg-brand-primary text-white hover:bg-brand-primary-dark' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}>
+                        <button onClick={() => { setShowForm(false); setText('') }} className="px-3 py-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors rounded-lg">Cancel</button>
+                        <button onClick={handleSave} disabled={!text.trim()} className={`flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg transition-colors ${text.trim() ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}>
                             <Send className="w-3 h-3" /> Save Note
                         </button>
                     </div>
@@ -802,7 +802,7 @@ function NoteSection({ notes, onAddNote }) {
                     <p className="text-xs font-medium text-emerald-700">Clinical note saved successfully</p>
                 </div>
             )}
-            <button onClick={() => setShowForm(true)} disabled={showForm} className={`w-full flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl border transition-colors ${showForm ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-default' : 'bg-white text-brand-dark border-gray-200 hover:bg-gray-50'}`}>
+            <button onClick={() => setShowForm(true)} disabled={showForm} className={`w-full flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl border transition-colors ${showForm ? 'bg-slate-100 text-gray-400 border-slate-200/80 cursor-default' : 'bg-white text-slate-800 border-slate-200/80 hover:bg-slate-50'}`}>
                 <Plus className="w-3.5 h-3.5" /> Add Clinical Note
             </button>
         </div>
@@ -814,8 +814,8 @@ function MetricBox({ label, value, color }) {
         emerald: 'bg-emerald-50 border-emerald-200 text-emerald-700',
         amber: 'bg-amber-50 border-amber-200 text-amber-700',
         red: 'bg-red-50 border-red-200 text-red-700',
-        gray: 'bg-gray-50 border-gray-200 text-gray-700',
-        brand: 'bg-brand-primary/10 border-brand-primary/20 text-brand-primary',
+        gray: 'bg-slate-50 border-slate-200/80 text-gray-700',
+        brand: 'bg-indigo-600/10 border-indigo-600/20 text-indigo-600',
         blue: 'bg-blue-50 border-blue-200 text-blue-700',
     }
     return (
@@ -841,12 +841,12 @@ function MealDetailModal({ meal, resident, residentId, notes, onAddNote, onClose
 
     return (
         <div>
-            <div className={`px-6 py-4 border-b flex items-center justify-between ${meal.status === 'conflict' ? 'bg-red-50 border-red-200' : meal.status === 'pending' ? 'bg-amber-50 border-amber-200' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`px-6 py-4 border-b flex items-center justify-between ${meal.status === 'conflict' ? 'bg-red-50 border-red-200' : meal.status === 'pending' ? 'bg-amber-50 border-amber-200' : 'bg-slate-50 border-slate-200/80'}`}>
                 <div className="flex items-center gap-3">
-                    <MealIcon className={`w-5 h-5 ${meal.status === 'conflict' ? 'text-red-500' : 'text-brand-accent'}`} />
+                    <MealIcon className={`w-5 h-5 ${meal.status === 'conflict' ? 'text-red-500' : 'text-indigo-500'}`} />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{meal.meal}</h3>
-                        <p className="text-[11px] text-brand-muted">{resident} -- {meal.day} {mealLabel}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{meal.meal}</h3>
+                        <p className="text-[11px] text-slate-500">{resident} -- {meal.day} {mealLabel}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
@@ -873,13 +873,13 @@ function MealDetailModal({ meal, resident, residentId, notes, onAddNote, onClose
 
                 {/* Macro bar */}
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Macro Distribution</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Macro Distribution</p>
                     <div className="w-full h-4 rounded-full overflow-hidden flex">
                         <div className="bg-emerald-500 h-full" style={{ width: proteinPct + '%' }} title={'Protein ' + proteinPct + '%'} />
                         <div className="bg-amber-400 h-full" style={{ width: carbsPct + '%' }} title={'Carbs ' + carbsPct + '%'} />
                         <div className="bg-red-400 h-full" style={{ width: fatPct + '%' }} title={'Fat ' + fatPct + '%'} />
                     </div>
-                    <div className="flex justify-between mt-1 text-[10px] text-brand-muted">
+                    <div className="flex justify-between mt-1 text-[10px] text-slate-500">
                         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500" /> Protein {proteinPct}%</span>
                         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-400" /> Carbs {carbsPct}%</span>
                         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-400" /> Fat {fatPct}%</span>
@@ -887,9 +887,9 @@ function MealDetailModal({ meal, resident, residentId, notes, onAddNote, onClose
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Meal Notes</p>
-                    <div className={`p-3 rounded-lg border ${meal.status === 'conflict' ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-100'}`}>
-                        <p className={`text-sm leading-relaxed ${meal.status === 'conflict' ? 'text-red-800' : 'text-brand-dark'}`}>{meal.notes}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Meal Notes</p>
+                    <div className={`p-3 rounded-lg border ${meal.status === 'conflict' ? 'bg-red-50 border-red-200' : 'bg-slate-50 border-slate-100'}`}>
+                        <p className={`text-sm leading-relaxed ${meal.status === 'conflict' ? 'text-red-800' : 'text-slate-800'}`}>{meal.notes}</p>
                     </div>
                 </div>
 
@@ -914,12 +914,12 @@ function MealDetailModal({ meal, resident, residentId, notes, onAddNote, onClose
 function RestrictionDetailModal({ restriction, resident, residentId, notes, acknowledgedAt, onAddNote, onAcknowledge, onClose }) {
     return (
         <div>
-            <div className={`px-6 py-4 border-b flex items-center justify-between ${restriction.severity === 'critical' ? 'bg-red-50 border-red-200' : restriction.severity === 'high' ? 'bg-amber-50 border-amber-200' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`px-6 py-4 border-b flex items-center justify-between ${restriction.severity === 'critical' ? 'bg-red-50 border-red-200' : restriction.severity === 'high' ? 'bg-amber-50 border-amber-200' : 'bg-slate-50 border-slate-200/80'}`}>
                 <div className="flex items-center gap-3">
-                    <ShieldCheck className={`w-5 h-5 ${restriction.severity === 'critical' ? 'text-red-500' : restriction.severity === 'high' ? 'text-amber-500' : 'text-brand-accent'}`} />
+                    <ShieldCheck className={`w-5 h-5 ${restriction.severity === 'critical' ? 'text-red-500' : restriction.severity === 'high' ? 'text-amber-500' : 'text-indigo-500'}`} />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{restriction.allergen}</h3>
-                        <p className="text-[11px] text-brand-muted">{resident} -- dietary restriction</p>
+                        <h3 className="text-sm font-bold text-slate-800">{restriction.allergen}</h3>
+                        <p className="text-[11px] text-slate-500">{resident} -- dietary restriction</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
@@ -931,7 +931,7 @@ function RestrictionDetailModal({ restriction, resident, residentId, notes, ackn
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Restricted Items</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Restricted Items</p>
                     <div className="flex flex-wrap gap-1.5">
                         {restriction.items.map((item, i) => (
                             <span key={i} className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-red-50 border border-red-200 text-red-700">{item}</span>
@@ -940,13 +940,13 @@ function RestrictionDetailModal({ restriction, resident, residentId, notes, ackn
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Clinical Notes</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{restriction.notes}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Clinical Notes</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{restriction.notes}</p>
                     </div>
                 </div>
 
-                <p className="text-[10px] text-brand-muted">Last reviewed: {restriction.lastReviewed}</p>
+                <p className="text-[10px] text-slate-500">Last reviewed: {restriction.lastReviewed}</p>
 
                 <NoteSection notes={notes} onAddNote={onAddNote} />
 
@@ -960,7 +960,7 @@ function RestrictionDetailModal({ restriction, resident, residentId, notes, ackn
                     </div>
                 )}
 
-                <button onClick={onAcknowledge} disabled={!!acknowledgedAt} className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors ${acknowledgedAt ? 'bg-emerald-100 text-emerald-700 cursor-default' : 'bg-brand-primary text-white hover:bg-brand-primary-dark'}`}>
+                <button onClick={onAcknowledge} disabled={!!acknowledgedAt} className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors ${acknowledgedAt ? 'bg-emerald-100 text-emerald-700 cursor-default' : 'bg-indigo-600 text-white hover:bg-indigo-700'}`}>
                     <CheckCircle2 className="w-4 h-4" /> {acknowledgedAt ? 'Acknowledged' : 'Acknowledge Restriction'}
                 </button>
             </div>
@@ -974,32 +974,32 @@ function FeedbackDetailModal({ entry, resident, residentId, notes, onAddNote, on
 
     return (
         <div>
-            <div className="px-6 py-4 border-b bg-gray-50 border-gray-200 flex items-center justify-between">
+            <div className="px-6 py-4 border-b bg-slate-50 border-slate-200/80 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <FIcon className={`w-5 h-5 ${style.iconColor}`} />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">{entry.dish}</h3>
-                        <p className="text-[11px] text-brand-muted">{resident} -- {entry.date} -- {entry.meal}</p>
+                        <h3 className="text-sm font-bold text-slate-800">{entry.dish}</h3>
+                        <p className="text-[11px] text-slate-500">{resident} -- {entry.date} -- {entry.meal}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
             <div className="p-6 space-y-4">
                 <div className="flex items-center gap-2">
-                    <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded ${entry.type === 'positive' ? 'bg-emerald-100 text-emerald-700' : entry.type === 'negative' ? 'bg-red-100 text-red-700' : entry.type === 'request' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}`}>{entry.type}</span>
-                    <span className="text-[10px] text-brand-muted">Reported by: {entry.reporter}</span>
+                    <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded ${entry.type === 'positive' ? 'bg-emerald-100 text-emerald-700' : entry.type === 'negative' ? 'bg-red-100 text-red-700' : entry.type === 'request' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-gray-600'}`}>{entry.type}</span>
+                    <span className="text-[10px] text-slate-500">Reported by: {entry.reporter}</span>
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Feedback</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Feedback</p>
                     <div className={`p-3 rounded-lg border ${style.bg}`}>
-                        <p className="text-sm text-brand-dark leading-relaxed">{entry.feedback}</p>
+                        <p className="text-sm text-slate-800 leading-relaxed">{entry.feedback}</p>
                     </div>
                 </div>
 
                 {entry.response && (
                     <div>
-                        <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Response / Action Taken</p>
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Response / Action Taken</p>
                         <div className="p-3 rounded-lg bg-blue-50 border border-blue-200">
                             <p className="text-sm text-blue-800 leading-relaxed">{entry.response}</p>
                         </div>
@@ -1024,12 +1024,12 @@ function EvolutionDetailModal({ entry, resident, caloricTarget, onClose }) {
 
     return (
         <div>
-            <div className="px-6 py-4 border-b bg-gray-50 border-gray-200 flex items-center justify-between">
+            <div className="px-6 py-4 border-b bg-slate-50 border-slate-200/80 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <Scale className="w-5 h-5 text-brand-accent" />
+                    <Scale className="w-5 h-5 text-indigo-500" />
                     <div>
-                        <h3 className="text-sm font-bold text-brand-dark">Nutritional Assessment -- {entry.period}</h3>
-                        <p className="text-[11px] text-brand-muted">{resident} -- {entry.date}</p>
+                        <h3 className="text-sm font-bold text-slate-800">Nutritional Assessment -- {entry.period}</h3>
+                        <p className="text-[11px] text-slate-500">{resident} -- {entry.date}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
@@ -1045,9 +1045,9 @@ function EvolutionDetailModal({ entry, resident, caloricTarget, onClose }) {
                 </div>
 
                 <div>
-                    <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider mb-2">Assessment Notes</p>
-                    <div className="p-3 rounded-lg bg-gray-50 border border-gray-100">
-                        <p className="text-sm text-brand-dark leading-relaxed">{entry.notes}</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Assessment Notes</p>
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                        <p className="text-sm text-slate-800 leading-relaxed">{entry.notes}</p>
                     </div>
                 </div>
             </div>
@@ -1057,11 +1057,11 @@ function EvolutionDetailModal({ entry, resident, caloricTarget, onClose }) {
 
 function ProfileField({ icon: Icon, label, value, valueColor }) {
     return (
-        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-gray-50 border border-gray-100">
-            <Icon className="w-4 h-4 text-brand-muted flex-shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-slate-50 border border-slate-100">
+            <Icon className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
             <div className="min-w-0">
-                <p className="text-[10px] text-brand-muted uppercase tracking-wider">{label}</p>
-                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-brand-dark')}>{value}</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider">{label}</p>
+                <p className={'text-xs font-medium mt-0.5 ' + (valueColor || 'text-slate-800')}>{value}</p>
             </div>
         </div>
     )
@@ -1080,10 +1080,10 @@ function ProfileEditModal({ profile, onClose, onSave }) {
     ]
     return (
         <div>
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-brand-light">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-100">
                 <div className="flex items-center gap-3">
-                    <Pencil className="w-5 h-5 text-brand-accent" />
-                    <div><h3 className="text-sm font-bold text-brand-dark">Edit Profile</h3><p className="text-[11px] text-brand-muted">Update your personal and professional information</p></div>
+                    <Pencil className="w-5 h-5 text-indigo-500" />
+                    <div><h3 className="text-sm font-bold text-slate-800">Edit Profile</h3><p className="text-[11px] text-slate-500">Update your personal and professional information</p></div>
                 </div>
                 <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/50 transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
             </div>
@@ -1091,19 +1091,19 @@ function ProfileEditModal({ profile, onClose, onSave }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {fields.map(f => (
                         <div key={f.key}>
-                            <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">{f.label}</label>
-                            <input type={f.type} value={form[f.key] || ''} onChange={e => update(f.key, e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent text-brand-dark" />
+                            <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">{f.label}</label>
+                            <input type={f.type} value={form[f.key] || ''} onChange={e => update(f.key, e.target.value)} className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-slate-800" />
                         </div>
                     ))}
                 </div>
                 <div>
-                    <label className="block text-[10px] font-semibold text-brand-muted uppercase tracking-wider mb-1">Bio</label>
-                    <textarea rows={3} value={form.bio || ''} onChange={e => update('bio', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-accent/30 focus:border-brand-accent resize-none text-brand-dark" />
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Bio</label>
+                    <textarea rows={3} value={form.bio || ''} onChange={e => update('bio', e.target.value)} className="w-full px-3 py-2 text-sm border border-slate-200/80 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 resize-none text-slate-800" />
                 </div>
             </div>
-            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-2">
-                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-gray-200 text-brand-dark hover:bg-gray-50 transition-colors">Cancel</button>
-                <button onClick={() => onSave(form)} className="flex items-center gap-2 px-5 py-2 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary-dark transition-colors"><Save className="w-4 h-4" /> Save Changes</button>
+            <div className="px-6 py-4 border-t border-slate-100 flex justify-end gap-2">
+                <button onClick={onClose} className="px-4 py-2 text-sm font-medium rounded-xl border border-slate-200/80 text-slate-800 hover:bg-slate-50 transition-colors">Cancel</button>
+                <button onClick={() => onSave(form)} className="flex items-center gap-2 px-5 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"><Save className="w-4 h-4" /> Save Changes</button>
             </div>
         </div>
     )
